@@ -1,0 +1,95 @@
+<script type="text/javascript">
+function admin_showDiv(type,id){
+	divs = document.getElementsByTagName('div');
+	for (i=0; i<divs.length;i++){
+		if (/opt_divs/.test(divs[i].className)){
+			divs[i].style.display = 'none';
+		}
+	}
+	if (!id)id = '';
+	document.getElementById(type+id).style.display = 'block';
+	document.anchors.item(type+id).scrollIntoView();
+}
+</script>
+
+
+<div style="float: right;">
+    <form method="POST" action="admin_menu.php?op=list" id="changemenu">
+      <select name="menu_id" id="menu_id">
+      <{foreach item=title from=$menus_list key=id }>
+        <option value="<{$id}>"<{if $menu_id == $id}> selected='selected'<{/if}>><{$title}></option>
+      <{/foreach}>
+      </select>
+      <input type="submit" value="<{$smarty.const._AM_MYMENUS_ACTION_GOTO_MENU}>">
+	 </form>
+</div>
+
+<table width="100%" cellspacing="1" cellpadding="0" class="outer">
+    <tr align="center">
+      <th><{$smarty.const._AM_MYMENUS_MENU_TITLE}></th>
+      <th><{$smarty.const._AM_MYMENUS_MENU_LINK}></th>
+      <th><{$smarty.const._AM_MYMENUS_MENU_HOOKS}></th>
+      <th><{$smarty.const._AM_MYMENUS_MENU_GROUPS}></th>
+      <th><{$smarty.const._AM_MYMENUS_MENU_VISIBLE}></th>
+      <th width="15%"><{$smarty.const._OPTIONS}></th>
+    </tr>
+<{if $count > 0}>
+    
+<{foreach item=menu from = $menus}>
+
+    <{assign var='padding' value=''}>
+    <{section name=foo loop=$menu.level}> 
+        <{assign var='padding' value="$padding-> "}>
+    <{/section}>
+
+    <tr class="odd" align="center">
+        <td align="left"><{$padding}><{$menu.title}></td>
+        <td align="left"><{$padding}><{$menu.link}></td>
+        <td align="right">
+        <{foreach item=hook from=$menu.hooks name=hooksloop}>
+            <{$hook}><{if !$smarty.foreach.hooksloop.last}>,<{/if}>
+        <{/foreach}>
+        </td>
+        <td align="right">
+        <{foreach item=group from=$menu.groups name=groupsloop}>
+            <{$group}><{if !$smarty.foreach.groupsloop.last}>,<{/if}>
+        <{/foreach}>
+        </td>
+        <td align="center">
+            <a href="admin_menu.php?menu_id=<{$menu_id}>&amp;op=toggle&amp;visible=<{$menu.visible}>&amp;id=<{$menu.id}>"><img src="<{xoModuleIcons16}>/<{$menu.visible}>.png" title="<{$smarty.const._AM_MYMENUS_ACTION_TOGGLE}>" alt="<{$smarty.const._AM_MYMENUS_ACTION_TOGGLE}>" /></a>
+        </td>
+        <td>
+            <a href="admin_menu.php?menu_id=<{$menu_id}>&amp;op=form&amp;pid=<{$menu.id}>"><img src="<{xoModuleIcons16 add.png}>" title="<{$smarty.const._ADD}>" alt="<{$smarty.const._ADD}>" /></a>
+          <{if $menu.up_weight}>
+            <a href="admin_menu.php?menu_id=<{$menu_id}>&amp;op=move&amp;weight=<{$menu.up_weight}>&amp;id=<{$menu.id}>"><img src="<{xoModuleIcons16 up.png}>" title="<{$smarty.const._AM_MYMENUS_ACTION_UP}>" alt="<{$smarty.const._AM_MYMENUS_ACTION_UP}>" /></a>
+          <{else}>
+            <img src="<{xoModuleIcons16 up_off.png}>" title="<{$smarty.const._AM_MYMENUS_ACTION_UP}>" alt="<{$smarty.const._AM_MYMENUS_ACTION_UP}>" />
+          <{/if}>
+          
+          <{if $menu.down_weight}>
+            <a href="admin_menu.php?menu_id=<{$menu_id}>&amp;op=move&amp;weight=<{$menu.down_weight}>&amp;id=<{$menu.id}>"><img src="<{xoModuleIcons16 down.png}>" title="<{$smarty.const._AM_MYMENUS_ACTION_DOWN}>" alt="<{$smarty.const._AM_MYMENUS_ACTION_DOWN}>" /></a>
+          <{else}>
+            <img src="<{xoModuleIcons16 down_off.png}>" title="<{$smarty.const._AM_MYMENUS_ACTION_DOWN}>" alt="<{$smarty.const._AM_MYMENUS_ACTION_DOWN}>" />
+          <{/if}>
+
+          <a href="admin_menu.php?menu_id=<{$menu_id}>&amp;op=edit&amp;id=<{$menu.id}>"><img src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>" /></a>
+          <a href="admin_menu.php?menu_id=<{$menu_id}>&amp;op=del&amp;id=<{$menu.id}>"><img src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>" /></a>
+
+        </td>
+      </tr>
+<{/foreach}>
+
+<{else}>
+      <tr><td class="head" colspan="7" align="center"><{$smarty.const._AM_MYMENUS_MSG_NOTFOUND}></td></tr>
+<{/if}>
+    
+     <tr>
+      <td class="head" colspan="7" align="right">
+        <input type="button" onclick="admin_showDiv('addform','','hiddendiv'); return false;" value="<{$smarty.const._ADD}>" />
+      </td>
+   </tr>
+   
+</table>
+<br />
+<a name="addform_anchor"></a>
+<div id="addform" class="hiddendiv" style="display:none;"><{$addform}></div>
