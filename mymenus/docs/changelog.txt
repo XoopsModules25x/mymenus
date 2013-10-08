@@ -1,0 +1,26 @@
+<b><u>Version 1.41 (2012-12-17)</u></b>
+
+- small adjustments (mamba)
+
+<b><u>Version 1.4 (2011-12-05)</u></b>
+
+- converted to XOOPS 2.5.x GUI (mamba)
+
+<b><u>Version 1.3 (2011-04-02)</u></b>
+
+- bug fix : Dynamic.php plugin not loading module modinfo language.
+
+<b><u>Version 1.2 (2010-09-20)</u></b>
+
+- bug fix : When visiting site.com when XOOPS_URL is set to www.site.com
+            we get a blank page!
+
+<b><u>Version 1.1 (2010-08-19)</u></b>
+
+- added plugin for displaying smarty variables.
+- added plugin for displaying constants.
+- image link must be a valid url, relative to root is deprecated.
+
+<b><u>Version 1.0 (2010-08-11)</u></b>
+
+- First public release of the module.
