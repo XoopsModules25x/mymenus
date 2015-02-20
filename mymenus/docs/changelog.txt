@@ -1,3 +1,51 @@
+<b><u>Version 1.5 Beta 4  (2015-02-20)</u></b>
+- standardize: standardize module to latest code style standards (luciorota)
+
+
+<b><u>Version 1.5 Beta 3  (2014-03-21)</u></b>
+- fixed bug: when editing a menu it looses the parent id (trabis)
+- changes: Prefix is not used anymore when assigning menus to smarty, choose full name now (trabis)
+- added: bootstrap skin with multi level menu support, requires a bootstrap theme prepared to hold the menu (trabis)
+- added: checks for multilingual menus to show only when the language is present (fla-ts/mamba)
+- fixed: bug with adding XOOPS_URL to images (mamba)
+
+<b><u>Version 1.5 Beta 2  (2014-02-10)</u></b>
+- fixed some minor issues with block options (mamba)
+
+<b><u>Version 1.5 Beta 1  (2014-02-08)</u></b>
+
+- merged @luciorota code: possibility to have more then one skin provided in the theme (bleekk)
+
+<b><u>Version 1.454 Beta 1  (2014-01-29)</u></b>
+
+- Code cleanup (mamba)
+- bug fix: delete submenus when parent menuitem is deleted (bleekk)
+
+<b><u>Version 1.45 Beta 1  (2014-01-29)</u></b>
+
+- german language (muki)
+- add feedback loading icon (bleekk)
+- add css classes for menus, important for <ul> style (bleekk)
+
+<b><u>Version 1.44 Beta 1  (2014-01-28)</u></b>
+
+- added update module (bleekk)
+- fixed module admin templates (bleekk)
+
+
+<b><u>Version 1.43 Beta 1  (2014-01-25)</u></b>
+
+- added Drag & Drop with submenu option for menu links (bleekk)
+- added edit option for links in dialog window (bleekk)
+- added clean skin (bleekk)
+- changed css style to css class for links (bleekk)
+
+<b><u>Version 1.42 Beta 1  (2012-12-17)</u></b>
+
+- added Drag & Drop for menu links (mamba)
+- renamed "menu" with "links" (mamba)
+
+
 <b><u>Version 1.41 (2012-12-17)</u></b>
 
 - small adjustments (mamba)

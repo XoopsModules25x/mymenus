@@ -7,16 +7,18 @@
     </li>
 <{/if}>
 <{foreach item=menu from=$block}>
-    <{if $menu.selected && !$menu.topselected}>
-        <li><a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>" style="background-image:url('<{$skinurl}>/<{$config.iconset}>/bc_separator.png');">
-        <{$menu.title}>
-        </a></li>
+    <{assign var=myStr value="["|cat:$xoops_langcode|cat:"]"}>
+    <{if ($xlanguage && (($menu.title|strstr:$myStr) OR ($menu.image|strstr:$myStr)) OR !$xlanguage)}>
+        <{if $menu.selected && !$menu.topselected}>
+            <li><a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>" style="background-image:url('<{$skinurl}>/<{$config.iconset}>/bc_separator.png');">
+            <{$menu.title}>
+            </a></li>
+        <{/if}>
+        <{if $menu.topselected}>
+            <li>
+            <{$menu.title}>
+            </li>
+        <{/if}>
     <{/if}>
-    <{if $menu.topselected}>
-        <li>
-        <{$menu.title}>
-        </li>
-    <{/if}>
-    
 <{/foreach}>
 </ul>

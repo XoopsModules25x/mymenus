@@ -20,6 +20,9 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
+/**
+ * Class SmartyMymenusPluginItem
+ */
 class SmartyMymenusPluginItem extends MymenusPluginItem
 {
 
@@ -55,6 +58,11 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
+    /**
+     * @param $string
+     *
+     * @return mixed
+     */
     function _doDecoration($string)
     {
         $registry =& MymenusRegistry::getInstance();
@@ -75,5 +83,3 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
     }
 
 }
-
-?>

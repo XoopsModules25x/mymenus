@@ -18,15 +18,14 @@
  * @version         $Id: index.php 0 2010-07-21 18:47:04Z trabis $
  */
 
+$currentFile = basename(__FILE__);
+include_once __DIR__ . '/admin_header.php';
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
-include_once dirname(__FILE__) . '/admin_header.php';
-
+// admin navigation
 xoops_cp_header();
+$indexAdmin = new ModuleAdmin();
 
-	$indexAdmin = new ModuleAdmin();
+echo $indexAdmin->addNavigation('index.php');
+echo $indexAdmin->renderIndex();
 
-    echo $indexAdmin->addNavigation('index.php');
-    echo $indexAdmin->renderIndex();
-
-include "admin_footer.php";
+include 'admin_footer.php';

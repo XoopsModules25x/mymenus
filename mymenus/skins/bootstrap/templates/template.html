@@ -1,0 +1,44 @@
+<{foreach item=menu from = $block}>
+<{if $menu.oul}>
+    <{if $menu.level == 0}>
+    <ul class="nav navbar-nav <{$menucss}>">
+    <{elseif $menu.level == 1}>
+    <ul class="dropdown-menu <{$menucss}>">
+    <{else}>
+    <ul class="dropdown-menu sub-menu <{$menucss}>">
+    <{/if}>
+<{/if}>
+
+ <{if $menu.oli}>
+        <{assign var=myStr value="["|cat:$xoops_langcode|cat:"]"}>
+        <{if ($xlanguage && (($menu.title|strstr:$myStr) OR ($menu.image|strstr:$myStr)) OR !$xlanguage)}>
+
+
+        <{if $menu.hassub && $menu.level == 0}>
+        <li class="dropdown <{if $menu.selected}>active <{/if}><{$menu.css}>">
+        <a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>">
+                <{if $menu.image}><img class="menu-image" src="<{$menu.image}>"/><{/if}>
+                <{$menu.title}> <b class="caret"></b>
+            </a>
+        <{elseif $menu.hassub && $menu.level == 1}>
+            <li class="<{if $menu.selected}>active <{/if}><{$menu.css}>">
+            <a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>">
+                <{if $menu.image}><img class="menu-image" src="<{$menu.image}>"/><{/if}>
+                <{$menu.title}> <i class="glyphicon glyphicon-arrow-right"></i>
+            </a>
+        <{else}>
+            <li class="<{if $menu.selected}>active <{/if}><{$menu.css}>">
+            <a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>">
+                <{if $menu.image}><img class="menu-image" src="<{$menu.image}>"/><{/if}>
+                <{$menu.title}>
+            </a>
+        <{/if}>
+        <{/if}>
+
+
+
+
+ <{/if}>
+
+<{if $menu.close != ''}><{$menu.close}><{/if}>
+<{/foreach}>

@@ -23,7 +23,9 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 xoops_load('XoopsLists');
 include_once $GLOBALS['xoops']->path('modules/mymenus/class/registry.php');
 
-
+/**
+ * Class MymenusPlugin
+ */
 class MymenusPlugin
 {
 
@@ -31,6 +33,9 @@ class MymenusPlugin
     var $_plugins;
     var $_events;
 
+    /**
+     *
+     */
     function __construct()
     {
         $this->_plugins = array();
@@ -40,12 +45,16 @@ class MymenusPlugin
         $this->setEvents();
     }
 
-    function &getInstance()
+    /**
+     * @return MymenusPlugin
+     */
+    static function &getInstance()
     {
         static $instance = false;
         if (!$instance) {
             $instance = new MymenusPlugin();
         }
+
         return $instance;
     }
 
@@ -80,6 +89,10 @@ class MymenusPlugin
         }
     }
 
+    /**
+     * @param       $event_name
+     * @param array $args
+     */
     function triggerEvent($event_name, $args = array())
     {
         $event_name = strtolower(str_replace('.', '', $event_name));
@@ -92,9 +105,17 @@ class MymenusPlugin
 
 }
 
+/**
+ * Class MymenusPluginItem
+ */
 class MymenusPluginItem
 {
 
+    /**
+     * @param $name
+     *
+     * @return mixed
+     */
     function loadLanguage($name)
     {
         $language =  $GLOBALS['xoopsConfig']['language'];
@@ -102,8 +123,7 @@ class MymenusPluginItem
         if (!($ret = @include_once "{$path}/{$language}/{$name}.php")) {
             $ret = @include_once "{$path}/english/{$name}.php";
         }
+
         return $ret;
     }
 }
-
-?>

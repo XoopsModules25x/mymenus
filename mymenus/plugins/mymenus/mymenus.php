@@ -20,6 +20,9 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
+/**
+ * Class MymenusMymenusPluginItem
+ */
 class MymenusMymenusPluginItem extends MymenusPluginItem
 {
 
@@ -68,13 +71,15 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
     function eventImageDecoration()
     {
-        /*
+
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
-        if (!empty($linkArray['image'])) {
-            $linkArray['image'] = XOOPS_URL . '/' . $linkArray['image'];  //Do not do this in other decorators
+        if (!empty($linkArray['image']) && !filter_var($linkArray['image'], FILTER_VALIDATE_URL)) {
+            $linkArray['image'] = XOOPS_URL . '/' . $linkArray['image'];
+              //Do not do this in other decorators
+            $linkArray['image'] = self::_doDecoration($linkArray['image']);
             $registry->setEntry('link_array', $linkArray);
-        }*/
+        }
     }
 
     function eventTitleDecoration()
@@ -96,6 +101,11 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
+    /**
+     * @param $string
+     *
+     * @return mixed
+     */
     function _doDecoration($string)
     {
         $registry =& MymenusRegistry::getInstance();
@@ -143,6 +153,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $groups = $registry->getEntry('user_groups');
         if ($menu['visible'] == 0 || !array_intersect($menu['groups'], $groups)) {
             $registry->setEntry('has_access', 'no');
+
             return;
         }
         $hooks = array_intersect($menu['hooks'], get_class_methods(__CLASS__));
@@ -150,6 +161,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         foreach ($hooks as $method) {
             if (!self::$method()) {
                 $registry->setEntry('has_access', 'no');
+
                 return;
             }
         }
@@ -168,17 +180,30 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('access_filter', $access_filter);
     }
 
+    /**
+     * @return bool
+     */
     function isOwner()
     {
         $registry =& MymenusRegistry::getInstance();
+
         return ($registry->getEntry('user_uid') != 0 && $registry->getEntry('user_uid') == $registry->getEntry('get_uid')) ? true : false;
     }
 
+    /**
+     * @return bool
+     */
     function isNotOwner()
     {
         return !self::isOwner();
     }
 
+    /**
+     * @param string $type
+     * @param        $value
+     *
+     * @return int
+     */
     function getExtraValue($type = 'user', $value)
     {
         $registry =& MymenusRegistry::getInstance();
@@ -210,8 +235,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry($type, $entry);
 
         unset($criteria);
+
         return $entry[$value];
     }
 }
-
-?>

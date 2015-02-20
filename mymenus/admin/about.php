@@ -18,7 +18,7 @@
  * @version         $Id: about.php 0 2009-11-14 18:47:04Z trabis $
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 

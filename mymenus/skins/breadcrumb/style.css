@@ -19,8 +19,7 @@
 .mymenus-breadcrumb a {
     height: 30px;
     display: block;
-    background-repeat: no-repeat;
-    background-position: right;
+    background: no-repeat right;
     padding-right: 15px;
     text-decoration: none;
     color: #454545;
@@ -32,5 +31,5 @@
 
 .mymenus-breadcrumb-home {
     border: none;
-    margin: 8px 0px;
+    margin: 8px 0;
 }

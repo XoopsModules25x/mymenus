@@ -20,11 +20,15 @@
 
 defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 
+/**
+ * Class DynamicMymenusPluginItem
+ */
 class DynamicMymenusPluginItem extends MymenusPluginItem
 {
 
     function eventEnd()
     {
+        $newmenus='';
         $registry =& MymenusRegistry::getInstance();
         $menus = $registry->getEntry('menus');
         foreach ($menus as $menu) {
@@ -41,6 +45,12 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('menus', $newmenus);
     }
 
+    /**
+     * @param $module
+     * @param $pid
+     *
+     * @return array
+     */
     function _getModuleMenus($module, $pid)
     {
         global $xoopsDB, $xoopsUser, $xoopsConfig, $xoopsModule, $xoopsModuleConfig;
@@ -80,12 +90,12 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         $modversion['sub'] = array();
         include $file;
 
-        $handler = xoops_getModuleHandler('menu', 'mymenus');
-        foreach ($modversion['sub'] as $menu) {
+        $handler = xoops_getModuleHandler('links', 'mymenus');
+        foreach ($modversion['sub'] as $links) {
             $obj = $handler->create();
-            $obj->setVar('title', $menu['name']);
-            $obj->setVar('alt_title', $menu['name']);
-            $obj->setVar('link', $GLOBALS['xoops']->url("{$path}/{$menu['url']}"));
+            $obj->setVar('title', $links['name']);
+            $obj->setVar('alt_title', $links['name']);
+            $obj->setVar('link', $GLOBALS['xoops']->url("{$path}/{$links['url']}"));
             $obj->setVar('id', $id);
             $obj->setVar('pid', $pid);
             $ret[] = $obj->getValues();
@@ -98,8 +108,8 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
             $xoopsModuleConfig =& $_xoopsModuleConfig;
             $GLOBALS['xoopsModuleConfig'] =& $xoopsModuleConfig;
         }
+
         return $ret;
     }
 
 }
-?>

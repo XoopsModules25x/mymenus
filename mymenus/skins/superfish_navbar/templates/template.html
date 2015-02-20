@@ -1,18 +1,31 @@
 <{foreach item=menu from = $block}>
     <{if $menu.oul}>
         <{if $menu.level == 0}>
-        <ul class="sf-menu sf-navbar">
+            <ul class="sf-menu sf-navbar">
         <{else}>
-        <ul>
+            <ul>
         <{/if}>
     <{/if}>
-    
+
+
+
     <{if $menu.oli}>
-        <li<{if $menu.selected}> class="current"<{/if}><{if $menu.css}> style="<{$menu.css}>"<{/if}>>
+        <li class="<{if $menu.selected}>current <{/if}><{$menu.css}>">
     <{/if}>
+
+            <{assign var=myStr value="["|cat:$xoops_langcode|cat:"]"}>
+            <{if ($xlanguage && (($menu.title|strstr:$myStr) OR ($menu.image|strstr:$myStr)) OR !$xlanguage)}>
+
             <a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>">
-            <{if $main.image}><img src="<{$menu.image}>" /><{/if}>
-            <{$menu.title}>
+                <{if $main.image}><img src="<{$menu.image}>" /><{/if}>
+                <{$menu.title}>
             </a>
+
+            <{/if}>
+
+
     <{if $menu.close != ''}><{$menu.close}><{/if}>
+
+
 <{/foreach}>
+<div style="clear:both"></div>

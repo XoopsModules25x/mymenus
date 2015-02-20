@@ -1,19 +1,19 @@
-/* ================================================================ 
-This copyright notice must be kept untouched in the stylesheet at 
+/* ================================================================
+This copyright notice must be kept untouched in the stylesheet at
 all times.
 
 The original version of this stylesheet and the associated (x)html
 is available at http://www.stunicholls.com/menu/pro_dropdown_3.html
 Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
-This stylesheet and the associated (x)html may be modified in any 
+This stylesheet and the associated (x)html may be modified in any
 way to fit your requirements.
 =================================================================== */
 .default_preload1 { /*background: url(three_0a.gif);*/
-	
+
 }
 
 .default_preload2 { /*background: url(three_1a.gif);*/
-	
+
 }
 
 #default_nav {
@@ -80,8 +80,7 @@ way to fit your requirements.
 
 #default_nav li:hover a.default_top_link span.default_down,#default_nav li a.default_selected span.default_down
 	{
-	background-color: #ddd;
-	background: url(arrow_down_purple.gif) 90% 50% no-repeat;
+    background: #ddd url(arrow_down_purple.gif) no-repeat 90% 50%;
 }
 
 /* Default list styling */

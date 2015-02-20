@@ -1,20 +1,25 @@
 <div id="mainmenu">
     <{foreach item=menu from=$block}>
-    <{if $menu.level == 0}>
-        <a class="menuMain <{if $menu.topselected}>maincurrent<{/if}>"<{if $menu.css}> style="<{$menu.css}>"<{/if}> href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>">
-        <{if $menu.image}><img src="<{$menu.image}>" /><{/if}>
-        <{$menu.title}>
-        </a>
-        <{if $menu.selected}>
-        <{foreach item=sub from=$block}>
-            <{if $menu.id == $sub.pid}>
-            <a class="menuSub <{if $sub.selected}>maincurrent<{/if}>"<{if $sub.css}> style="<{$sub.css}>"<{/if}> href="<{$sub.link}>" target="<{$sub.target}>" alt="<{$sub.alt_title}>" title="<{$sub.alt_title}>">
-            <{if $sub.image}><img src="<{$sub.image}>" /><{/if}>
-            <{$sub.title}>
-            </a>
+        <{if $menu.level == 0}>
+                <{assign var=myStr value="["|cat:$xoops_langcode|cat:"]"}>
+                <{if ($xlanguage && (($menu.title|strstr:$myStr) OR ($menu.image|strstr:$myStr)) OR !$xlanguage)}>
+                    <a class="menuMain <{$menu.css}> <{if $menu.topselected}>maincurrent<{/if}>" href="<{$menu.link}>" target="<{$menu.target}>" title="<{$menu.alt_title}>">
+                    <{if $menu.image}><img src="<{$menu.image}>"/><{/if}>
+                    <{$menu.title}>
+                </a>
+                <{if $menu.selected}>
+                        <{foreach item=sub from=$block}>
+                                <{if $menu.id == $sub.pid}>
+                                <{if ($xlanguage && (($menu.title|strstr:$myStr) OR ($menu.image|strstr:$myStr)) OR !$xlanguage)}>
+                                    <a class="menuSub <{$sub.css}> <{if $sub.selected}>maincurrent<{/if}>" href="<{$sub.link}>" target="<{$sub.target}>" title="<{$sub.alt_title}>">
+                                    <{if $sub.image}><img src="<{$sub.image}>"/><{/if}>
+                                    <{$sub.title}>
+                                </a>
+                            <{/if}>
+                        <{/if}>
+                    <{/foreach}>
+                <{/if}>
             <{/if}>
-        <{/foreach}>
         <{/if}>
-    <{/if}>
     <{/foreach}>
 </div>
