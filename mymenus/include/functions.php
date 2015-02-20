@@ -47,53 +47,6 @@ function mymenus_userIsAdmin()
 
 
 /**
- * @param int    $currentoption
- * @param string $breadcrumb
- */
-function _mymenus_adminMenu($currentoption = 0, $breadcrumb = '')
-{
-    include_once $GLOBALS['xoops']->path('class/template.php');
-    include $GLOBALS['xoops']->path('modules/mymenus/admin/menu.php');
-
-    xoops_loadLanguage('admin', 'mymenus');
-    xoops_loadLanguage('modinfo', 'mymenus');
-
-    $tpl = new XoopsTpl();
-    $tpl->assign(array(
-        'modurl'          => $GLOBALS['xoops']->url('modules/mymenus'),
-        'headermenu'      => ((isset($mymenus_headermenu)) ? $mymenus_headermenu : ''),
-        'adminmenu'       => ((isset($mymenus_adminmenu)) ? $mymenus_adminmenu : ''),
-        'current'         => $currentoption,
-        'breadcrumb'      => $breadcrumb,
-        'headermenucount' => ((isset($mymenus_headermenu)) ? count($mymenus_headermenu) : 0)));
-    $tpl->display($GLOBALS['xoops']->path('modules/mymenus/templates/static/mymenus_admin_adminmenu.html'));
-}
-
-/**
- * @param string $dirname
- *
- * @return mixed
- */
-function mymenus_getModuleConfig($dirname = 'mymenus')
-{
-    static $config;
-    if (!$config) {
-        global $xoopsModule;
-        if (isset($xoopsModule) && is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $dirname) {
-            global $xoopsModuleConfig;
-            $config =& $xoopsModuleConfig;
-        } else {
-            $hModule =& xoops_gethandler('module');
-            $module = $hModule->getByDirname($dirname);
-            $hConfig =& xoops_gethandler('config');
-            $config = $hConfig->getConfigsByCat(0, $module->getVar('mid'));
-        }
-    }
-
-    return $config;
-}
-
-/**
  * @param $skin
  * @param $skin_from_theme
  * @param $skin_theme

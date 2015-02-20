@@ -39,11 +39,9 @@ class MymenusMenus extends XoopsObject
     {
         $this->mymenus = MymenusMymenus::getInstance();
         $this->db = XoopsDatabaseFactory::getDatabaseConnection();
-        $this->initVar("id", XOBJ_DTYPE_INT);
+        $this->initVar('id', XOBJ_DTYPE_INT);
         $this->initVar('title', XOBJ_DTYPE_TXTBOX);
-        //
         $this->initVar('css', XOBJ_DTYPE_TXTBOX);
-        //
     }
 
     /**

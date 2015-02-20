@@ -42,6 +42,16 @@ define('_AM_MYMENUS_MSG_NOTFOUND',"No entries found!");
 define('_AM_MYMENUS_MSG_NOMENUS',"Please create a menu first!");
 
 // 1.5
+define('_AM_MYMENUS_MENU_TITLE_DESC',"");
+define('_AM_MYMENUS_MENU_CSS_DESC',"");
+
+define('_AM_MYMENUS_MENUS_ADD',"Add menu");
+define('_AM_MYMENUS_MENUS_EDIT',"Edit menu");
 define('_AM_MYMENUS_MENUS_LIST',"Menus list");
 define('_AM_MYMENUS_BUTTON_FILTER',"Filter");
-define('_AM_MYMENUS_MENUS_COUNT',"Menus: %s");
+define('_AM_MYMENUS_MENUS_COUNT',"Menus: %menusCount");
+define('_AM_MYMENUS_MENUS_COUNT_OF',"Filtered menus: %menusFilterCount of %menusCount");
+
+define('_AM_MYMENUS_MENUS_SUREDEL',"Are you sure to delete '%s' menu and all links?");
+
+define('_AM_MYMENUS_LINKS_LIST',"Items list");

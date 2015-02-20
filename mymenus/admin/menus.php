@@ -38,7 +38,7 @@ switch ($op) {
         echo $moduleAdmin->renderButton();
         //
         $menusCount = $mymenus->getHandler('menus')->getCount();
-        $mymenusTpl->assign('menusCount', $menusCount);
+        $GLOBALS['xoopsTpl']->assign('menusCount', $menusCount);
         //
         if ($menusCount > 0) {
             // get filter parameters
@@ -98,29 +98,29 @@ switch ($op) {
             } else {
                 $pagenav = '';
             }
-            $mymenusTpl->assign('pagenav', $pagenav);
+            $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav);
             //
             $filter_menus_title_condition_select = new XoopsFormSelect(_AM_MYMENUS_MENU_TITLE, 'filter_menus_title_condition', $filter_menus_title_condition, 1, false);
             $filter_menus_title_condition_select->addOption('CONTAINS', _CONTAINS);
             $filter_menus_title_condition_select->addOption('MATCHES', _MATCHES);
             $filter_menus_title_condition_select->addOption('STARTSWITH', _STARTSWITH);
             $filter_menus_title_condition_select->addOption('ENDSWITH', _ENDSWITH);
-            $mymenusTpl->assign('filter_menus_title_condition_select', $filter_menus_title_condition_select->render());
-            $mymenusTpl->assign('filter_menus_title_condition', $filter_menus_title_condition);
-            $mymenusTpl->assign('filter_menus_title', $filter_menus_title);
+            $GLOBALS['xoopsTpl']->assign('filter_menus_title_condition_select', $filter_menus_title_condition_select->render());
+            $GLOBALS['xoopsTpl']->assign('filter_menus_title_condition', $filter_menus_title_condition);
+            $GLOBALS['xoopsTpl']->assign('filter_menus_title', $filter_menus_title);
             //
             $menusObjs = $mymenus->getHandler('menus')->getObjects($menusCriteria);
             foreach ($menusObjs as $menusObj) {
                 $menusObjArray = $menusObj->getValues(); // as array
-                $mymenusTpl->append('objs', $menusObjArray);
+                $GLOBALS['xoopsTpl']->append('menus', $menusObjArray);
                 unset($menusObjArray);
             }
             unset($menusCriteria, $menusObjs);
         } else {
             // NOP
         }
-        $mymenusTpl->display($GLOBALS['xoops']->path('modules/mymenus/templates/static/mymenus_admin_menus.html'));
-        include 'admin_footer.php';
+        $GLOBALS['xoopsTpl']->display($GLOBALS['xoops']->path('modules/mymenus/templates/static/mymenus_admin_menus.html'));
+        include_once __DIR__ . '/admin_footer.php';
         break;
 
     case 'add':
@@ -141,7 +141,7 @@ switch ($op) {
         $form = $menusObj->getForm();
         $form->display();
         //
-        include 'admin_footer.php';
+        include_once __DIR__ . '/admin_footer.php';
         break;
 
     case 'save':
@@ -177,103 +177,32 @@ switch ($op) {
         redirect_header($currentFile, 3, _AM_MYMENUS_MSG_SUCCESS);
         break;
 
-
-
-
-
     case 'delete':
         $id = XoopsRequest::getInt('id', null);
-        $redir = XoopsRequest::getString('redir', null);
-        mymenus_admin_confirmdel($id, $redir);
+        $menusObj = $mymenus->getHandler('menus')->get($id);
+        if (XoopsRequest::getBool('ok', false, 'POST') == true) {
+            if (!$GLOBALS['xoopsSecurity']->check()) {
+                redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            }
+            // delete menus
+            if (!$mymenus->getHandler('menus')->delete($menusObj)) {
+                // ERROR
+                xoops_cp_header();
+                xoops_error(_AM_MYMENUS_MSG_ERROR, $menusObj->getVar('id'));
+                xoops_cp_footer();
+                exit();
+            }
+            // Delete links
+            $mymenus->getHandler('links')->deleteAll(new Criteria('mid', $id));
+            redirect_header($currentFile, 3, _AM_XNEWSLETTER_FORMDELOK);
+        } else {
+            xoops_cp_header();
+            xoops_confirm(
+                array('ok' => true, 'id' => $id, 'op' => 'delete'),
+                $_SERVER['REQUEST_URI'],
+                sprintf(_AM_MYMENUS_MENUS_SUREDEL, $menusObj->getVar('title'))
+            );
+        include_once __DIR__ . '/admin_footer.php';
+        }
         break;
-
-    case 'delok':
-        $id = XoopsRequest::getInt('id', null);
-        $redir = XoopsRequest::getString('redir', null);
-        mymenus_admin_del($id, $redir);
-        break;
-
-    case 'delall':
-        $redir = XoopsRequest::getString('redir', null);
-        mymenus_admin_confirmdel(null, $redir, 'delallok');
-        break;
-
-    case 'delallok':
-        $redir = XoopsRequest::getString('redir', null);
-        mymenus_admin_delall($redir);
-        break;
-
-
-}
-
-
-
-/**
- * @param      $id
- * @param null $redir
- */
-function mymenus_admin_del($id, $redir = null)
-{
-    $mymenus = MymenusMymenus::getInstance();
-    //
-    if (!$GLOBALS['xoopsSecurity']->check()) {
-        redirect_header($GLOBALS['mymenus_adminpage'], 1, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
-    }
-    if ($id <= 0) {
-        redirect_header($GLOBALS['mymenus_adminpage'], 1);
-    }
-    //
-    $menusObj = $mymenus->getHandler('menus')->get($id);
-    if (!is_object($menusObj)) {
-        redirect_header($GLOBALS['mymenus_adminpage'], 1);
-    }
-    // Delete menu
-    if (!$mymenus->getHandler('menus')->delete($menusObj)) {
-        xoops_cp_header();
-        xoops_error(_AM_MYMENUS_MSG_ERROR, $menusObj->getVar('id'));
-        xoops_cp_footer();
-        exit();
-    }
-    // Delete links
-    $mymenus->getHandler('links')->deleteAll(new Criteria('mid', $id));
-    //
-    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'] , 2, _AM_MYMENUS_MSG_SUCCESS);
-}
-
-/**
- * @param null $redir
- */
-function mymenus_admin_delall($redir = null)
-{
-    $mymenus = MymenusMymenus::getInstance();
-    //
-    if (!$GLOBALS['xoopsSecurity']->check()) {
-        redirect_header($GLOBALS['mymenus_adminpage'], 1, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
-    }
-    //
-    if (!$mymenus->getHandler('menus')->deleteAll()) {
-        redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'] , 2, _AM_MYMENUS_MSG_ERROR);
-    }
-    //
-    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'] , 2, _AM_MYMENUS_MSG_SUCCESS);
-}
-
-/**
- * @param null   $id
- * @param null   $redir
- * @param string $op
- */
-function mymenus_admin_confirmdel($id = null, $redir = null, $op = 'delok')
-{
-    $mymenus = MymenusMymenus::getInstance();
-
-    $arr = array();
-    $arr['op'] = $op;
-    $arr['id'] = $id;
-    if (!is_null($redir)) {
-        $arr['redir'] = $redir;
-    }
-    xoops_cp_header();
-    xoops_confirm($arr, $GLOBALS['mymenus_adminpage'], _AM_MYMENUS_MSG_AYSC);
-    xoops_cp_footer();
 }

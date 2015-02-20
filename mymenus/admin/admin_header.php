@@ -44,7 +44,7 @@ include_once $GLOBALS['xoops']->path('modules/mymenus/include/functions.php');
 include_once $GLOBALS['xoops']->path('modules/mymenus/class/registry.php');
 include_once $GLOBALS['xoops']->path('modules/mymenus/class/plugin.php');
 
-$mymenusTpl = new XoopsTpl();
+//$mymenusTpl = new XoopsTpl();
 
 /*
 

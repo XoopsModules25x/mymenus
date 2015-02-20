@@ -18,7 +18,8 @@
  * @version         $Id: links.php 12408 2014-03-25 08:47:48Z beckmi $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+include_once dirname(__DIR__) . '/include/common.php';
 
 /**
  * Class MymenusLinks
@@ -26,10 +27,18 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 class MymenusLinks extends XoopsObject
 {
     /**
+     * @var Module_skeletonModule_skeleton
+     * @access private
+     */
+    private $mymenus = null;
+
+    /**
      * constructor
      */
     function __construct()
     {
+        $this->mymenus = MymenusMymenus::getInstance();
+        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
         $this->initVar('id', XOBJ_DTYPE_INT);
         $this->initVar('pid', XOBJ_DTYPE_INT);
         $this->initVar('mid', XOBJ_DTYPE_INT);
@@ -81,7 +90,6 @@ class MymenusLinks extends XoopsObject
 
         return $ret;
     }
-
 }
 
 /**
@@ -89,13 +97,19 @@ class MymenusLinks extends XoopsObject
  */
 class MymenusLinksHandler extends XoopsPersistableObjectHandler
 {
+    /**
+     * @var MymenusMymenus
+     * @access private
+     */
+    private $mymenus = null;
 
     /**
-     * @param null|object $db
+     * @param null|object   $db
      */
-    function __construct(&$db)
+    function __construct($db)
     {
         parent::__construct($db, 'mymenus_links', 'MymenusLinks', 'id', 'title');
+        $this->mymenus = MymenusMymenus::getInstance();
     }
 
     /**
@@ -103,27 +117,26 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
      */
     function update_weights(&$obj)
     {
-        $sql = "UPDATE " . $this->table
-        . " SET weight = weight+1"
-        . " WHERE weight >= " . $obj->getVar('weight')
-        . " AND id <> " . $obj->getVar('id')
-        /*. " AND pid = " . $obj->getVar('pid')*/
-        . " AND mid = " . $obj->getVar('mid')
-        ;
+        $sql = "UPDATE " . $this->table . " SET weight = weight+1";
+        $sql .= " WHERE";
+        $sql .= " weight >= " . $obj->getVar('weight');
+        $sql .= " AND";
+        $sql .= " id <> " . $obj->getVar('id');
+        //$sql .= " AND pid = " . $obj->getVar('pid');
+        $sql .= " AND";
+        $sql .= " mid = " . $obj->getVar('mid');
         $this->db->queryF($sql);
 
-        $sql = "SELECT id FROM " . $this->table
-        . " WHERE mid = " . $obj->getVar('mid')
-        /*. " AND pid = " . $obj->getVar('pid')*/
-        . " ORDER BY weight ASC"
-        ;
+        $sql = "SELECT id FROM " . $this->table;
+        $sql .= " WHERE mid = " . $obj->getVar('mid');
+        //$sql .= " AND pid = " . $obj->getVar('pid');
+        $sql .= " ORDER BY weight ASC";
         $result = $this->db->query($sql);
         $i = 1;  //lets start at 1 please!
         while (list($id) = $this->db->fetchrow($result)) {
-            $sql = "UPDATE " . $this->table
-            . " SET weight = {$i}"
-            . " WHERE id = {$id}"
-            ;
+            $sql = "UPDATE " . $this->table;
+            $sql .= " SET weight = {$i}";
+            $sql .= " WHERE id = {$id}";
             $this->db->queryF($sql);
             ++$i;
         }
