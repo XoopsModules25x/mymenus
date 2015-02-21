@@ -15,18 +15,15 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: index.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: index.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
-include_once dirname(__FILE__) . '/admin_header.php';
+//require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+include_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 
-	$indexAdmin = new ModuleAdmin();
+echo $indexAdmin->addNavigation('index.php');
+echo $indexAdmin->renderIndex();
 
-    echo $indexAdmin->addNavigation('index.php');
-    echo $indexAdmin->renderIndex();
-
-include "admin_footer.php";
+include __DIR__ . '/admin_footer.php';

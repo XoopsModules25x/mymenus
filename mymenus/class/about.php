@@ -15,11 +15,10 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: about.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: about.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
-
+defined("XOOPS_ROOT_PATH") or exit("Restricted access");
 
 /**
  * Class About is a simple class that lets you build an about page
@@ -50,6 +49,9 @@ class MymenusAbout
     var $_lang_by;
     var $_tpl;
 
+    /**
+     * @param string $aboutTitle
+     */
     function __construct($aboutTitle = 'About')
     {
 
@@ -76,9 +78,15 @@ class MymenusAbout
 
     }
 
+    /**
+     * @param $value
+     *
+     * @return mixed
+     */
     function sanitize($value)
     {
         $myts =& MyTextSanitizer::getInstance();
+
         return $myts->displayTarea($value, 1);
     }
 
@@ -164,10 +172,8 @@ class MymenusAbout
             fclose($handle);
         }
 
-        $this->_tpl->display($GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname') . '/templates/static/mymenus_admin_about.html'));
+        $this->_tpl->display($GLOBALS['xoops']->path('modules/' . $xoopsModule->getVar('dirname') . '/templates/static/mymenus_admin_about.tpl'));
 
         xoops_cp_footer();
     }
 }
-
-?>

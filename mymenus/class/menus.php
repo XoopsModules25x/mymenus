@@ -15,11 +15,14 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: menus.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: menus.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") || exit("Restricted access");
 
+/**
+ * Class MymenusMenus
+ */
 class MymenusMenus extends XoopsObject
 {
     /**
@@ -29,15 +32,22 @@ class MymenusMenus extends XoopsObject
     {
         $this->initVar("id", XOBJ_DTYPE_INT);
         $this->initVar('title', XOBJ_DTYPE_TXTBOX);
+        //
+        $this->initVar('css', XOBJ_DTYPE_TXTBOX);
+        //
     }
 }
 
+/**
+ * Class MymenusMenusHandler
+ */
 class MymenusMenusHandler extends XoopsPersistableObjectHandler
 {
+    /**
+     * @param null|object $db
+     */
     function __construct(&$db)
     {
-        parent::__construct($db, 'mymenus_menus', 'MymenusMenus', 'id', 'title');
+        parent::__construct($db, 'mymenus_menus', 'MymenusMenus', 'id', 'title', 'css');
     }
 }
-
-?>

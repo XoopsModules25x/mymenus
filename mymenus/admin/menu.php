@@ -15,35 +15,33 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: menu.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: menu.php 13003 2015-02-20 04:45:42Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") || exit("Restricted access");
 
-$dirname = basename(dirname(dirname(__FILE__)));
+$dirname        = basename(dirname(__DIR__));
 $module_handler = xoops_gethandler('module');
-$module = $module_handler->getByDirname($dirname);
-$pathIcon32 = $module->getInfo('icons32');
+$module         = $module_handler->getByDirname($dirname);
+$pathIcon32     = '../../' . $module->getInfo('icons32');
 
-xoops_loadLanguage('admin', $dirname); 
- 
-$i = -1;
-$i++;
-$adminmenu[$i]["title"] = _MI_MYMENUS_ADMMENU0;
-$adminmenu[$i]["link"] = 'admin/index.php';
-$adminmenu[$i]["icon"] = $pathIcon32.'/home.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MYMENUS_MENUSMANAGER;
-$adminmenu[$i]['link'] = "admin/admin_menus.php";
-$adminmenu[$i]["icon"] = $pathIcon32.'/manage.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MYMENUS_MENUMANAGER;
-$adminmenu[$i]['link'] = "admin/admin_menu.php";
-$adminmenu[$i]["icon"] = $pathIcon32.'/insert_table_row.png';
-$i++;
-$adminmenu[$i]['title'] = _MI_MYMENUS_ABOUT;
-$adminmenu[$i]['link'] = "admin/about.php";
-$adminmenu[$i]["icon"] = $pathIcon32.'/about.png';
+xoops_loadLanguage('admin', $dirname);
+
+$adminmenu = array(array('title' => _MI_MYMENUS_ADMMENU0,
+                          'link' => 'admin/index.php',
+                          'icon' => "{$pathIcon32}/home.png"),
+
+                   array('title' => _MI_MYMENUS_MENUSMANAGER,
+                          'link' => "admin/admin_menus.php",
+                          'icon' => "{$pathIcon32}/manage.png"),
+
+                   array('title' => _MI_MYMENUS_MENUMANAGER,
+                          'link' => "admin/admin_links.php",
+                          'icon' => "{$pathIcon32}/insert_table_row.png"),
+
+                   array('title' => _MI_MYMENUS_ABOUT,
+                          'link' => "admin/about.php",
+                          'icon' => "{$pathIcon32}/about.png")
+);
 
 //$mymenus_adminmenu = $adminmenu;
-

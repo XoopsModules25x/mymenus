@@ -3,7 +3,6 @@
 //  URL: http://www.xuups.com
 //  E-Mail: lusopoemas@gmail.com
 
-
 define('_PL_MYMENUS_MYMENUS_ISOWNER', "Is Owner");
 define('_PL_MYMENUS_MYMENUS_ISNOTOWNER', "Is Not Owner");
 

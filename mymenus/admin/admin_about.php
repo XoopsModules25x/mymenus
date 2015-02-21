@@ -15,13 +15,11 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: about.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: admin_about.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-include_once dirname(__FILE__) . '/admin_header.php';
-include_once XOOPS_ROOT_PATH . '/modules/mymenus/class/about.php';
+include_once __DIR__ . '/admin_header.php';
+include_once $GLOBALS['xoops']->path('/modules/mymenus/class/about.php');
 
 $aboutObj = new MymenusAbout();
 $aboutObj->render();
-
-?>
