@@ -15,16 +15,20 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: mymenus.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: dynamic.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") or exit("Restricted access");
 
+/**
+ * Class DynamicMymenusPluginItem
+ */
 class DynamicMymenusPluginItem extends MymenusPluginItem
 {
 
     function eventEnd()
     {
+        $newmenus='';
         $registry =& MymenusRegistry::getInstance();
         $menus = $registry->getEntry('menus');
         foreach ($menus as $menu) {
@@ -32,7 +36,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
                 $newmenus[] = $menu;
                 continue;
             }
-            $result = array_map('strtolower', explode('|', $reg[1]));
+            $result = array_map('mb_strtolower', explode('|', $reg[1]));
             $moduleMenus = self::_getModuleMenus($result[1], $menu['pid']);
             foreach ($moduleMenus as $mMenu) {
                 $newmenus[] = $mMenu;
@@ -41,9 +45,15 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('menus', $newmenus);
     }
 
+    /**
+     * @param $module
+     * @param $pid
+     *
+     * @return array
+     */
     function _getModuleMenus($module, $pid)
     {
-        global $xoopsDB, $xoopsUser, $xoopsConfig, $xoopsModule, $xoopsModuleConfig;
+        global $xoopsModule, $xoopsModuleConfig;
         static $id = -1;
 
         $ret = array();
@@ -61,45 +71,47 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
 
         xoops_loadLanguage('modinfo', $module);
 
-        $force = true;
         $overwrite = false;
-        if ($force && (!is_object($xoopsModule) || $xoopsModule->getVar('dirname') != $module)) {
-            $_xoopsModule = is_object($xoopsModule) ? $xoopsModule : $xoopsModule;
-            $_xoopsModuleConfig = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
-            $module_handler =& xoops_gethandler('module');
-            $xoopsModule =& $module_handler->getByDirname($module);
-            $GLOBALS['xoopsModule'] =& $xoopsModule;
-            if (is_object($xoopsModule)) {
-                $config_handler =& xoops_gethandler('config');
-                $xoopsModuleConfig =& $config_handler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
-                $GLOBALS['xoopsModuleConfig'] =& $xoopsModuleConfig;
+        if ($force = true) {  //can set to false for debug
+            if (!($xoopsModule instanceof XoopsModule) || ($xoopsModule->getVar('dirname') != $module)) {
+// @TODO: check the following 2 statements, they're basically just assigns - is this intended?
+                $_xoopsModule           = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
+                $_xoopsModuleConfig     = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
+                $module_handler         =& xoops_gethandler('module');
+                $xoopsModule            =& $module_handler->getByDirname($module);
+                $GLOBALS['xoopsModule'] =& $xoopsModule;
+                if ($xoopsModule instanceof XoopsModule) {
+                    $config_handler               =& xoops_gethandler('config');
+                    $xoopsModuleConfig            =& $config_handler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+                    $GLOBALS['xoopsModuleConfig'] =& $xoopsModuleConfig;
+                }
+                $overwrite = true;
             }
-            $overwrite = true;
         }
-
         $modversion['sub'] = array();
         include $file;
 
-        $handler = xoops_getModuleHandler('menu', 'mymenus');
-        foreach ($modversion['sub'] as $menu) {
+        $handler = xoops_getModuleHandler('links', 'mymenus');
+        foreach ($modversion['sub'] as $links) {
             $obj = $handler->create();
-            $obj->setVar('title', $menu['name']);
-            $obj->setVar('alt_title', $menu['name']);
-            $obj->setVar('link', $GLOBALS['xoops']->url("{$path}/{$menu['url']}"));
-            $obj->setVar('id', $id);
-            $obj->setVar('pid', $pid);
+            $obj->setVars(array('title' => $links['name'],
+                            'alt_title' => $links['name'],
+                                 'link' => $GLOBALS['xoops']->url("{$path}/{$links['url']}"),
+                                   'id' => $id,
+                                  'pid' => (int) $pid)
+            );
             $ret[] = $obj->getValues();
             $id--;
         }
 
         if ($overwrite) {
-            $xoopsModule =& $_xoopsModule;
-            $GLOBALS['xoopsModule'] =& $xoopsModule;
-            $xoopsModuleConfig =& $_xoopsModuleConfig;
+            $xoopsModule                  =& $_xoopsModule;
+            $GLOBALS['xoopsModule']       =& $xoopsModule;
+            $xoopsModuleConfig            =& $_xoopsModuleConfig;
             $GLOBALS['xoopsModuleConfig'] =& $xoopsModuleConfig;
         }
+
         return $ret;
     }
 
 }
-?>

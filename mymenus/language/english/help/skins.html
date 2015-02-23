@@ -1,0 +1,121 @@
+<div id="help-template" class="outer">
+    <h1 class="head">Skins:
+        <a class="ui-corner-all tooltip" href="<{$xoops_url}>/modules/mymenus/admin/index.php" title="Back to the administration of MyMenus"> MyMenus
+            <img src="<{xoAdminIcons home.png}>" alt="Back to the Administration of MyMenus"/>
+        </a>
+    </h1>
+
+    <h4 class="odd">Theory of operation</h4>
+    <p class="even">
+    Mymenus separates logic from presentation almost 100%!<br>
+    It is mymenus task to generate an array with menus information and let each skin decide what to do with that information.
+    <br>
+    <br>
+    How can skin know when to open a new &lt;li&gt; or &lt;ul&gt; and when to close it?<br>
+    Mymenus append that information to each menu item, that way you can know if that item should be prefixed with a &lt;li&gt; or not.
+    <br>
+    <br>
+    This is the composition of an item array:
+    <br>
+    <code>
+[id] =&gt; 3 (id of the menu item)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[pid] =&gt; 0 (id of the parent menu item)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[mid] =&gt; 2 (id of the menu package)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[title] =&gt; Home (title of the menu item)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[alt_title] =&gt; Home (alt/title of the menu item)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[visible] =&gt; 1 (visibility of the menu item, it will be 1 for all menus,you can disregard it)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[link] =&gt; http://localhost/xoops-2.4.5/htdocs/ (alt/title of the menu item)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[weight] =&gt; 1 (this is for internal usage of the builder class, you can disregard it)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[target] =&gt; _self (to be used in link target element, it can be _self, _blank, etc..)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[groups] =&gt; Array (holds the groups who can view this link, you can disregard it)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[0] =&gt; 2
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[1] =&gt; 3
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[hooks] =&gt; Array (holds the hooks available to render the menu, you can disregard it)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[image] =&gt; (image to be used in the link, you can choose not to support it in your skin)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[css] =&gt;&nbsp; (this is inline css for this item, it goes inside &lt;a style="$item.css"&gt;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[oul] =&gt; 1 (IMPORTANT! Open UL -&gt; this menu item requires skin to prepend &lt;ul&gt; open element tag)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[oli] =&gt; 1 (IMPORTANT! Open LI -&gt; this menu item requires skin to prepend &lt;li&gt; open element tag)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[close] =&gt; (IMPORTANT! this holds closing tags, it will automatically generate &lt;/li&gt;&lt;/ul&gt; tags for you)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[cul] =&gt; (IMPORTANT! Close UL -&gt; this menu item requires skin to append &lt;/ul&gt; close element tag, you should use [close] instead, unless you are not supporting multilevel menus)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[cli] =&gt; (IMPORTANT! Close LI -&gt; this menu item requires skin to append &lt;/li&gt; close element tag, you should use [close] instead, unless you are not supporting multilevel menus)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[hassub] =&gt; 1 (informs if this menu item has submenus, 1 for true, 0 for false)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[level] =&gt; 0 (informs the level of nesting of the menu item, 0 is for root, 1 for second level, etc..)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[down_weight] =&gt; 3 (for usage in menu sorting in admin side, you can ignore it)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[selected] =&gt; 1 (IMPORTANT, this tells the skin to highlight this item)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[topselected] =&gt; 1 (Important, this informs the skin that the menu is of level 0(root) and it is selected, you should highlight it)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )
+    </code>
+    </p>
+    <h4 class="odd">Skin structure</h4>
+    <p class="even">
+    Skins go into<br>
+    "mymenus/skins" folder or<br>
+    "public_html/themes/yourtheme/menu" folder<br>
+    and they should have a skin_version.php file in it<br>
+    <br>
+    skin_version.php structure:<br>
+    <code>
+//informs where to find the template for this skin(relative to skin folder)
+$skinversion['template'] = 'templates/template.html';
+
+//informs where to find css file/files
+$skinversion['css'] = 'assets/css/superfish.css';
+    </code>
+    or
+    <code>
+$skinversion['css'] = array('css/superfish.css', css/anotherone.css);
+
+//informs where to find js file/files
+$skinversion['js'] = '../../js/assets/jquery-1.3.2.min.js';
+    </code>
+    or
+    <code>
+$skinversion['js'] = array(
+&nbsp;&nbsp;&nbsp;&nbsp;'../../js/jquery-1.3.2.min.js'
+&nbsp;&nbsp;&nbsp;&nbsp;'../../js/assets/hoverIntent.js',
+&nbsp;&nbsp;&nbsp;&nbsp;'../../js/superfish.js'
+);
+
+//code to be appended in the &lt;head&gt; theme tag
+$header  = "\n" . '&lt;script type="text/javascript"&gt;';
+$header .= "\n" . '&nbsp; var $sf = jQuery.noConflict()';
+$header .= "\n" . '&nbsp; $sf(function(){';
+$header .= "\n" . '&nbsp;&nbsp;&nbsp; $sf(\'ul.sf-menu\').superfish({';
+$header .= "\n" . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delay:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1000,';
+$header .= "\n" . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;animation:&nbsp;&nbsp; {opacity:\'show\',height:\'show\'},';
+$header .= "\n" . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;speed:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \'fast\'';
+$header .= "\n" . '&nbsp;&nbsp;&nbsp; });';
+$header .= "\n" . '&nbsp; });';
+$header .= "\n" . '&lt;/script&gt;';
+$skinversion['header'] = $header;
+
+//you can pass any configuration from this file to the template using ['config']
+    </code>
+    example:
+    <code>
+$skinversion['config']['home'] = true;
+$skinversion['config']['iconset'] = 'default';
+This can be fetched in template with &lt;{$config.home}&gt; and &lt;{$config.iconset}&gt;
+    </code>
+    </p>
+    <h4 class="odd">Smarty variables available in the template</h4>
+    <p class="even">
+    $block - holds an array of menu items<br>
+    $config - holds configuration set in skin_version.php<br>
+    $skinurl - holds the url of the skin<br>
+    $skinpath - holds the path of the skin<br>
+    </p>
+    <h4 class="odd">For Theme designers</h4>
+    <p class="even">
+    Since users can choose the smarty variable for each menu,<br>
+    I would advise you to use &lt;{$xoops_links_navbar}&gt; as a place holder.<br>
+    If you provide a skin for your theme, ask users to:<br>
+    -- --enter "xoops_links_navbar" as unique_id in block settings.<br>
+    -- --set "render to smarty variable" in block settings.<br>
+    -- --set "use skin from theme" in block settings.<br>
+    </p>
+</div>

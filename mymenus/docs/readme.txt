@@ -1,6 +1,6 @@
-What is mymenus module (v1.0) ?
+What is MyMenus module ?
 ======================
-Mymenus is menu manager module that allows you to display dynamic or static menus in your website.
+MyMenus is menu manager module that allows you to display dynamic or static menus in your website.
 
 
 Features
@@ -9,21 +9,21 @@ Features
 - pluggable plugins (title and links decorators for integration of module features)
 - infinite menus levels(nested menus)
 - auto selected menus(menus are highlighted depending on the page you are in)
-- ability to assign a menu to a smarty variable(you can use my menus has a block or use it inside your theme or templates)
+- ability to assign a menu to a smarty variable(you can use my menus as a block or use it inside your theme or templates)
 - ability to get a skin from the current theme folder(theme/mytheme/menu/scripts go here)
 - and much more
 
 
 Requirements
 ====================
-Requires xoops 2.4.x and php5
+Requires minimum 2.5.x and PHP 5.3.7
 
 
-How to install mymenus
+How to install MyMenus
 ====================
-Copy mymenus folder into the /modules directory of your website. 
-Log in to your site as administrator, go to System Admin > Modules, look for the mymenus
-icon in the list of uninstalled modules and click in the install icon. 
+Copy mymenus folder into the /modules directory of your website.
+Log in to your site as administrator, go to System Admin > Modules, look for the MyMenus
+icon in the list of uninstalled modules and click in the install icon.
 Follow the directions in the screen and you'll be ready to go.
 
 

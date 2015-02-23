@@ -11,16 +11,14 @@
 
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  * @version         $Id: skin_version.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-$skinversion['template'] = 'templates/template.html';
-$skinversion['css'] = array('tw_red.css');
+$skinversion['template'] = 'templates/template.tpl';
+$skinversion['css'] = array('css/tw_red.css');
 //$skinversion['js'] = array('stuHover.js');
 $skinversion['prefix'] = 'twr';
-
-?>

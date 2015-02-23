@@ -15,15 +15,17 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: plugin.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: plugin.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") || exit("Restricted access");
 
 xoops_load('XoopsLists');
 include_once $GLOBALS['xoops']->path('modules/mymenus/class/registry.php');
 
-
+/**
+ * Class MymenusPlugin
+ */
 class MymenusPlugin
 {
 
@@ -31,6 +33,9 @@ class MymenusPlugin
     var $_plugins;
     var $_events;
 
+    /**
+     *
+     */
     function __construct()
     {
         $this->_plugins = array();
@@ -40,12 +45,16 @@ class MymenusPlugin
         $this->setEvents();
     }
 
-    function &getInstance()
+    /**
+     * @return MymenusPlugin
+     */
+    static function &getInstance()
     {
         static $instance = false;
         if (!$instance) {
             $instance = new MymenusPlugin();
         }
+
         return $instance;
     }
 
@@ -71,7 +80,7 @@ class MymenusPlugin
             }
             $class_methods = get_class_methods($class_name);
             foreach ($class_methods as $method) {
-                if (strpos($method, 'event') === 0) {
+                if (0 === strpos($method, 'event')) {
                     $event_name = strtolower(str_replace('event', '', $method));
                     $event= array('class_name' => $class_name, 'method' => $method);
                     $this->_events[$event_name][] = $event;
@@ -80,9 +89,13 @@ class MymenusPlugin
         }
     }
 
+    /**
+     * @param       $event_name
+     * @param array $args
+     */
     function triggerEvent($event_name, $args = array())
     {
-        $event_name = strtolower(str_replace('.', '', $event_name));
+        $event_name = mb_strtolower(str_replace('.', '', $event_name));
         if (isset($this->_events[$event_name])) {
             foreach ($this->_events[$event_name] as $event) {
                 call_user_func(array($event['class_name'], $event['method']), $args);
@@ -92,18 +105,25 @@ class MymenusPlugin
 
 }
 
+/**
+ * Class MymenusPluginItem
+ */
 class MymenusPluginItem
 {
 
-    function loadLanguage($name)
+    /**
+     * @param $name
+     *
+     * @return mixed
+     */
+    public function loadLanguage($name)
     {
         $language =  $GLOBALS['xoopsConfig']['language'];
         $path = $GLOBALS['xoops']->path("modules/mymenus/plugins/{$name}/language");
         if (!($ret = @include_once "{$path}/{$language}/{$name}.php")) {
             $ret = @include_once "{$path}/english/{$name}.php";
         }
+
         return $ret;
     }
 }
-
-?>

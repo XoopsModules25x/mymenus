@@ -15,75 +15,122 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: registry.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: registry.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") || exit("Restricted access");
 
+/**
+ * Class MymenusRegistry
+ */
 class MymenusRegistry
 {
     protected $_entries;
     protected $_locks;
 
+    /**
+     *
+     */
     protected function __construct()
     {
         $this->_entries = array();
         $this->_locks = array();
     }
 
-    public function getInstance()
+    /**
+     * @return object MymenusRegistry
+     */
+    static public function getInstance()
     {
         static $instance = false;
         if (!$instance) {
             $instance = new self();
         }
+
         return $instance;
     }
 
+    /**
+     * @TODO: move hard coded language string to language file
+     *
+     * @param $key
+     * @param $item
+     *
+     * @return bool
+     */
     public function setEntry($key, $item)
     {
         if ($this->isLocked($key) == true) {
-            trigger_error('Unable to set entry `' . $key . '`. Entry is locked.', E_USER_WARNING);
+            trigger_error("Unable to set entry `{$key}`. Entry is locked.", E_USER_WARNING);
+
             return false;
         }
 
         $this->_entries[$key] = $item;
+
         return true;
     }
 
+    /**
+     * @param $key
+     */
     public function unsetEntry($key)
     {
         unset($this->_entries[$key]);
     }
 
+    /**
+     * @param $key
+     *
+     * @return null
+     */
     public function getEntry($key)
     {
-        if (isset($this->_entries[$key]) == false) {
+        if (false == isset($this->_entries[$key])) {
             return null;
         }
 
         return $this->_entries[$key];
     }
 
+    /**
+     * @param $key
+     *
+     * @return bool
+     */
     public function isEntry($key)
     {
-        return ($this->getEntry($key) !== null);
+        return (null !== $this->getEntry($key));
     }
 
+    /**
+     * @param $key
+     *
+     * @return bool
+     */
     public function lockEntry($key)
     {
         $this->_locks[$key] = true;
+
         return true;
     }
 
+    /**
+     * @param $key
+     */
     public function unlockEntry($key)
     {
         unset($this->_locks[$key]);
     }
 
+    /**
+     * @param $key
+     *
+     * @return bool
+     */
     public function isLocked($key)
     {
-        return (isset($this->_locks[$key]) == true);
+        return (true == isset($this->_locks[$key]));
     }
 
     public function unsetAll()
@@ -93,5 +140,3 @@ class MymenusRegistry
     }
 
 }
-
-?>

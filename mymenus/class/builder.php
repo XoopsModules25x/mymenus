@@ -15,18 +15,24 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: builder.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: builder.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 class MymenusBuilder
 {
     var $parents = array();
     var $output = array();
 
+    /**
+     * @param $array
+     */
     function __construct($array)
     {
         $this->addMenu($array);
     }
 
+    /**
+     * @param $array
+     */
     function addMenu($array)
     {
         foreach ($array as $item) {
@@ -34,11 +40,17 @@ class MymenusBuilder
         }
     }
 
+    /**
+     * @param $item
+     */
     function add($item)
     {
         $this->parents[$item['pid']][] = $item;
     }
 
+    /**
+     * @param int $pid
+     */
     function buildMenus($pid = 0)
     {
         static $idx = -1;
@@ -70,13 +82,16 @@ class MymenusBuilder
                 $this->buildMenus($item['id']);
             }
             $this->output[$idx]['cli'] = true;
-            $this->output[$idx]['close'] .= '</li>';
+            $this->output[$idx]['close'] .= "</li>\n";
         }
         $this->output[$idx]['cul'] = true;
-        $this->output[$idx]['close'] .= '</ul>';
+        $this->output[$idx]['close'] .= "</ul>\n";
         $level -= 1;
     }
 
+    /**
+     * @param int $pid
+     */
     function buildUpDown($pid = 0)
     {
         static $idx = -1;
@@ -114,7 +129,7 @@ class MymenusBuilder
         $query_string = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
         $self = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
 
-        //set a default page in case we don´t get matches
+        //set a default page in case we don't get matches
         $default = XOOPS_URL . "/index.php";
 
         //get all matching links
@@ -153,6 +168,9 @@ class MymenusBuilder
         }
     }
 
+    /**
+     * @param $pid
+     */
     function addSelectedParents($pid)
     {
         foreach ($this->output as $idx => $menu) {
@@ -163,6 +181,9 @@ class MymenusBuilder
         }
     }
 
+    /**
+     * @return array
+     */
     function render()
     {
         $this->buildMenus();
@@ -171,7 +192,4 @@ class MymenusBuilder
 
         return $this->output;
     }
-
 }
-
-?>

@@ -15,15 +15,18 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: smarty.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: constant.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") || exit("Restricted access");
 
+/**
+ * Class ConstantMymenusPluginItem
+ */
 class ConstantMymenusPluginItem extends MymenusPluginItem
 {
 
-    function eventLinkDecoration()
+    public function eventLinkDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -31,7 +34,7 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function eventImageDecoration()
+    public function eventImageDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -39,7 +42,7 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function eventTitleDecoration()
+    public function eventTitleDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -47,7 +50,7 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function eventAlttitleDecoration()
+    public function eventAlttitleDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -55,9 +58,16 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function _doDecoration($string)
+    /**
+     * @param $string
+     *
+     * @return mixed
+     */
+    protected function _doDecoration($string)
     {
         $registry =& MymenusRegistry::getInstance();
+//        $string = '';
+
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
             return $string;
         }
@@ -65,15 +75,13 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
         $expression = $reg[0];
         list($validator, $value) = array_map('strtoupper', explode('|', $reg[1]));
 
-        if ($validator == 'CONSTANT') {
+        if ('CONSTANT' == $validator) {
             if (defined($value)) {
                $string = str_replace($expression, constant($value), $string);
             }
         }
 
-        return $string;
+        return isset($string) ? $string : null;
     }
 
 }
-
-?>

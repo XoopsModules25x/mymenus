@@ -18,57 +18,50 @@
  * @version         $Id: functions.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+include_once __DIR__ . '/common.php';
 
-function mymenus_adminMenu($currentoption = 0, $breadcrumb = '')
+/**
+ * Checks if a user is admin of Mymenus
+ *
+ * @return boolean
+ */
+function mymenus_userIsAdmin()
 {
-    include_once $GLOBALS['xoops']->path('class/template.php');
-    include $GLOBALS['xoops']->path('modules/mymenus/admin/menu.php');
+    global $xoopsUser;
+    $mymenus = MymenusMymenus::getInstance();
 
-    xoops_loadLanguage('admin', 'mymenus');
-    xoops_loadLanguage('modinfo', 'mymenus');
-
-    $tpl = new XoopsTpl();
-    $tpl->assign(array(
-        'modurl'          => $GLOBALS['xoops']->url('modules/mymenus'),
-        'headermenu'      => ((isset($mymenus_headermenu)) ? $mymenus_headermenu : ''),
-        'adminmenu'       => ((isset($mymenus_adminmenu)) ? $mymenus_adminmenu : ''),
-        'current'         => $currentoption,
-        'breadcrumb'      => $breadcrumb,
-        'headermenucount' => ((isset($mymenus_headermenu)) ? count($mymenus_headermenu) : 0)));
-    $tpl->display($GLOBALS['xoops']->path('modules/mymenus/templates/static/mymenus_admin_adminmenu.html'));
-}
-
-function mymenus_getModuleConfig($dirname = 'mymenus')
-{
-    static $config;
-    if (!$config) {
-        global $xoopsModule;
-        if (isset($xoopsModule) && is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $dirname) {
-            global $xoopsModuleConfig;
-            $config =& $xoopsModuleConfig;
-        } else {
-            $hModule =& xoops_gethandler('module');
-            $module = $hModule->getByDirname($dirname);
-            $hConfig =& xoops_gethandler('config');
-            $config = $hConfig->getConfigsByCat(0, $module->getVar('mid'));
-        }
+    static $mymenus_isAdmin;
+    if (isset($mymenus_isAdmin)) {
+        return $mymenus_isAdmin;
     }
-    return $config;
+
+    $mymenus_isAdmin = (!is_object($xoopsUser)) ? false : $xoopsUser->isAdmin($mymenus->getModule()->getVar('mid'));
+    return $mymenus_isAdmin;
 }
 
-function mymenus_getSkinInfo($skin, $skin_from_theme)
+/**
+ * @param string $module_skin
+ * @param boolean $use_theme_skin
+ * @param string $theme_skin
+ *
+ * @return array
+ */
+function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, $theme_skin = '')
 {
     $error = false;
-    if ($skin_from_theme) {
+    if ($use_theme_skin) {
         $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/menu";
         if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
-            $error = true;
+            $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/mymenus/skins/{$theme_skin}";
+            if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
+                $error = true;
+            }
         }
     }
 
-    if ($error || !$skin_from_theme) {
-        $path = "modules/mymenus/skins/{$skin}";
+    if ($error || !$use_theme_skin) {
+        $path = "modules/mymenus/skins/{$module_skin}";
     }
 
     $file = $GLOBALS['xoops']->path("{$path}/skin_version.php");
@@ -83,24 +76,24 @@ function mymenus_getSkinInfo($skin, $skin_from_theme)
     $info['url'] = $GLOBALS['xoops']->url($path);
 
     if (!isset($info['template'])) {
-        $info['template'] = $GLOBALS['xoops']->path("modules/mymenus/templates/static/blocks/mymenus_block.html");
+        $info['template'] = $GLOBALS['xoops']->path("modules/mymenus/templates/static/blocks/mymenus_block.tpl");
     } else {
         $info['template'] = $GLOBALS['xoops']->path("{$path}/" . $info['template']);
     }
 
     if (!isset($info['prefix'])) {
-        $info['prefix'] = $skin;
+        $info['prefix'] = $module_skin;
     }
 
     if (isset($info['css'])) {
-        $info['css'] = (array)$info['css'];
+        $info['css'] = (array) $info['css'];
         foreach ($info['css'] as $key => $value) {
             $info['css'][$key] = $GLOBALS['xoops']->url("{$path}/{$value}");
         }
     }
 
     if (isset($info['js'])) {
-        $info['js'] = (array)$info['js'];
+        $info['js'] = (array) $info['js'];
         foreach ($info['js'] as $key => $value) {
             $info['js'][$key] = $GLOBALS['xoops']->url("{$path}/{$value}");
         }
@@ -112,5 +105,3 @@ function mymenus_getSkinInfo($skin, $skin_from_theme)
 
     return $info;
 }
-
-?>

@@ -1,0 +1,35 @@
+.mymenus-breadcrumb {
+    font: 11px Arial, Helvetica, sans-serif;
+    background-repeat: repeat-x;
+    height: 30px;
+    line-height: 30px;
+    color: #9b9b9b;
+    border: solid 1px #cacaca;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+.mymenus-breadcrumb li {
+    list-style-type: none;
+    float: left;
+    padding-left: 10px;
+}
+
+.mymenus-breadcrumb a {
+    height: 30px;
+    display: block;
+    background: no-repeat right;
+    padding-right: 15px;
+    text-decoration: none;
+    color: #454545;
+}
+
+.mymenus-breadcrumb a:hover {
+    color: #35acc5;
+}
+
+.mymenus-breadcrumb-home {
+    border: none;
+    margin: 8px 0;
+}

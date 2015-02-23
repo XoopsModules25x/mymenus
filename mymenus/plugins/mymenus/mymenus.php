@@ -15,20 +15,23 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: mymenus.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: mymenus.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") || exit("Restricted access");
 
+/**
+ * Class MymenusMymenusPluginItem
+ */
 class MymenusMymenusPluginItem extends MymenusPluginItem
 {
 
-    function eventBoot()
+    public function eventBoot()
     {
         $registry =& MymenusRegistry::getInstance();
         $member_handler =& xoops_getHandler('member');
 
-        $user = $GLOBALS['xoopsUser'] ? $GLOBALS['xoopsUser'] : null;
+        $user = ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser'] : null;
         if (!$user) {
             $user = $member_handler->createUser();
             $user->setVar('uid', 0);
@@ -38,7 +41,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $ownerid = isset($_GET['uid']) ? intval($_GET['uid']) : null;
         $owner = $member_handler->getUser($ownerid);
         //if uid > 0 but user does not exists
-        if (!is_object($owner)) {
+        if (!($owner instanceof XoopsUser)) {
             //create new user
             $owner = $member_handler->createUser();
         }
@@ -48,13 +51,13 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
         $registry->setEntry('user', $user->getValues());
         $registry->setEntry('owner', $owner->getValues());
-        $registry->setEntry('user_groups', $GLOBALS['xoopsUser'] ? $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS));
-        $registry->setEntry('user_uid',  $GLOBALS['xoopsUser'] ? $GLOBALS['xoopsUser']->getVar('uid') : 0);
+        $registry->setEntry('user_groups', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS));
+        $registry->setEntry('user_uid',  ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getVar('uid') : 0);
         $registry->setEntry('get_uid', isset($_GET['uid']) ? intval($_GET['uid']) : 0);
 
     }
 
-    function eventLinkDecoration()
+    public function eventLinkDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -66,18 +69,20 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function eventImageDecoration()
+    public function eventImageDecoration()
     {
-        /*
+
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
-        if (!empty($linkArray['image'])) {
-            $linkArray['image'] = XOOPS_URL . '/' . $linkArray['image'];  //Do not do this in other decorators
+        if (!empty($linkArray['image']) && !filter_var($linkArray['image'], FILTER_VALIDATE_URL)) {
+            $linkArray['image'] = XOOPS_URL . '/' . $linkArray['image'];
+              //Do not do this in other decorators
+            $linkArray['image'] = self::_doDecoration($linkArray['image']);
             $registry->setEntry('link_array', $linkArray);
-        }*/
+        }
     }
 
-    function eventTitleDecoration()
+    public function eventTitleDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -85,7 +90,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function eventAlttitleDecoration()
+    public function eventAlttitleDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -96,7 +101,12 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function _doDecoration($string)
+    /**
+     * @param $string
+     *
+     * @return mixed
+     */
+    private function _doDecoration($string)
     {
         $registry =& MymenusRegistry::getInstance();
         //if (!eregi("{(.*\|.*)}", $string, $reg)) {
@@ -143,6 +153,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $groups = $registry->getEntry('user_groups');
         if ($menu['visible'] == 0 || !array_intersect($menu['groups'], $groups)) {
             $registry->setEntry('has_access', 'no');
+
             return;
         }
         $hooks = array_intersect($menu['hooks'], get_class_methods(__CLASS__));
@@ -150,6 +161,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         foreach ($hooks as $method) {
             if (!self::$method()) {
                 $registry->setEntry('has_access', 'no');
+
                 return;
             }
         }
@@ -168,17 +180,30 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('access_filter', $access_filter);
     }
 
+    /**
+     * @return bool
+     */
     function isOwner()
     {
         $registry =& MymenusRegistry::getInstance();
+
         return ($registry->getEntry('user_uid') != 0 && $registry->getEntry('user_uid') == $registry->getEntry('get_uid')) ? true : false;
     }
 
+    /**
+     * @return bool
+     */
     function isNotOwner()
     {
         return !self::isOwner();
     }
 
+    /**
+     * @param string $type
+     * @param        $value
+     *
+     * @return int
+     */
     function getExtraValue($type = 'user', $value)
     {
         $registry =& MymenusRegistry::getInstance();
@@ -210,8 +235,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry($type, $entry);
 
         unset($criteria);
+
         return $entry[$value];
     }
 }
-
-?>
