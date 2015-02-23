@@ -32,3 +32,5 @@ define('_MI_MYMENUS_HELP_USAGE', "Usage");
 
 define('_MI_MYMENUS_CONF_ADMINPERPAGE',"Admin index items count");
 define('_MI_MYMENUS_CONF_ADMINPERPAGE_DSC',"Number of items to display per page in admin side.");
+define('_MI_MYMENUS_CONF_UNIQUE_ID_PREFIX',"Common prefix when menu is assigned to template");
+define('_MI_MYMENUS_CONF_UNIQUE_ID_PREFIX_DSC',"When 'Display method' is set to 'Assign to template'");

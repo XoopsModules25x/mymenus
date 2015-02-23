@@ -18,10 +18,10 @@
  * @version         $Id: xoops_version.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") || exit("Restricted access");
 
 $modversion['name']           = _MI_MYMENUS_MD_NAME;
-$modversion['version']        = 1.5;
+$modversion['version']        = 1.51;
 $modversion['description']    = _MI_MYMENUS_MD_DESC;
 $modversion['credits']        = "Xuups";
 $modversion['author']         = "Trabis (www.xuups.com)";
@@ -39,8 +39,8 @@ $modversion['official']       = false;
 include_once XOOPS_ROOT_PATH . "/modules/" . $modversion['dirname'] . "/include/constants.php";
 
 // About
-$modversion["module_status"]       = "Beta 4";
-$modversion['release_date']        = '2015/02/20'; // YYYY/mm/dd
+$modversion["module_status"]       = "Beta 3";
+$modversion['release_date']        = '2015/02/23'; // YYYY/mm/dd
 $modversion["module_website_url"] = "www.xoops.org";
 $modversion["module_website_name"] = "XOOPS";
 $modversion["author_website_url"]  = "http://www.xuups.com/";
@@ -88,7 +88,7 @@ $i                              = 0;
 ++$i;
 $modversion['tables'][$i] = $modversion['dirname'] . '_links';
 ++$i;
-$modversion['tables'][$i] = $modversion['dirname'] . 'menus';
+$modversion['tables'][$i] = $modversion['dirname'] . '_menus';
 
 
 
@@ -110,8 +110,8 @@ $modversion['blocks'][$i]['name']        = _MI_MYMENUS_BLK;
 $modversion['blocks'][$i]['description'] = _MI_MYMENUS_BLK_DSC;
 $modversion['blocks'][$i]['show_func']   = "mymenus_block_show";
 $modversion['blocks'][$i]['edit_func']   = "mymenus_block_edit";
-$modversion['blocks'][$i]['options']     = "0|default|0| |block|0";
-$modversion['blocks'][$i]['template']    = $modversion['dirname'] . "_block.html";
+$modversion['blocks'][$i]['options']     = "0|default|0|block|0| ";
+$modversion['blocks'][$i]['template']    = $modversion['dirname'] . "_block.tpl";
 
 
 
@@ -140,6 +140,13 @@ $modversion['config'][$i]['options']     = array(
     _MI_MYMENUS_CONF_ASSIGN_METHOD_XOOPSTPL => 'xoopstpl',
     _MI_MYMENUS_CONF_ASSIGN_METHOD_XOTHEME => 'xotheme'
 );
+++$i;
+$modversion['config'][$i]['name']        = 'unique_id_prefix';
+$modversion['config'][$i]['title']       = '_MI_MYMENUS_CONF_UNIQUE_ID_PREFIX';
+$modversion['config'][$i]['description'] = '_MI_MYMENUS_CONF_UNIQUE_ID_PREFIX_DSC';
+$modversion['config'][$i]['formtype']    = 'text';
+$modversion['config'][$i]['valuetype']   = 'text';
+$modversion['config'][$i]['default']     = 'xoops_menu_';
 
 
 

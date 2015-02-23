@@ -21,7 +21,7 @@
 $currentFile = basename(__FILE__);
 include_once __DIR__ . '/admin_header.php';
 
-$op = XoopsRequest::getString('op', 'list');
+$op = XoopsRequest::getCmd('op', 'list');
 switch ($op) {
     case 'list':
     default:
@@ -119,7 +119,7 @@ switch ($op) {
         } else {
             // NOP
         }
-        $GLOBALS['xoopsTpl']->display($GLOBALS['xoops']->path('modules/mymenus/templates/static/mymenus_admin_menus.html'));
+        $GLOBALS['xoopsTpl']->display($GLOBALS['xoops']->path('modules/mymenus/templates/static/mymenus_admin_menus.tpl'));
         include_once __DIR__ . '/admin_footer.php';
         break;
 
@@ -194,7 +194,7 @@ switch ($op) {
             }
             // Delete links
             $mymenus->getHandler('links')->deleteAll(new Criteria('mid', $id));
-            redirect_header($currentFile, 3, _AM_XNEWSLETTER_FORMDELOK);
+            redirect_header($currentFile, 3, _AM_MYMENUS_MSG_DELETE_MENU_SUCCESS);
         } else {
             xoops_cp_header();
             xoops_confirm(

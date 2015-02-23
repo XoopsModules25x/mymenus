@@ -15,7 +15,7 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: builder.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: builder.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 class MymenusBuilder
 {
@@ -82,10 +82,10 @@ class MymenusBuilder
                 $this->buildMenus($item['id']);
             }
             $this->output[$idx]['cli'] = true;
-            $this->output[$idx]['close'] .= '</li>';
+            $this->output[$idx]['close'] .= "</li>\n";
         }
         $this->output[$idx]['cul'] = true;
-        $this->output[$idx]['close'] .= '</ul>';
+        $this->output[$idx]['close'] .= "</ul>\n";
         $level -= 1;
     }
 
@@ -192,5 +192,4 @@ class MymenusBuilder
 
         return $this->output;
     }
-
 }

@@ -40,34 +40,28 @@ function mymenus_userIsAdmin()
     return $mymenus_isAdmin;
 }
 
-
-
-// IN PROGRESS FORM HERE
-
-
-
 /**
- * @param $skin
- * @param $skin_from_theme
- * @param $skin_theme
+ * @param string $module_skin
+ * @param boolean $use_theme_skin
+ * @param string $theme_skin
  *
  * @return array
  */
-function mymenus_getSkinInfo($skin, $skin_from_theme, $skin_theme)
+function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, $theme_skin = '')
 {
     $error = false;
-    if ($skin_from_theme) {
+    if ($use_theme_skin) {
         $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/menu";
         if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
-            $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/mymenus/skins/{$skin_theme}";
+            $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/mymenus/skins/{$theme_skin}";
             if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
                 $error = true;
             }
         }
     }
 
-    if ($error || !$skin_from_theme) {
-        $path = "modules/mymenus/skins/{$skin}";
+    if ($error || !$use_theme_skin) {
+        $path = "modules/mymenus/skins/{$module_skin}";
     }
 
     $file = $GLOBALS['xoops']->path("{$path}/skin_version.php");
@@ -82,13 +76,13 @@ function mymenus_getSkinInfo($skin, $skin_from_theme, $skin_theme)
     $info['url'] = $GLOBALS['xoops']->url($path);
 
     if (!isset($info['template'])) {
-        $info['template'] = $GLOBALS['xoops']->path("modules/mymenus/templates/static/blocks/mymenus_block.html");
+        $info['template'] = $GLOBALS['xoops']->path("modules/mymenus/templates/static/blocks/mymenus_block.tpl");
     } else {
         $info['template'] = $GLOBALS['xoops']->path("{$path}/" . $info['template']);
     }
 
     if (!isset($info['prefix'])) {
-        $info['prefix'] = $skin;
+        $info['prefix'] = $module_skin;
     }
 
     if (isset($info['css'])) {

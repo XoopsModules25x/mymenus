@@ -14,7 +14,7 @@ stuHover = function () {
     for (var i = 0; i < document.styleSheets.length; i++)
         for (var x = 0; x < document.styleSheets[i].rules.length; x++) {
             cssRule = document.styleSheets[i].rules[x];
-            if (cssRule.selectorText.indexOf("LI:hover") != -1) {
+            if (cssRule.selectorText.indexOf("LI:hover") >= 0) {
                 newSelector = cssRule.selectorText.replace(/LI:hover/gi, "LI.iehover");
                 document.styleSheets[i].addRule(newSelector, cssRule.style.cssText);
             }
@@ -30,4 +30,3 @@ stuHover = function () {
     }
 };
 if (window.attachEvent) window.attachEvent("onload", stuHover);
-

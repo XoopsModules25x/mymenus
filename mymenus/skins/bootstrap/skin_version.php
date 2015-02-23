@@ -15,23 +15,24 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: skin_version.php 12400 2014-03-21 19:35:13Z beckmi $
+ * @version         $Id: skin_version.php 13003 2015-02-20 04:45:42Z zyspec $
  */
 
-$skinversion['template'] = 'templates/template.html';
+$skinversion['template'] = 'templates/template.tpl';
 
 $skinversion['css'] = array(
-    'css/superfish.css',
-    'css/superfish-navbar.css'
+        'css/superfish.css',
+        'css/superfish-navbar.css'
 );
 
 $skinversion['js'] = array(
-    '../../assets/js/jquery-1.3.2.min.js',
-    '../../assets/js/hoverIntent.js',
-    '../../assets/js/superfish.js'
+//        '../../assets/js/jquery-1.11.2.min.js',
+        '../../../../browse.php?Frameworks/jquery/jquery.js',
+        '../../assets/js/hoverIntent.js',
+        '../../assets/js/superfish.js'
 );
 
-$header = "\n" . '<script type="text/javascript">';
+$header  = "\n" . '<script type="text/javascript">';
 $header .= "\n" . '  var $sfnav = jQuery.noConflict()';
 $header .= "\n" . '  $sfnav(function(){';
 $header .= "\n" . '    $sfnav(\'ul.sf-menu\').superfish({';

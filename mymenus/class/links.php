@@ -44,7 +44,7 @@ class MymenusLinks extends XoopsObject
         $this->initVar('mid', XOBJ_DTYPE_INT);
         $this->initVar('title', XOBJ_DTYPE_TXTBOX);
         $this->initVar('alt_title', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('visible', XOBJ_DTYPE_INT, 1);
+        $this->initVar('visible', XOBJ_DTYPE_INT, true);
         $this->initVar('link', XOBJ_DTYPE_TXTBOX);
         $this->initVar('weight', XOBJ_DTYPE_INT, 255);
         $this->initVar('target', XOBJ_DTYPE_TXTBOX);

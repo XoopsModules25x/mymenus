@@ -12,10 +12,10 @@
 /**
  * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @package         Mytabs
+ * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: about.php 0 2009-11-14 18:47:04Z trabis $
+ * @version         $Id: about.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
 include_once __DIR__ . '/admin_header.php';
@@ -27,4 +27,4 @@ $aboutAdmin = new ModuleAdmin();
 echo $aboutAdmin->addNavigation('about.php');
 echo $aboutAdmin->renderAbout('6KJ7RW5DR3VTJ', false);
 
-include 'admin_footer.php';
+include __DIR__ . '/admin_footer.php';

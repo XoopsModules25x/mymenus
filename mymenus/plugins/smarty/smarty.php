@@ -15,10 +15,10 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: smarty.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: smarty.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") or exit("Restricted access");
 
 /**
  * Class SmartyMymenusPluginItem
@@ -26,7 +26,7 @@ defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
 class SmartyMymenusPluginItem extends MymenusPluginItem
 {
 
-    function eventLinkDecoration()
+    public function eventLinkDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -34,7 +34,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function eventImageDecoration()
+    public function eventImageDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -42,7 +42,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function eventTitleDecoration()
+    public function eventTitleDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -50,7 +50,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    function eventAlttitleDecoration()
+    public function eventAlttitleDecoration()
     {
         $registry =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
@@ -63,7 +63,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
      *
      * @return mixed
      */
-    function _doDecoration($string)
+    private function _doDecoration($string)
     {
         $registry =& MymenusRegistry::getInstance();
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
@@ -71,7 +71,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
         }
 
         $expression = $reg[0];
-        list($validator, $value) = array_map('strtolower', explode('|', $reg[1]));
+        list($validator, $value) = array_map('mb_strtolower', explode('|', $reg[1]));
 
         if ($validator == 'smarty') {
             if (isset($GLOBALS['xoopsTpl']->_tpl_vars[$value])) {

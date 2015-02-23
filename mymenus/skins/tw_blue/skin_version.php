@@ -15,10 +15,10 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: skin_version.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: skin_version.php 13003 2015-02-20 04:45:42Z zyspec $
  */
 
-$skinversion['template'] = 'templates/template.html';
-$skinversion['css'] = array('tw_blue.css');
+$skinversion['template'] = 'templates/template.tpl';
+$skinversion['css'] = array('css/tw_blue.css');
 //$skinversion['js'] = array('stuHover.js');
 $skinversion['prefix'] = 'twb';

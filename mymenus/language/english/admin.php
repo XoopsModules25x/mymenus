@@ -35,13 +35,20 @@ define('_AM_MYMENUS_ACTION_UP',"Move menu up");
 define('_AM_MYMENUS_ACTION_DOWN',"Move menu down");
 
 define('_AM_MYMENUS_MSG_ERROR',"Some error has occurred!");
+define('_AM_MYMENUS_MSG_ADD_MENU_ERROR',"Could not create a new menu, please try again!");
+define('_AM_MYMENUS_MSG_DELETE_MENU_ERROR',"Could not delete the menu, please try again!");
+define('_AM_MYMENUS_MSG_EDIT_MENU_ERROR',"Could not edit the menu, please try again!");
+define('_AM_MYMENUS_MSG_MENU_INVALID_ERROR',"An invalid menu was detected, please try again!");
+define('_AM_MYMENUS_MSG_ADD_MENU_SUCCESS',"New Menu created!");
+define('_AM_MYMENUS_MSG_DELETE_MENU_SUCCESS',"Menu deleted successfully!");
+define('_AM_MYMENUS_MSG_EDIT_MENU_SUCCESS',"Menu updated!");
 define('_AM_MYMENUS_MSG_SUCCESS',"Done!");
 define('_AM_MYMENUS_MSG_AYSC',"Are you sure to delete this category?<br />");
 define('_AM_MYMENUS_MSG_AYSL',"Warning: if this link contains sublinks, they will be deleted too.<br />Are you sure to delete it? <br />");
 define('_AM_MYMENUS_MSG_NOTFOUND',"No entries found!");
 define('_AM_MYMENUS_MSG_NOMENUS',"Please create a menu first!");
 
-// 1.5
+// 1.51
 define('_AM_MYMENUS_MENU_TITLE_DESC',"");
 define('_AM_MYMENUS_MENU_CSS_DESC',"");
 
@@ -55,3 +62,8 @@ define('_AM_MYMENUS_MENUS_COUNT_OF',"Filtered menus: %menusFilterCount of %menus
 define('_AM_MYMENUS_MENUS_SUREDEL',"Are you sure to delete '%s' menu and all links?");
 
 define('_AM_MYMENUS_LINKS_LIST',"Items list");
+
+define('_AM_MYMENUS_LINKS_SUREDEL',"Are you sure to delete '%s' link and all sub links?");
+define('_AM_MYMENUS_MSG_DELETE_link_SUCCESS',"Link deleted successfully!");
+
+define('_AM_MYMENUS_MENU_MENU',"Menu");
