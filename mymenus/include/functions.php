@@ -15,79 +15,53 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: functions.php 12940 2015-01-21 17:33:38Z zyspec $
+ * @version         $Id: functions.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-defined("XOOPS_ROOT_PATH") or exit("Restricted access");
+defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+include_once __DIR__ . '/common.php';
 
 /**
- * @param int    $currentoption
- * @param string $breadcrumb
- */
-function mymenus_adminMenu($currentoption = 0, $breadcrumb = '')
-{
-    include_once $GLOBALS['xoops']->path('class/template.php');
-    include $GLOBALS['xoops']->path('modules/mymenus/admin/menu.php');
-
-    xoops_loadLanguage('admin', 'mymenus');
-    xoops_loadLanguage('modinfo', 'mymenus');
-
-    $tpl = new XoopsTpl();
-    $tpl->assign(array('modurl' => $GLOBALS['xoops']->url('modules/mymenus'),
-                   'headermenu' => ((isset($mymenus_headermenu)) ? $mymenus_headermenu : ''),
-                    'adminmenu' => ((isset($mymenus_adminmenu)) ? $mymenus_adminmenu : ''),
-                      'current' => $currentoption,
-                   'breadcrumb' => $breadcrumb,
-              'headermenucount' => ((isset($mymenus_headermenu)) ? count($mymenus_headermenu) : 0))
-    );
-    $tpl->display($GLOBALS['xoops']->path('modules/mymenus/templates/static/mymenus_admin_adminmenu.tpl'));
-}
-
-/**
- * @param string $dirname
+ * Checks if a user is admin of Mymenus
  *
- * @return mixed
+ * @return boolean
  */
-function mymenus_getModuleConfig($dirname = 'mymenus')
+function mymenus_userIsAdmin()
 {
-    static $config;
-    if (!$config) {
-        global $xoopsModule;
-        if (($GLOBALS['xoopsModule'] instanceof XoopsModule) && ($GLOBALS['xoopsModule']->getVar('dirname') == $dirname)) {
-            $config =& $GLOBALS['xoopsModuleConfig'];
-        } else {
-            $hModule =& xoops_gethandler('module');
-            $module = $hModule->getByDirname($dirname);
-            $hConfig =& xoops_gethandler('config');
-            $config = $hConfig->getConfigsByCat(0, $module->getVar('mid'));
-        }
+    global $xoopsUser;
+    $mymenus = MymenusMymenus::getInstance();
+
+    static $mymenus_isAdmin;
+    if (isset($mymenus_isAdmin)) {
+        return $mymenus_isAdmin;
     }
 
-    return $config;
+    $mymenus_isAdmin = (!is_object($xoopsUser)) ? false : $xoopsUser->isAdmin($mymenus->getModule()->getVar('mid'));
+    return $mymenus_isAdmin;
 }
 
 /**
- * @param $skin
- * @param $skin_from_theme
- * @param $skin_theme
+ * @param string $module_skin
+ * @param boolean $use_theme_skin
+ * @param string $theme_skin
  *
  * @return array
  */
-function mymenus_getSkinInfo($skin, $skin_from_theme, $skin_theme)
+function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, $theme_skin = '')
 {
     $error = false;
-    if ($skin_from_theme) {
+    if ($use_theme_skin) {
         $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/menu";
         if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
-            $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/mymenus/skins/{$skin_theme}";
+            $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/mymenus/skins/{$theme_skin}";
             if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
                 $error = true;
             }
         }
     }
 
-    if ($error || !$skin_from_theme) {
-        $path = "modules/mymenus/skins/{$skin}";
+    if ($error || !$use_theme_skin) {
+        $path = "modules/mymenus/skins/{$module_skin}";
     }
 
     $file = $GLOBALS['xoops']->path("{$path}/skin_version.php");
@@ -99,7 +73,7 @@ function mymenus_getSkinInfo($skin, $skin_from_theme, $skin_theme)
     }
 
     $info['path'] = $GLOBALS['xoops']->path($path);
-    $info['url']  = $GLOBALS['xoops']->url($path);
+    $info['url'] = $GLOBALS['xoops']->url($path);
 
     if (!isset($info['template'])) {
         $info['template'] = $GLOBALS['xoops']->path("modules/mymenus/templates/static/blocks/mymenus_block.tpl");
@@ -108,7 +82,7 @@ function mymenus_getSkinInfo($skin, $skin_from_theme, $skin_theme)
     }
 
     if (!isset($info['prefix'])) {
-        $info['prefix'] = $skin;
+        $info['prefix'] = $module_skin;
     }
 
     if (isset($info['css'])) {

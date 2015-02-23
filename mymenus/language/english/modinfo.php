@@ -17,10 +17,20 @@ define('_MI_MYMENUS_MENUMANAGER',"Links manager");
 define('_MI_MYMENUS_ABOUT',"About");
 
 //Configs
-define('_MI_MENUS_CONF_ASSIGN_METHOD',"Assign method");
-define('_MI_MENUS_CONF_ASSIGN_METHOD_DSC',"Method for assigning css and js to header");
-define('_MI_MENUS_CONF_ASSIGN_METHOD_XOOPSTPL',"XoopsTpl");
-define('_MI_MENUS_CONF_ASSIGN_METHOD_XOTHEME',"XoTheme");
+define('_MI_MYMENUS_CONF_ASSIGN_METHOD',"Assign method");
+define('_MI_MYMENUS_CONF_ASSIGN_METHOD_DSC',"Method for assigning css and js to header.");
+define('_MI_MYMENUS_CONF_ASSIGN_METHOD_XOOPSTPL',"XoopsTpl");
+define('_MI_MYMENUS_CONF_ASSIGN_METHOD_XOTHEME',"XoTheme");
 
-//1.4
+// 1.4
     define('_MI_MYMENUS_ADMMENU0','Home');
+
+// 1.5
+define('_MI_MYMENUS_HELP_OVERVIEW', "Overview");
+define('_MI_MYMENUS_HELP_SKINS', "Skins");
+define('_MI_MYMENUS_HELP_USAGE', "Usage");
+
+define('_MI_MYMENUS_CONF_ADMINPERPAGE',"Admin index items count");
+define('_MI_MYMENUS_CONF_ADMINPERPAGE_DSC',"Number of items to display per page in admin side.");
+define('_MI_MYMENUS_CONF_UNIQUE_ID_PREFIX',"Common prefix when menu is assigned to template");
+define('_MI_MYMENUS_CONF_UNIQUE_ID_PREFIX_DSC',"When 'Display method' is set to 'Assign to template'");

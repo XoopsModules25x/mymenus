@@ -60,25 +60,25 @@
     skin_version.php structure:<br>
     <code>
 //informs where to find the template for this skin(relative to skin folder)
-$skinversion['template'] = 'templates/template.tpl';
+$skinversion['template'] = 'templates/template.html';
 
 //informs where to find css file/files
-$skinversion['css'] = 'css/superfish.css';
+$skinversion['css'] = 'assets/css/superfish.css';
     </code>
     or
     <code>
 $skinversion['css'] = array('css/superfish.css', css/anotherone.css);
 
 //informs where to find js file/files
-$skinversion['js'] = '../../js/jquery-1.3.2.min.js';
+$skinversion['js'] = '../../js/assets/jquery-1.3.2.min.js';
     </code>
     or
     <code>
 $skinversion['js'] = array(
 &nbsp;&nbsp;&nbsp;&nbsp;'../../js/jquery-1.3.2.min.js'
-&nbsp;&nbsp;&nbsp;&nbsp;'../../js/hoverIntent.js',
+&nbsp;&nbsp;&nbsp;&nbsp;'../../js/assets/hoverIntent.js',
 &nbsp;&nbsp;&nbsp;&nbsp;'../../js/superfish.js'
-&nbsp;&nbsp;&nbsp;&nbsp;);
+);
 
 //code to be appended in the &lt;head&gt; theme tag
 $header  = "\n" . '&lt;script type="text/javascript"&gt;';

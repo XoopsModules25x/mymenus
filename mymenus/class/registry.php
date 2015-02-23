@@ -15,7 +15,7 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: registry.php 12944 2015-01-23 13:05:09Z beckmi $
+ * @version         $Id: registry.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
 defined("XOOPS_ROOT_PATH") || exit("Restricted access");
@@ -34,13 +34,13 @@ class MymenusRegistry
     protected function __construct()
     {
         $this->_entries = array();
-        $this->_locks   = array();
+        $this->_locks = array();
     }
 
     /**
      * @return object MymenusRegistry
      */
-    public static function getInstance()
+    static public function getInstance()
     {
         static $instance = false;
         if (!$instance) {
@@ -51,7 +51,7 @@ class MymenusRegistry
     }
 
     /**
-     * @todo  move hard coded language string to language file
+     * @TODO: move hard coded language string to language file
      *
      * @param $key
      * @param $item
@@ -136,6 +136,7 @@ class MymenusRegistry
     public function unsetAll()
     {
         $this->_entries = array();
-        $this->_locks   = array();
+        $this->_locks = array();
     }
+
 }

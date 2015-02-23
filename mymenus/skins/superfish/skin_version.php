@@ -15,7 +15,7 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: skin_version.php 12944 2015-01-23 13:05:09Z beckmi $
+ * @version         $Id: skin_version.php 13003 2015-02-20 04:45:42Z zyspec $
  */
 
 $skinversion['template'] = 'templates/template.tpl';
@@ -23,14 +23,14 @@ $skinversion['template'] = 'templates/template.tpl';
 $skinversion['css'] = 'css/superfish.css';
 
 $skinversion['js'] = array('../../../../browse.php?Frameworks/jquery/jquery.js',
-                           // '../../assets/js/jquery-1.11.2.min.js',
-                           '../../assets/js/hoverIntent.js',
-                           '../../assets/js/superfish.js'
-);
+//                             '../../assets/js/jquery-1.11.2.min.js',
+                             '../../assets/js/hoverIntent.js',
+                             '../../assets/js/superfish.js'
+                             );
 
-$header = "\n" . '<script type="text/javascript">';
+$header  = "\n" . '<script type="text/javascript">';
 $header .= "\n" . '  var $sf = jQuery.noConflict()';
-$header .= "\n" . '  $sf(function () {';
+$header .= "\n" . '  $sf(function(){';
 $header .= "\n" . '    $sf(\'ul.sf-menu\').superfish({';
 $header .= "\n" . '       delay:       1000,';
 $header .= "\n" . '       animation:   {opacity:\'show\',height:\'show\'},';
