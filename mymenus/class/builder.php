@@ -15,17 +15,17 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: builder.php 12940 2015-01-21 17:33:38Z zyspec $
+ * @version         $Id: builder.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 class MymenusBuilder
 {
-    var $parents = array();
-    var $output = array();
+    public $parents = array();
+    public $output  = array();
 
     /**
      * @param $array
      */
-    function __construct($array)
+    public function __construct($array)
     {
         $this->addMenu($array);
     }
@@ -33,7 +33,7 @@ class MymenusBuilder
     /**
      * @param $array
      */
-    function addMenu($array)
+    public function addMenu($array)
     {
         foreach ($array as $item) {
             $this->add($item);
@@ -43,7 +43,7 @@ class MymenusBuilder
     /**
      * @param $item
      */
-    function add($item)
+    public function add($item)
     {
         $this->parents[$item['pid']][] = $item;
     }
@@ -51,7 +51,7 @@ class MymenusBuilder
     /**
      * @param int $pid
      */
-    function buildMenus($pid = 0)
+    public function buildMenus($pid = 0)
     {
         static $idx = -1;
         static $level = -1;
@@ -61,21 +61,21 @@ class MymenusBuilder
         foreach ($this->parents[$pid] as $item) {
             $idx += 1;
 
-            $this->output[$idx]['oul'] = false;
-            $this->output[$idx]['oli'] = false;
-            $this->output[$idx]['close'] = '';
-            $this->output[$idx]['cul'] = false;
-            $this->output[$idx]['cli'] = false;
+            $this->output[$idx]['oul']    = false;
+            $this->output[$idx]['oli']    = false;
+            $this->output[$idx]['close']  = '';
+            $this->output[$idx]['cul']    = false;
+            $this->output[$idx]['cli']    = false;
             $this->output[$idx]['hassub'] = false;
-            $this->output[$idx]['level'] = $level;
+            $this->output[$idx]['level']  = $level;
 
             if ($first) {
                 $this->output[$idx]['oul'] = true;
-                $first = false;
+                $first                     = false;
             }
 
             $this->output[$idx]['oli'] = true;
-            $this->output[$idx] = array_merge($item, $this->output[$idx]);
+            $this->output[$idx]        = array_merge($item, $this->output[$idx]);
 
             if (isset($this->parents[$item['id']])) {
                 $this->output[$idx]['hassub'] = true;
@@ -92,19 +92,21 @@ class MymenusBuilder
     /**
      * @param int $pid
      */
-    function buildUpDown($pid = 0)
+    public function buildUpDown($pid = 0)
     {
         static $idx = -1;
         $prevWeight = null;
-        $up = 0;
-        $down = 1;
-        $counter = 0;
-        $count = count($this->parents[$pid]);
+        $up         = 0;
+        $down       = 1;
+        $counter    = 0;
+        $count      = count($this->parents[$pid]);
 
         foreach ($this->parents[$pid] as $item) {
             $idx += 1;
             $counter++;
-            if ($counter == $count) { $down = 0; } // turn off down link for last entry
+            if ($counter == $count) {
+                $down = 0;
+            } // turn off down link for last entry
 
             if ($up) {
                 $this->output[$idx]['up_weight'] = $prevWeight;
@@ -114,7 +116,7 @@ class MymenusBuilder
             }
 
             $prevWeight = $this->output[$idx]['weight'];
-            $up = 1; // turn on up link for all entries after first one
+            $up         = 1; // turn on up link for all entries after first one
 
             if (isset($this->parents[$item['id']])) {
                 $this->buildUpDown($item['id']);
@@ -122,12 +124,12 @@ class MymenusBuilder
         }
     }
 
-    function buildSelected()
+    public function buildSelected()
     {
         //get the currentpage
-        $sel = array();
+        $sel          = array();
         $query_string = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
-        $self = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
+        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
 
         //set a default page in case we don't get matches
         $default = XOOPS_URL . "/index.php";
@@ -147,10 +149,10 @@ class MymenusBuilder
 
         //From those links get only the longer one
         $longlink = "";
-        $longidx = 0;
+        $longidx  = 0;
         foreach ($sel as $idx => $menu) {
             if (strlen($menu['link']) > strlen($longlink)) {
-                $longidx = $idx;
+                $longidx  = $idx;
                 $longlink = $menu['link'];
             }
         }
@@ -160,7 +162,7 @@ class MymenusBuilder
          * longidx is not detected, this IF will prevent blank page
          */
         if (isset($this->output[$longidx])) {
-            $this->output[$longidx]['selected'] = true;
+            $this->output[$longidx]['selected']    = true;
             $this->output[$longidx]['topselected'] = true;
 
             //Now turn all this menu parents to selected
@@ -171,7 +173,7 @@ class MymenusBuilder
     /**
      * @param $pid
      */
-    function addSelectedParents($pid)
+    public function addSelectedParents($pid)
     {
         foreach ($this->output as $idx => $menu) {
             if ($menu['id'] == $pid) {
@@ -184,7 +186,7 @@ class MymenusBuilder
     /**
      * @return array
      */
-    function render()
+    public function render()
     {
         $this->buildMenus();
         $this->buildUpDown();

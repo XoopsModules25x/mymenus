@@ -15,7 +15,7 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: menus.php 12940 2015-01-21 17:33:38Z zyspec $
+ * @version         $Id: menus.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
 defined("XOOPS_ROOT_PATH") || exit("Restricted access");
@@ -28,7 +28,7 @@ class MymenusMenus extends XoopsObject
     /**
      * constructor
      */
-    function __construct()
+    public function __construct()
     {
         $this->initVar("id", XOBJ_DTYPE_INT);
         $this->initVar('title', XOBJ_DTYPE_TXTBOX);
@@ -46,7 +46,7 @@ class MymenusMenusHandler extends XoopsPersistableObjectHandler
     /**
      * @param null|object $db
      */
-    function __construct(&$db)
+    public function __construct(&$db)
     {
         parent::__construct($db, 'mymenus_menus', 'MymenusMenus', 'id', 'title', 'css');
     }

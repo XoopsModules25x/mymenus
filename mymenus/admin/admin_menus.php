@@ -45,7 +45,7 @@ switch ($op) {
         echo $indexAdmin->addNavigation('admin_menus.php');
         //mymenus_adminMenu(0, _MI_MYMENUS_MENUSMANAGER);
         echo mymenus_admin_form($id);
-        include 'admin_footer.php';
+        include_once __DIR__ . '/admin_footer.php';
         break;
     case 'editok':
         mymenus_admin_edit($id);
@@ -67,7 +67,7 @@ switch ($op) {
         xoops_cp_header();
         echo $indexAdmin->addNavigation('admin_menus.php');
         echo mymenus_admin_list($start, $limit);
-        include 'admin_footer.php';
+        include_once __DIR__ . '/admin_footer.php';
         break;
 }
 
@@ -82,7 +82,7 @@ function mymenus_admin_list($start = 0, $limit)
     global $mymenusTpl;
     $myts =& MyTextSanitizer::getInstance();
 
-    $limit = (int) $limit;
+    $limit        = (int)$limit;
     $this_handler =& xoops_getModuleHandler('menus', 'mymenus');
 
     $query = XoopsRequest::getString('query', null, 'POST');
@@ -91,7 +91,7 @@ function mymenus_admin_list($start = 0, $limit)
 
     $criteria = new CriteriaCompo();
     if (!is_null($query)) {
-        $crit = new CriteriaCompo(new Criteria('title', $myts->addSlashes($query).'%','LIKE'));
+        $crit = new CriteriaCompo(new Criteria('title', $myts->addSlashes($query) . '%', 'LIKE'));
         $criteria->add($crit);
     }
 
@@ -138,12 +138,12 @@ function mymenus_admin_del($id, $redir = null)
         redirect_header($GLOBALS['mymenus_adminpage'], 1, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
     }
 
-    if ((int) $id <= 0) {
+    if ((int)$id <= 0) {
         redirect_header($GLOBALS['mymenus_adminpage'], 1);
     }
 
-    $this_handler =& xoops_getModuleHandler('menus' , 'mymenus');
-    $obj = $this_handler->get((int) $id);
+    $this_handler =& xoops_getModuleHandler('menus', 'mymenus');
+    $obj          = $this_handler->get((int)$id);
     if (!is_object($obj)) {
         redirect_header($GLOBALS['mymenus_adminpage'], 1);
     }
@@ -155,12 +155,12 @@ function mymenus_admin_del($id, $redir = null)
         exit();
     }
 
-    $this_handler =& xoops_getModuleHandler('links' , 'mymenus');
-    $criteria = new Criteria('mid', $id);
+    $this_handler =& xoops_getModuleHandler('links', 'mymenus');
+    $criteria     = new Criteria('mid', $id);
     $this_handler->deleteAll($criteria);
     unset($criteria);
 
-    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'] , 2, _AM_MYMENUS_MSG_DELETE_MENU_SUCCESS);
+    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'], 2, _AM_MYMENUS_MSG_DELETE_MENU_SUCCESS);
 }
 
 /**
@@ -175,20 +175,20 @@ function mymenus_admin_delall($redir = null)
     $this_handler =& xoops_getModuleHandler('menus', 'mymenus');
 
     if (!$this_handler->deleteAll()) {
-        redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'] , 2, _AM_MYMENUS_MSG_ERROR);
+        redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'], 2, _AM_MYMENUS_MSG_ERROR);
     }
 
-    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'] , 2, _AM_MYMENUS_MSG_SUCCESS);
+    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'], 2, _AM_MYMENUS_MSG_SUCCESS);
 }
 
 /**
- * @param null   $id
- * @param null   $redir
+ * @param null $id
+ * @param null $redir
  * @param string $op
  */
 function mymenus_admin_confirmdel($id = null, $redir = null, $op = 'delok')
 {
-    $arr = array();
+    $arr       = array();
     $arr['op'] = XoopsFilterInput::clean($op, 'CMD');
     $arr['id'] = XoopsFilterInput::clean($id, 'INT');
     if (!is_null($redir)) {
@@ -205,10 +205,10 @@ function mymenus_admin_add()
         redirect_header($GLOBALS['mymenus_adminpage'], 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
     }
 
-    $this_handler =& xoops_getModuleHandler('menus','mymenus');
-    $obj = $this_handler->create();
+    $this_handler =& xoops_getModuleHandler('menus', 'mymenus');
+    $obj          = $this_handler->create();
     $obj->setVars(array('title' => XoopsRequest::getString('title', '', 'POST'),
-                         'css' => XoopsRequest::getString('css', '', 'POST'))
+                        'css'   => XoopsRequest::getString('css', '', 'POST'))
     );
 
 //    $obj->setVars($_POST);
@@ -230,10 +230,10 @@ function mymenus_admin_edit($id)
     if (!$GLOBALS['xoopsSecurity']->check()) {
         redirect_header($GLOBALS['mymenus_adminpage'], 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
     }
-    $this_handler =& xoops_getmodulehandler('menus','mymenus');
-    $obj = $this_handler->get((int) $id);
+    $this_handler =& xoops_getmodulehandler('menus', 'mymenus');
+    $obj          = $this_handler->get((int)$id);
     $obj->setVars(array('title' => XoopsRequest::getString('title', '', 'POST'),
-                         'css' => XoopsRequest::getString('css', '', 'POST'))
+                        'css'   => XoopsRequest::getString('css', '', 'POST'))
     );
 
 //    $obj->setVars($_POST);
@@ -254,17 +254,17 @@ function mymenus_admin_edit($id)
  */
 function mymenus_admin_form($id = null)
 {
-    $this_handler =& xoops_getmodulehandler('menus','mymenus');
+    $this_handler =& xoops_getmodulehandler('menus', 'mymenus');
 //    $objArray = array();
 
     if (isset($id)) {
-        $ftitle = _EDIT;
-        $id = (int) $id;
-        $obj = $this_handler->get($id);
+        $ftitle   = _EDIT;
+        $id       = (int)$id;
+        $obj      = $this_handler->get($id);
         $objArray = $obj->getValues();
     } else {
-        $ftitle = _ADD;
-        $obj = $this_handler->create();
+        $ftitle   = _ADD;
+        $obj      = $this_handler->create();
         $objArray = $obj->getValues();
     }
 

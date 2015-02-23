@@ -15,13 +15,13 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>, bleekk <bleekk@outlook.com>
- * @version         $Id: admin_links.php 12940 2015-01-21 17:33:38Z zyspec $
+ * @version         $Id: admin_links.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
 include_once __DIR__ . '/admin_header.php';
 
 $menus_handler =& xoops_getModuleHandler('menus', 'mymenus');
-$criteria = new CriteriaCompo();
+$criteria      = new CriteriaCompo();
 $criteria->setSort('id');
 $criteria->setOrder('ASC');
 $menus_list = $menus_handler->getList($criteria);
@@ -34,12 +34,12 @@ if (empty($menus_list)) {
 }
 
 $valid_menu_ids = array_keys($menus_list);
-if (isset($_REQUEST['mid']) && in_array($_REQUEST['mid'], $valid_menu_ids)) {
-    $menu_id = (int) $_REQUEST['mid'];
+if (XoopsRequest::getInt('mid', 0) && in_array(XoopsRequest::getInt('mid', 0), $valid_menu_ids)) {
+    $menu_id    = XoopsRequest::getInt('mid', 0);
     $menu_title = $menus_list[$menu_id];
 } else {
-    $keys = array_keys($menus_list);
-    $menu_id = $valid_menu_ids[0];       //force menu id to first valid menu id in the list
+    $keys       = array_keys($menus_list);
+    $menu_id    = $valid_menu_ids[0];       //force menu id to first valid menu id in the list
     $menu_title = $menus_list[$menu_id]; // and get it's title
 }
 $mymenusTpl->assign('mid', $menu_id);
@@ -111,55 +111,55 @@ switch ($op) {
         break;
     case 'order':
         $order = $_POST['mod'];
-        parse_str($order,$test);
+        parse_str($order, $test);
 
-        $i = 1;
+        /** @var $this_handler MymenusLinksHandler */
+        /** @var $obj XoopsObject */
+        $i            = 1;
         $this_handler =& xoops_getModuleHandler('links', 'mymenus');
-        foreach ($test['mod'] as $order=>$value) {
+        foreach ($test['mod'] as $order => $value) {
+            $obj = $this_handler->get($order);
+            $obj->setVar('weight', ++$i);
 
-             $obj = $this_handler->get($order);
-             $obj->setVar('weight', ++$i);
-
-             /*set submenu*/
-             if (isset($value)) {
+            /*set submenu*/
+            if (isset($value)) {
                 $obj->setVar('pid', $value);
-             } else {
+            } else {
                 $obj->setVar('pid', 0);
-             }
-             $this_handler->insert($obj);
-             $this_handler->update_weights($obj);
-
+            }
+            $this_handler->insert($obj);
+            $this_handler->update_weights($obj);
         }
         break;
     case 'list':
     default:
-    xoops_cp_header();
-    $module_handler =& xoops_gethandler('module');
-    $system =& $module_handler->getByDirname('system');
-    $systemConfigHandler =& xoops_gethandler('config');
-    $systemConfig =& $systemConfigHandler->getConfigsByCat(0, $system->getVar('mid'));
+        xoops_cp_header();
+        $module_handler      =& xoops_gethandler('module');
+        $system              =& $module_handler->getByDirname('system');
+        $systemConfigHandler =& xoops_gethandler('config');
+        $systemConfig        =& $systemConfigHandler->getConfigsByCat(0, $system->getVar('mid'));
 
-    // Add module stylesheet
-    $xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/ui/' . $systemConfig['jquery_theme'] . '/ui.all.css');
-    $xoTheme->addStylesheet(XOOPS_URL . '/modules/mymenus/assets/css/admin.css');
-    $xoTheme->addStylesheet(XOOPS_URL . '/Frameworks/moduleclasses/moduleadmin/css/admin.css');
-    // Define scripts
-    $xoTheme->addScript('browse.php?Frameworks/jquery/plugins/jquery.ui.js');
-    $xoTheme->addScript(XOOPS_URL . '/modules/mymenus/assets/js/nestedSortable.js');
-    //$xoTheme->addScript(XOOPS_URL . '/modules/mymenus/assets/js/switchButton.js');
-    $xoTheme->addScript(XOOPS_URL . '/modules/mymenus/assets/js/order.js');
+        // Add module stylesheet
+        $xoTheme->addStylesheet(XOOPS_URL . '/modules/system/css/ui/' . $systemConfig['jquery_theme'] . '/ui.all.css');
+        $xoTheme->addStylesheet(XOOPS_URL . '/modules/mymenus/assets/css/admin.css');
+        $xoTheme->addStylesheet(XOOPS_URL . '/Frameworks/moduleclasses/moduleadmin/css/admin.css');
+        // Define scripts
+        $xoTheme->addScript('browse.php?Frameworks/jquery/plugins/jquery.ui.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/mymenus/assets/js/nestedSortable.js');
+        //$xoTheme->addScript(XOOPS_URL . '/modules/mymenus/assets/js/switchButton.js');
+        $xoTheme->addScript(XOOPS_URL . '/modules/mymenus/assets/js/order.js');
 
-    echo $indexAdmin->addNavigation('admin_links.php');
-    echo mymenus_admin_list($start, $menu_id);
+        echo $indexAdmin->addNavigation('admin_links.php');
+        echo mymenus_admin_list($start, $menu_id);
 
-    /* Disable xoops debugger in dialog window */
-    include_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
-    $xoopsLogger            =& XoopsLogger::getInstance();
-    $xoopsLogger->activated = true;
-    error_reporting(-1);
+        /* Disable xoops debugger in dialog window */
+        include_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+        $xoopsLogger            =& XoopsLogger::getInstance();
+        $xoopsLogger->activated = true;
+        error_reporting(-1);
 
-    include __DIR__ . '/admin_footer.php';
-    break;
+        include __DIR__ . '/admin_footer.php';
+        break;
 
 }
 
@@ -174,26 +174,26 @@ switch ($op) {
 function mymenus_admin_list($start = 0, $menu_id)
 {
     global $mymenusTpl;
-
+    /** @var $links_handler MymenusLinksHandler */
     $links_handler =& xoops_getModuleHandler('links', 'mymenus');
 
-    $criteria = new CriteriaCompo(new Criteria('mid', (int) $menu_id));
+    $criteria = new CriteriaCompo(new Criteria('mid', (int)$menu_id));
 
     $count_links = $links_handler->getCount($criteria);
     $mymenusTpl->assign('count', $count_links);
     $criteria->setSort('weight');
     $criteria->setOrder('ASC');
 
-    $menus = array();
+    $menus      = array();
     $menusArray = array();
-    if (($count_links > 0) && ($count_links >= (int) $start)) {
-        $criteria->setStart((int) $start);
+    if (($count_links > 0) && ($count_links >= (int)$start)) {
+        $criteria->setStart((int)$start);
         $menus = $links_handler->getObjects($criteria);
         foreach ($menus as $menu) {
             $array[] = $menu->getValues();
         }
         include_once $GLOBALS['xoops']->path('modules/mymenus/class/builder.php');
-        $builder = new MymenusBuilder($array);
+        $builder    = new MymenusBuilder($array);
         $menusArray = $builder->render();
         $mymenusTpl->assign('menus', $menusArray);
     }
@@ -213,13 +213,13 @@ function mymenus_admin_del($id, $redir = null)
         redirect_header($GLOBALS['mymenus_adminpage'], 1, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
     }
 
-    $id = (int) $id;
+    $id = (int)$id;
     if ($id <= 0) {
         redirect_header($GLOBALS['mymenus_adminpage'], 1);
     }
 
-    $this_handler =& xoops_getModuleHandler('links' , 'mymenus');
-    $obj = $this_handler->get($id);
+    $this_handler =& xoops_getModuleHandler('links', 'mymenus');
+    $obj          = $this_handler->get($id);
     if ((empty($obj)) || !($obj instanceof MymenusLinks)) {
         redirect_header($GLOBALS['mymenus_adminpage'], 1);
     }
@@ -227,13 +227,13 @@ function mymenus_admin_del($id, $redir = null)
     //get sub item
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('id', $id));
-    $criteria->add(new Criteria('pid', $id),'OR');
+    $criteria->add(new Criteria('pid', $id), 'OR');
 
     //first delete links level 2
 //    global $xoopsDB;
-    $query = "DELETE FROM " . $GLOBALS['xoopsDB']->prefix("mymenus_links")." WHERE pid = (
+    $query  = "DELETE FROM " . $GLOBALS['xoopsDB']->prefix("mymenus_links") . " WHERE pid = (
     SELECT id FROM (
-    SELECT * FROM " . $GLOBALS['xoopsDB']->prefix("mymenus_links")." WHERE pid = {$id}) AS sec
+    SELECT * FROM " . $GLOBALS['xoopsDB']->prefix("mymenus_links") . " WHERE pid = {$id}) AS sec
     );";
     $result = $GLOBALS['xoopsDB']->queryF($query);
     //delete links level 0 and 1
@@ -244,7 +244,7 @@ function mymenus_admin_del($id, $redir = null)
         exit();
     }
 
-    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'] , 2, _AM_MYMENUS_MSG_SUCCESS);
+    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'], 2, _AM_MYMENUS_MSG_SUCCESS);
 }
 
 /**
@@ -256,23 +256,22 @@ function mymenus_admin_delall($redir = null)
         redirect_header($GLOBALS['mymenus_adminpage'], 1, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
     }
 
-    $this_handler =& xoops_getModuleHandler('links' , 'mymenus');
+    $this_handler =& xoops_getModuleHandler('links', 'mymenus');
 
     if (!$this_handler->deleteAll()) {
-        redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'] , 2, _AM_MYMENUS_MSG_ERROR);
+        redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'], 2, _AM_MYMENUS_MSG_ERROR);
     }
 
-    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'] , 2, _AM_MYMENUS_MSG_SUCCESS);
+    redirect_header(!is_null($redir) ? base64_decode($redir) : $GLOBALS['mymenus_adminpage'], 2, _AM_MYMENUS_MSG_SUCCESS);
 }
 
 /**
- * @param null   $id
- * @param null   $redir
+ * @param null $id
+ * @param null $redir
  * @param string $op
  */
 function mymenus_admin_confirmdel($id = null, $redir = null, $op = 'delok')
 {
-
     $arr = array('op' => $op,
                  'id' => $id
     );
@@ -285,24 +284,28 @@ function mymenus_admin_confirmdel($id = null, $redir = null, $op = 'delok')
     xoops_cp_footer();
 }
 
+/**
+ * @param $menu_id
+ */
 function mymenus_admin_add($menu_id)
 {
     if (!$GLOBALS['xoopsSecurity']->check()) {
         redirect_header($GLOBALS['mymenus_adminpage'], 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
     }
-
-    $links_handler =& xoops_getModuleHandler('links','mymenus');
+    /** @var $links_handler MymenusLinksHandler */
+    $links_handler =& xoops_getModuleHandler('links', 'mymenus');
 //    $criteria = new CriteriaCompo(new Criteria('mid', $_POST['mid']));
     $criteria = new CriteriaCompo(new Criteria('mid', $menu_id));
     $criteria->setSort('weight');
     $criteria->setOrder('DESC');
     $criteria->setLimit(1);
-    $menus = $links_handler->getObjects($criteria);
+    $menus  = $links_handler->getObjects($criteria);
     $weight = 1;
     if (isset($menus[0]) && ($menus[0] instanceof MymenusLinks)) {
         $weight = $menus[0]->getVar('weight') + 1;
     }
 
+    /** @var $link_obj XoopsObject */
     $link_obj = $links_handler->create();
     if (!isset($_POST['hooks'])) {
         $_POST['hooks'] = array();
@@ -334,21 +337,22 @@ function mymenus_admin_edit($id, $menu_id)
     if (empty($menu_id)) {
         redirect_header($GLOBALS['mymenus_adminpage'] . "?op=list", 2, _AM_MYMENUS_MSG_MENU_INVALID_ERROR);
     }
-
-    $menu_id       = (int) $menu_id;
-    $links_handler =& xoops_getModuleHandler('links','mymenus');
-    $link_obj     = $links_handler->get((int) $id);
+    /** @var $links_handler MymenusLinksHandler */
+    /** @var $obj XoopsObject */
+    $menu_id       = (int)$menu_id;
+    $links_handler =& xoops_getModuleHandler('links', 'mymenus');
+    $link_obj      = $links_handler->get((int)$id);
 
     //if this was moved then parent could be in different menu, if so then set parent to top level
-    if (!empty($_POST['pid'])) {
+    if (XoopsRequest::getInt('pid', '', 'POST')) {
         $parent_obj = $links_handler->get($link_obj->getVar('pid'));  //get the parent oject
-        if(($parent_obj instanceof MylinksLinks) && ($link_obj->getVar('mid') != $parent_obj->getVar('mid'))) {
+        if (($parent_obj instanceof MyMenusLinks) && ($link_obj->getVar('mid') != $parent_obj->getVar('mid'))) {
             $link_obj->setVar('pid', 0);
         }
     }
     /* Disable xoops debugger in dialog window */
     include_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
-    $xoopsLogger =& XoopsLogger::getInstance();
+    $xoopsLogger            =& XoopsLogger::getInstance();
     $xoopsLogger->activated = false;
     error_reporting(0);
 
@@ -368,72 +372,76 @@ function mymenus_admin_edit($id, $menu_id)
  * @param null $id
  * @param null $pid
  *
+ * @param null $menu_id
  * @return string
  */
 function mymenus_admin_form($id = null, $pid = null, $menu_id = null)
 {
+    /** @var $menus_handler MymenusLinksHandler */
+    /** @var $this_handler MymenusLinksHandler */
+    /** @var $link_obj XoopsObject */
+
     /* Disable xoops debugger in dialog window */
     include_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
-    $xoopsLogger =& XoopsLogger::getInstance();
+    $xoopsLogger            =& XoopsLogger::getInstance();
     $xoopsLogger->activated = false;
     error_reporting(0);
 
     global $pathIcon16;
 
     $registry =& MymenusRegistry::getInstance();
-    $plugin =& MymenusPlugin::getInstance();
+    $plugin   =& MymenusPlugin::getInstance();
 
-    $this_handler =& xoops_getModuleHandler('links','mymenus');
-    $objArray = array();
+    $this_handler =& xoops_getModuleHandler('links', 'mymenus');
+    $objArray     = array();
 
     if (isset($id)) {
-        $ftitle = _EDIT;
-        $obj = $this_handler->get((int) $id);
+        $ftitle   = _EDIT;
+        $obj      = $this_handler->get((int)$id);
         $objArray = $obj->getValues();
-
     } else {
-        $ftitle = _ADD;
-        $obj = $this_handler->create();
+        $ftitle   = _ADD;
+        $obj      = $this_handler->create();
         $objArray = $obj->getValues();
         if (isset($pid)) {
-            $objArray['pid'] = (int) $pid;
+            $objArray['pid'] = (int)$pid;
         }
         if (isset($menu_id)) {
-            $objArray['mid'] = (int) $menu_id;
+            $objArray['mid'] = (int)$menu_id;
         }
     }
-    $form = new XoopsThemeForm($ftitle, 'admin_form', $GLOBALS['mymenus_adminpage'], "post", true);
-    $formtitle = new XoopsFormText(_AM_MYMENUS_MENU_TITLE, 'title', 50, 255, $objArray['title']);
+    $form         = new XoopsThemeForm($ftitle, 'admin_form', $GLOBALS['mymenus_adminpage'], "post", true);
+    $formtitle    = new XoopsFormText(_AM_MYMENUS_MENU_TITLE, 'title', 50, 255, $objArray['title']);
     $formalttitle = new XoopsFormText(_AM_MYMENUS_MENU_ALTTITLE, 'alt_title', 50, 255, $objArray['alt_title']);
     // display menu options (if more than 1 menu available
     $menus_handler =& xoops_getmodulehandler('menus', 'mymenus');
-    $criteria = new CriteriaCompo();
+    $criteria      = new CriteriaCompo();
     $criteria->setSort('title');
     $criteria->setOrder('ASC');
     $menus_list = $menus_handler->getList($criteria);
-    if (count($menus_list > 1)) {
+    if (count($menus_list) > 1) {
         if (null == $objArray['mid']) { // initial menu value not set
             $menu_values = array_flip($menu_list);
-            $formmid = new XoopsFormSelect('Menu', 'mid', array_shift($menu_values));
+            $formmid     = new XoopsFormSelect('Menu', 'mid', array_shift($menu_values));
         } else {
             $formmid = new XoopsFormSelect('Menu', 'mid', $objArray['mid']);
         }
         $formmid->addOptionArray($menus_list);
     } else {
-        $menu_keys = array_keys($menu_list);
+        $menu_keys  = array_keys($menu_list);
         $menu_title = array_shift($menu_list);
-        $formmid = new XoopsFormElementTray('Menu');
+        $formmid    = new XoopsFormElementTray('Menu');
         $formmid->addElement(new XoopsFormHidden('mid', $menu_keys[0]));
         $formmid->addElement(new XoopsFormLabel('', $menu_title, 'menu_title'));
     }
     $formlink  = new XoopsFormText(_AM_MYMENUS_MENU_LINK, 'link', 50, 255, $objArray['link']);
-    $formimage  = new XoopsFormText(_AM_MYMENUS_MENU_IMAGE, 'image', 50, 255, $objArray['image']);
+    $formimage = new XoopsFormText(_AM_MYMENUS_MENU_IMAGE, 'image', 50, 255, $objArray['image']);
 
-    $statontxt  = "&nbsp;<img src='{$pathIcon16}/1.png' alt='" ._YES . "' />&nbsp;" . _YES . "&nbsp;&nbsp;&nbsp;";
+    $statontxt  = "&nbsp;<img src='{$pathIcon16}/1.png' alt='" . _YES . "' />&nbsp;" . _YES . "&nbsp;&nbsp;&nbsp;";
     $statofftxt = "&nbsp;<img src='{$pathIcon16}/0.png' alt='" . _NO . "' />&nbsp;" . _NO . "&nbsp;";
-    $formvis = new XoopsFormRadioYN(_AM_MYMENUS_MENU_VISIBLE, 'visible', $objArray['visible'], $statontxt, $statofftxt);
+    $formvis    = new XoopsFormRadioYN(_AM_MYMENUS_MENU_VISIBLE, 'visible', $objArray['visible'], $statontxt, $statofftxt);
 
-    $formtarget  = new XoopsFormSelect(_AM_MYMENUS_MENU_TARGET, "target", $objArray['target']);
+    $formtarget = new XoopsFormSelect(_AM_MYMENUS_MENU_TARGET, "target", $objArray['target']);
     $formtarget->addOption("_self", _AM_MYMENUS_MENU_TARG_SELF);
     $formtarget->addOption("_blank", _AM_MYMENUS_MENU_TARG_BLANK);
     $formtarget->addOption("_parent", _AM_MYMENUS_MENU_TARG_PARENT);
@@ -442,7 +450,7 @@ function mymenus_admin_form($id = null, $pid = null, $menu_id = null)
     $formgroups = new XoopsFormSelectGroup(_AM_MYMENUS_MENU_GROUPS, "groups", true, $objArray['groups'], 5, true);
     $formgroups->setDescription(_AM_MYMENUS_MENU_GROUPS_HELP);
 
-    $formcss  = new XoopsFormText(_AM_MYMENUS_MENU_CSS, 'css', 50, 255, $objArray['css']);
+    $formcss = new XoopsFormText(_AM_MYMENUS_MENU_CSS, 'css', 50, 255, $objArray['css']);
 
     $form->addElement($formtitle, true);
     $form->addElement($formalttitle);
@@ -456,7 +464,7 @@ function mymenus_admin_form($id = null, $pid = null, $menu_id = null)
     $form->addElement($formhooks);
     $form->addElement($formcss);
 
-    $tray = new XoopsFormElementTray('' ,'');
+    $tray = new XoopsFormElementTray('', '');
     $tray->addElement(new XoopsFormButton('', 'submit_button', _SUBMIT, 'submit'));
 
     $btn = new XoopsFormButton('', 'reset', _CANCEL, 'button');
@@ -489,9 +497,11 @@ function mymenus_admin_form($id = null, $pid = null, $menu_id = null)
  */
 function mymenus_admin_move($id, $weight)
 {
+    /** @var $this_handler MymenusLinksHandler */
+    /** @var $obj XoopsObject */
     $this_handler =& xoops_getModuleHandler('links', 'mymenus');
-    $obj = $this_handler->get((int) $id);
-    $obj->setVar('weight', (int) $weight);
+    $obj          = $this_handler->get((int)$id);
+    $obj->setVar('weight', (int)$weight);
     $this_handler->insert($obj);
     $this_handler->update_weights($obj);
 }
@@ -503,12 +513,14 @@ function mymenus_admin_move($id, $weight)
 function mymenus_admin_toggle($id, $visible)
 {
     include_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
-    $xoopsLogger =& XoopsLogger::getInstance();
+    $xoopsLogger            =& XoopsLogger::getInstance();
     $xoopsLogger->activated = true;
     error_reporting(0);
 
+    /** @var $this_handler MymenusLinksHandler */
     $this_handler =& xoops_getModuleHandler('links', 'mymenus');
-    $obj = $this_handler->get((int) $id);
+    /** @var $obj XoopsObject */
+    $obj     = $this_handler->get((int)$id);
     $visible = (1 == $obj->getVar('visible')) ? 0 : 1;
     $obj->setVar('visible', $visible);
     $this_handler->insert($obj);
