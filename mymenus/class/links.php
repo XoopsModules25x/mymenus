@@ -15,10 +15,10 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: links.php 12408 2014-03-25 08:47:48Z beckmi $
+ * @version         $Id: links.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 include_once dirname(__DIR__) . '/include/common.php';
 
 /**
@@ -35,10 +35,10 @@ class MymenusLinks extends XoopsObject
     /**
      * constructor
      */
-    function __construct()
+    public function __construct()
     {
         $this->mymenus = MymenusMymenus::getInstance();
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db      = XoopsDatabaseFactory::getDatabaseConnection();
         $this->initVar('id', XOBJ_DTYPE_INT);
         $this->initVar('pid', XOBJ_DTYPE_INT);
         $this->initVar('mid', XOBJ_DTYPE_INT);
@@ -57,9 +57,9 @@ class MymenusLinks extends XoopsObject
     /**
      * @return bool
      */
-    function checkAccess()
+    public function checkAccess()
     {
-        $hooks = $this->getHooks();
+        $hooks              = $this->getHooks();
         $hooks['mymenus'][] = 'checkAccess';
         foreach ($hooks as $hookname => $hook) {
             if (!mymenus_hook($hookname, 'checkAccess', array('links' => $this))) {
@@ -73,16 +73,18 @@ class MymenusLinks extends XoopsObject
     /**
      * @return array
      */
-    function getHooks()
+    public function getHooks()
     {
-        $ret = array();
+        $ret  = array();
         $data = $this->getVar('hooks', 'n');
-        if (!$data) return $ret;
+        if (!$data) {
+            return $ret;
+        }
         $lines = explode("\n", $data);
         foreach ($lines as $line) {
-            $line = trim($line);
-            $line = explode('|', $line);
-            $hook = trim($line[0]);
+            $line   = trim($line);
+            $line   = explode('|', $line);
+            $hook   = trim($line[0]);
             $method = isset($line[1]) ? trim($line[1]) : '';
             //$info = split(',', trim($line[0]));
             $ret[$hook][] = $method;
@@ -104,9 +106,9 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
     private $mymenus = null;
 
     /**
-     * @param null|object   $db
+     * @param null|object $db
      */
-    function __construct($db)
+    public function __construct($db)
     {
         parent::__construct($db, 'mymenus_links', 'MymenusLinks', 'id', 'title');
         $this->mymenus = MymenusMymenus::getInstance();
@@ -115,7 +117,7 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
     /**
      * @param $obj
      */
-    function update_weights(&$obj)
+    public function update_weights(&$obj)
     {
         $sql = "UPDATE " . $this->table . " SET weight = weight+1";
         $sql .= " WHERE";
@@ -132,7 +134,7 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
         //$sql .= " AND pid = " . $obj->getVar('pid');
         $sql .= " ORDER BY weight ASC";
         $result = $this->db->query($sql);
-        $i = 1;  //lets start at 1 please!
+        $i      = 1;  //lets start at 1 please!
         while (list($id) = $this->db->fetchrow($result)) {
             $sql = "UPDATE " . $this->table;
             $sql .= " SET weight = {$i}";

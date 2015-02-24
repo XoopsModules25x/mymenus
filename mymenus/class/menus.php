@@ -18,7 +18,7 @@
  * @version         $Id: menus.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 include_once dirname(__DIR__) . '/include/common.php';
 
 /**
@@ -35,10 +35,10 @@ class MymenusMenus extends XoopsObject
     /**
      * constructor
      */
-    function __construct()
+    public function __construct()
     {
         $this->mymenus = MymenusMymenus::getInstance();
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db      = XoopsDatabaseFactory::getDatabaseConnection();
         $this->initVar('id', XOBJ_DTYPE_INT);
         $this->initVar('title', XOBJ_DTYPE_TXTBOX);
         $this->initVar('css', XOBJ_DTYPE_TXTBOX);
@@ -47,7 +47,7 @@ class MymenusMenus extends XoopsObject
     /**
      * Get {@link XoopsThemeForm} for adding/editing items
      *
-     * @param bool          $action
+     * @param bool $action
      * @return object       {@link XoopsThemeForm}
      */
     public function getForm($action = false)
@@ -62,7 +62,7 @@ class MymenusMenus extends XoopsObject
         }
         //
         $isAdmin = mymenus_userIsAdmin();
-        $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
+        $groups  = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
         //
         $title = $this->isNew() ? _AM_MYMENUS_MENUS_ADD : _AM_MYMENUS_MENUS_EDIT;
         //
@@ -86,7 +86,7 @@ class MymenusMenus extends XoopsObject
         if ($this->isNew()) {
             // NOP
         } else {
-            $form->addElement(new XoopsFormHidden('id', (int) $this->getVar('id')));
+            $form->addElement(new XoopsFormHidden('id', (int)$this->getVar('id')));
             //
             $button_delete = new XoopsFormButton('', '', _DELETE, 'submit');
             $button_delete->setExtra('onclick="this.form.elements.op.value=\'delete\'"');
@@ -117,9 +117,9 @@ class MymenusMenusHandler extends XoopsPersistableObjectHandler
     private $mymenus = null;
 
     /**
-     * @param null|object   $db
+     * @param null|object $db
      */
-    function __construct($db)
+    public function __construct($db)
     {
         parent::__construct($db, 'mymenus_menus', 'MymenusMenus', 'id', 'title', 'css');
         $this->mymenus = MymenusMymenus::getInstance();

@@ -15,7 +15,7 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: index.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: index.php
  */
 
 $currentFile = basename(__FILE__);
@@ -28,4 +28,4 @@ $indexAdmin = new ModuleAdmin();
 echo $indexAdmin->addNavigation('index.php');
 echo $indexAdmin->renderIndex();
 
-include 'admin_footer.php';
+include __DIR__ . '/admin_footer.php';

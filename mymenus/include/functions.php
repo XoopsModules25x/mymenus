@@ -18,7 +18,7 @@
  * @version         $Id: functions.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 include_once __DIR__ . '/common.php';
 
 /**
@@ -49,11 +49,13 @@ function mymenus_userIsAdmin()
  */
 function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, $theme_skin = '')
 {
+    include_once __DIR__ . '/common.php';
+    $mymenus = MymenusMymenus::getInstance();
     $error = false;
     if ($use_theme_skin) {
         $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/menu";
         if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
-            $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/mymenus/skins/{$theme_skin}";
+            $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$theme_skin}";
             if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
                 $error = true;
             }
@@ -61,7 +63,7 @@ function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, 
     }
 
     if ($error || !$use_theme_skin) {
-        $path = "modules/mymenus/skins/{$module_skin}";
+        $path = "modules/{$mymenus->dirname}/skins/{$module_skin}";
     }
 
     $file = $GLOBALS['xoops']->path("{$path}/skin_version.php");
@@ -73,10 +75,10 @@ function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, 
     }
 
     $info['path'] = $GLOBALS['xoops']->path($path);
-    $info['url'] = $GLOBALS['xoops']->url($path);
+    $info['url']  = $GLOBALS['xoops']->url($path);
 
     if (!isset($info['template'])) {
-        $info['template'] = $GLOBALS['xoops']->path("modules/mymenus/templates/static/blocks/mymenus_block.tpl");
+        $info['template'] = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/templates/static/blocks/mymenus_block.tpl");
     } else {
         $info['template'] = $GLOBALS['xoops']->path("{$path}/" . $info['template']);
     }
@@ -86,14 +88,14 @@ function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, 
     }
 
     if (isset($info['css'])) {
-        $info['css'] = (array) $info['css'];
+        $info['css'] = (array)$info['css'];
         foreach ($info['css'] as $key => $value) {
             $info['css'][$key] = $GLOBALS['xoops']->url("{$path}/{$value}");
         }
     }
 
     if (isset($info['js'])) {
-        $info['js'] = (array) $info['js'];
+        $info['js'] = (array)$info['js'];
         foreach ($info['js'] as $key => $value) {
             $info['js'][$key] = $GLOBALS['xoops']->url("{$path}/{$value}");
         }

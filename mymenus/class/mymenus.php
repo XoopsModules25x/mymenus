@@ -22,12 +22,12 @@
 
 class MymenusMymenus
 {
-    protected $dirname;
-    protected $module;
-    protected $handler;
-    protected $config;
-    protected $debug;
-    protected $debugArray = array();
+    public $dirname;
+    public $module;
+    public $handler;
+    public $config;
+    public $debug;
+    public $debugArray = array();
 
     /**
      * @param $debug
@@ -43,7 +43,7 @@ class MymenusMymenus
      *
      * @return MymenusMymenus
      */
-    static function &getInstance($debug = false)
+    public static function &getInstance($debug = false)
     {
         static $instance = false;
         if (!$instance) {
@@ -53,7 +53,7 @@ class MymenusMymenus
         return $instance;
     }
 
-    function &getModule()
+    public function &getModule()
     {
         if ($this->module == null) {
             $this->initModule();
@@ -67,7 +67,7 @@ class MymenusMymenus
      *
      * @return null
      */
-    function getConfig($name = null)
+    public function getConfig($name = null)
     {
         if ($this->config == null) {
             $this->initConfig();
@@ -93,7 +93,7 @@ class MymenusMymenus
      *
      * @return mixed
      */
-    function setConfig($name = null, $value = null)
+    public function setConfig($name = null, $value = null)
     {
         if ($this->config == null) {
             $this->initConfig();
@@ -109,7 +109,7 @@ class MymenusMymenus
      *
      * @return mixed
      */
-    function &getHandler($name)
+    public function &getHandler($name)
     {
         if (!isset($this->handler[$name . '_handler'])) {
             $this->initHandler($name);
@@ -119,7 +119,7 @@ class MymenusMymenus
         return $this->handler[$name . '_handler'];
     }
 
-    function initModule()
+    public function initModule()
     {
         global $xoopsModule;
         if (isset($xoopsModule) && is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $this->dirname) {
@@ -131,7 +131,7 @@ class MymenusMymenus
         $this->addLog('INIT MODULE');
     }
 
-    function initConfig()
+    public function initConfig()
     {
         $this->addLog('INIT CONFIG');
         $hModConfig   = xoops_gethandler('config');
@@ -141,7 +141,7 @@ class MymenusMymenus
     /**
      * @param $name
      */
-    function initHandler($name)
+    public function initHandler($name)
     {
         $this->addLog('INIT ' . $name . ' HANDLER');
         $this->handler[$name . '_handler'] = xoops_getModuleHandler($name, $this->dirname);
@@ -150,7 +150,7 @@ class MymenusMymenus
     /**
      * @param $log
      */
-    function addLog($log)
+    public function addLog($log)
     {
         if ($this->debug) {
             if (is_object($GLOBALS['xoopsLogger'])) {

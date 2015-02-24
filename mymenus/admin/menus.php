@@ -15,7 +15,7 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: menus.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: menus.php
  */
 
 $currentFile = basename(__FILE__);
@@ -43,7 +43,7 @@ switch ($op) {
         if ($menusCount > 0) {
             // get filter parameters
             $filter_menus_title_condition = XoopsRequest::getString('filter_menus_title_condition', '');
-            $filter_menus_title = XoopsRequest::getString('filter_menus_title', '');
+            $filter_menus_title           = XoopsRequest::getString('filter_menus_title', '');
             //
             $menusCriteria = new CriteriaCompo();
             //
@@ -53,23 +53,23 @@ switch ($op) {
                     switch ($filter_menus_title_condition) {
                         case 'CONTAINS':
                         default:
-                            $pre = '%';
-                            $post = '%';
+                            $pre      = '%';
+                            $post     = '%';
                             $function = 'LIKE';
                             break;
                         case 'MATCHES':
-                            $pre = '';
-                            $post = '';
+                            $pre      = '';
+                            $post     = '';
                             $function = '=';
                             break;
                         case 'STARTSWITH':
-                            $pre = '';
-                            $post = '%';
+                            $pre      = '';
+                            $post     = '%';
                             $function = 'LIKE';
                             break;
                         case 'ENDSWITH':
-                            $pre = '%';
-                            $post = '';
+                            $pre      = '%';
+                            $post     = '';
                             $function = 'LIKE';
                             break;
                     }
@@ -94,7 +94,7 @@ switch ($op) {
                 $linklist .= "&filter_menus_title_condition={$filter_menus_title_condition}";
                 $linklist .= "&filter_menus_title={$filter_menus_title}";
                 $pagenavObj = new XoopsPageNav($itemFilterCount, $limit, $start, 'start', $linklist);
-                $pagenav = $pagenavObj->renderNav(4);
+                $pagenav    = $pagenavObj->renderNav(4);
             } else {
                 $pagenav = '';
             }
@@ -119,7 +119,7 @@ switch ($op) {
         } else {
             // NOP
         }
-        $GLOBALS['xoopsTpl']->display($GLOBALS['xoops']->path('modules/mymenus/templates/static/mymenus_admin_menus.tpl'));
+        $GLOBALS['xoopsTpl']->display($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/templates/static/mymenus_admin_menus.tpl"));
         include_once __DIR__ . '/admin_footer.php';
         break;
 
@@ -148,25 +148,25 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        $id = XoopsRequest::getInt('id', 0, 'POST');
+        $id         = XoopsRequest::getInt('id', 0, 'POST');
         $isNewMenus = ($id == 0) ? true : false;
         //
         $menus_title = XoopsRequest::getString('title', '', 'POST');
-        $menus_css = XoopsRequest::getString('css', '', 'POST');
+        $menus_css   = XoopsRequest::getString('css', '', 'POST');
         //
         $menusObj = $mymenus->getHandler('menus')->get($id);
         //
         $menusObj->setVar('title', $menus_title);
         $menusObj->setVar('css', $menus_css);
         //
-        if(!$mymenus->getHandler('menus')->insert($menusObj)) {
+        if (!$mymenus->getHandler('menus')->insert($menusObj)) {
             // ERROR
             xoops_cp_header();
             echo $menusObj->getHtmlErrors();
             xoops_cp_footer();
             exit();
         }
-        $id = (int) $menusObj->getVar('id');
+        $id = (int)$menusObj->getVar('id');
         //
         if ($isNewMenus) {
             // NOP
@@ -178,7 +178,7 @@ switch ($op) {
         break;
 
     case 'delete':
-        $id = XoopsRequest::getInt('id', null);
+        $id       = XoopsRequest::getInt('id', null);
         $menusObj = $mymenus->getHandler('menus')->get($id);
         if (XoopsRequest::getBool('ok', false, 'POST') == true) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -202,7 +202,7 @@ switch ($op) {
                 $_SERVER['REQUEST_URI'],
                 sprintf(_AM_MYMENUS_MENUS_SUREDEL, $menusObj->getVar('title'))
             );
-        include_once __DIR__ . '/admin_footer.php';
+            include_once __DIR__ . '/admin_footer.php';
         }
         break;
 }
