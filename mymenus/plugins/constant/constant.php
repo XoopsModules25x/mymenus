@@ -15,7 +15,7 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: constant.php 12940 2015-01-21 17:33:38Z zyspec $
+ * @version         $Id: constant.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
 defined("XOOPS_ROOT_PATH") || exit("Restricted access");
@@ -28,32 +28,32 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
 
     public function eventLinkDecoration()
     {
-        $registry =& MymenusRegistry::getInstance();
-        $linkArray = $registry->getEntry('link_array');
+        $registry          =& MymenusRegistry::getInstance();
+        $linkArray         = $registry->getEntry('link_array');
         $linkArray['link'] = self::_doDecoration($linkArray['link']);
         $registry->setEntry('link_array', $linkArray);
     }
 
     public function eventImageDecoration()
     {
-        $registry =& MymenusRegistry::getInstance();
-        $linkArray = $registry->getEntry('link_array');
+        $registry           =& MymenusRegistry::getInstance();
+        $linkArray          = $registry->getEntry('link_array');
         $linkArray['image'] = self::_doDecoration($linkArray['image']);
         $registry->setEntry('link_array', $linkArray);
     }
 
     public function eventTitleDecoration()
     {
-        $registry =& MymenusRegistry::getInstance();
-        $linkArray = $registry->getEntry('link_array');
+        $registry           =& MymenusRegistry::getInstance();
+        $linkArray          = $registry->getEntry('link_array');
         $linkArray['title'] = self::_doDecoration($linkArray['title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
     public function eventAlttitleDecoration()
     {
-        $registry =& MymenusRegistry::getInstance();
-        $linkArray = $registry->getEntry('link_array');
+        $registry               =& MymenusRegistry::getInstance();
+        $linkArray              = $registry->getEntry('link_array');
         $linkArray['alt_title'] = self::_doDecoration($linkArray['alt_title']);
         $registry->setEntry('link_array', $linkArray);
     }
@@ -77,11 +77,10 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
 
         if ('CONSTANT' == $validator) {
             if (defined($value)) {
-               $string = str_replace($expression, constant($value), $string);
+                $string = str_replace($expression, constant($value), $string);
             }
         }
 
         return isset($string) ? $string : null;
     }
-
 }

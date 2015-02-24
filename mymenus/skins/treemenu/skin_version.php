@@ -18,11 +18,9 @@
  * @version         $Id: skin_version.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-$skinversion['template'] = 'templates/template.html';
-$skinversion['css'] = array('treemenu.css');
-$skinversion['js'] = array('simpletreemenu.js');
+$skinversion['template'] = 'templates/template.tpl';
+$skinversion['css']      = array('treemenu.css');
+$skinversion['js']       = array('simpletreemenu.js');
 
 //$skinversion['header'] = '';
 //$skinversion['prefix'] = 'sf';
-
-?>

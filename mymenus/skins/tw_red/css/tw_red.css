@@ -3,10 +3,9 @@
     width: 960px;
     color: #44433f;
     font: 14px "Futura Medium", "Myriad Pro", "Gill Sans", Helvetica,
-        Verdana, Arial, sans-serif;
-    margin: 0px auto;
-    margin-left: -10px;
-    padding: 0px 0px 0px 0px;
+    Verdana, Arial, sans-serif;
+    margin: 0 auto 0 -10px;
+    padding: 0 0 0 0;
     background-color: #551418;
     background: #fff url(../images/nav-bg.png) repeat-x;
 }
@@ -21,20 +20,20 @@
 }
 
 .wrapper1 p {
-    margin: 0px 0px 17px;
-    padding: 0px;
+    margin: 0 0 17px;
+    padding: 0;
     line-height: 18px;
 }
 
 .wrapper2 {
-    margin: 0px auto;
-    padding: 0px;
+    margin: 0 auto;
+    padding: 0;
     height: 31px;
 }
 
 #navigation {
     margin: auto;
-    padding: 0px;
+    padding: 0;
 }
 
 .nav {
@@ -67,7 +66,7 @@
 
 .nav li {
     float: left;
-    padding: 0px 7px;
+    padding: 0 7px;
     background: url(../images/split.png) no-repeat right center;
     position: relative;
     z-index: 1;
@@ -114,17 +113,16 @@ a .menu-right {
     float: left;
 }
 
-.nav li a:hover .menu-left,.nav li.active a .menu-left,.nav li:hover a .menu-left,.nav li a:hover .menu-mid,.nav li.active a .menu-mid,.nav li:hover a .menu-mid,.nav li a:hover .menu-right,.nav li.active a .menu-right,.nav li:hover a .menu-right
-    {
-    background-position: 0px -37px;
+.nav li a:hover .menu-left, .nav li.active a .menu-left, .nav li:hover a .menu-left, .nav li a:hover .menu-mid, .nav li.active a .menu-mid, .nav li:hover a .menu-mid, .nav li a:hover .menu-right, .nav li.active a .menu-right, .nav li:hover a .menu-right {
+    background-position: 0 -37px;
     line-height: 35px;
 }
 
-.nav li a:hover,.nav li.active a,.nav li.hover a,.nav li:hover a {
+.nav li a:hover, .nav li.active a, .nav li.hover a, .nav li:hover a {
     color: #8B1409;
 }
 
-.nav li:hover .sub,.nav li.hover .sub {
+.nav li:hover .sub, .nav li.hover .sub {
     display: block;
 }
 
@@ -139,27 +137,27 @@ a .menu-right {
 }
 
 .nav li .sub ul li {
-    margin: 0px;
+    margin: 0;
 }
 
 .nav li ul {
     background: url(../images/submenu_bg.png) repeat-y;
     width: 162px;
     height: auto;
-    margin: 0px;
-    padding: 0px 12px 10px;
+    margin: 0;
+    padding: 0 12px 10px;
     list-style: none;
     font-size: 14px;
 }
 
-.nav li:hover li,.nav li.active li {
+.nav li:hover li, .nav li.active li {
     width: 100%;
-    padding: 1px 0px 2px;
+    padding: 1px 0 2px;
     border-bottom: 1px #f0c1c2 dashed;
     background: none !important;
 }
 
-.nav li:hover li a,.nav li.active li a {
+.nav li:hover li a, .nav li.active li a {
     color: #8B1409;
     background: none !important;
     line-height: normal;
@@ -168,7 +166,7 @@ a .menu-right {
     text-indent: 1px;
 }
 
-.nav li:hover li a:hover,.nav li.active li a:hover {
+.nav li:hover li a:hover, .nav li.active li a:hover {
     color: #fff;
     background: #000099 !important;
     text-decoration: none;
@@ -176,7 +174,7 @@ a .menu-right {
 }
 
 /*IE*/
-.nav li li a:hover,.nav li li a:hover {
+.nav li li a:hover, .nav li li a:hover {
     color: #fff;
     background: #000099 !important;
     text-decoration: none;
@@ -191,4 +189,5 @@ a .menu-right {
     overflow: hidden;
     clear: both;
 }
+
 /*-----------------------------------*/

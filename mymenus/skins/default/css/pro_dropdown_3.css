@@ -8,11 +8,13 @@ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
 This stylesheet and the associated (x)html may be modified in any
 way to fit your requirements.
 =================================================================== */
-.default_preload1 { /*background: url(three_0a.gif);*/
+.default_preload1 {
+    /*background: url(three_0a.gif);*/
 
 }
 
-.default_preload2 { /*background: url(three_1a.gif);*/
+.default_preload2 {
+    /*background: url(three_1a.gif);*/
 
 }
 
@@ -47,7 +49,8 @@ way to fit your requirements.
     font-weight: bold;
     padding: 0 0 0 12px;
     cursor: pointer;
-    /*background-color:#ddd;*/ /*background: url(three_0.gif);*/
+    /*background-color:#ddd;*/
+    /*background: url(three_0.gif);*/
 }
 
 #default_nav li a.default_top_link span {
@@ -66,20 +69,17 @@ way to fit your requirements.
     background: url(../images/arrow_down_white.gif) 90% 50% no-repeat;
 }
 
-#default_nav li:hover a.default_top_link,#default_nav li a.default_selected
-    {
+#default_nav li:hover a.default_top_link, #default_nav li a.default_selected {
     color: #846add;
     background-color: #ddd;
     border-bottom: 3px solid #846add;
 }
 
-#default_nav li:hover a.default_top_link span,#default_nav li a.default_selected span
-    {
+#default_nav li:hover a.default_top_link span, #default_nav li a.default_selected span {
     background-color: #ddd;
 }
 
-#default_nav li:hover a.default_top_link span.default_down,#default_nav li a.default_selected span.default_down
-    {
+#default_nav li:hover a.default_top_link span.default_down, #default_nav li a.default_selected span.default_down {
     background: #ddd url(../images/arrow_down_purple.gif) no-repeat 90% 50%;
 }
 
@@ -137,7 +137,7 @@ way to fit your requirements.
     color: #fff;
 }
 
-/*couleur des titres dans les menus déroulés*/
+/*couleur des titres dans les menus dÃ©roulÃ©s*/
 #default_nav li b {
     display: block;
     font-size: 11px;
@@ -151,8 +151,7 @@ way to fit your requirements.
     cursor: default;
 }
 
-#default_nav li:hover li:hover ul,#default_nav li:hover li:hover li:hover ul,#default_nav li:hover li:hover li:hover li:hover ul,#default_nav li:hover li:hover li:hover li:hover li:hover ul
-    {
+#default_nav li:hover li:hover ul, #default_nav li:hover li:hover li:hover ul, #default_nav li:hover li:hover li:hover li:hover ul, #default_nav li:hover li:hover li:hover li:hover li:hover ul {
     left: 90px;
     top: -4px;
     background: #e9e9e9;
@@ -164,8 +163,7 @@ way to fit your requirements.
     height: auto;
 }
 
-#default_nav ul,#default_nav li:hover ul ul,#default_nav li:hover li:hover ul ul,#default_nav li:hover li:hover li:hover ul ul,#default_nav li:hover li:hover li:hover li:hover ul ul
-    {
+#default_nav ul, #default_nav li:hover ul ul, #default_nav li:hover li:hover ul ul, #default_nav li:hover li:hover li:hover ul ul, #default_nav li:hover li:hover li:hover li:hover ul ul {
     position: absolute;
     left: -9999px;
     top: -9999px;
@@ -176,19 +174,18 @@ way to fit your requirements.
     list-style: none;
 }
 
-#default_nav li:hover li:hover a.default_fly,#default_nav li:hover li:hover li:hover a.default_fly,#default_nav li:hover li:hover li:hover li:hover a.default_fly,#default_nav li:hover li:hover li:hover li:hover li:hover a.default_fly
-    {
+#default_nav li:hover li:hover a.default_fly, #default_nav li:hover li:hover li:hover a.default_fly, #default_nav li:hover li:hover li:hover li:hover a.default_fly, #default_nav li:hover li:hover li:hover li:hover li:hover a.default_fly {
     background: #c6c7c9 url(../images/arrow_over.gif) 80px 6px no-repeat;
     color: #fff;
     border-color: #fff;
 }
 
-#default_nav li:hover li:hover li a.default_fly,#default_nav li:hover li:hover li:hover li a.default_fly,#default_nav li:hover li:hover li:hover li:hover li a.default_fly
-    {
+#default_nav li:hover li:hover li a.default_fly, #default_nav li:hover li:hover li:hover li a.default_fly, #default_nav li:hover li:hover li:hover li:hover li a.default_fly {
     background: #e9e9e9 url(../images/arrow.gif) 80px 6px no-repeat;
     color: #000;
     border-color: #e9e9e9;
 }
+
 /*
 #xo-globalnav {
     min-height:             28px;

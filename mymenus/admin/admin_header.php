@@ -15,34 +15,53 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: admin_header.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: admin_header.php
  */
 
 include_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
-include_once dirname(__DIR__) . '/include/common.php';
-
+include_once $GLOBALS['xoops']->path('www/include/cp_functions.php');
 // Include xoops admin header
-include_once XOOPS_ROOT_PATH . '/include/cp_header.php';
+include_once $GLOBALS['xoops']->path('www/include/cp_header.php');
+include_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
 
-$pathIcon16 = XOOPS_URL . '/' . $mymenus->getModule()->getInfo('icons16');
-$pathIcon32 = XOOPS_URL . '/' . $mymenus->getModule()->getInfo('icons32');
-$pathModuleAdmin = XOOPS_ROOT_PATH . '/' . $mymenus->getModule()->getInfo('dirmoduleadmin');
-require_once $pathModuleAdmin . '/moduleadmin/moduleadmin.php';
+xoops_load('XoopsRequest');
 
-// Load language files
-xoops_loadLanguage('admin', $mymenus->getModule()->dirname());
-xoops_loadLanguage('modinfo', $mymenus->getModule()->dirname());
-xoops_loadLanguage('main', $mymenus->getModule()->dirname());
+//$moduleDirName = $GLOBALS['xoopsModule']->getVar('dirname');
+include_once dirname(__DIR__) . '/include/common.php';
+//$mymenus = MymenusMymenus::getInstance($debug);
 
-if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
-    include_once(XOOPS_ROOT_PATH . '/class/template.php');
+$pathIcon16      = $GLOBALS['xoops']->url('www/' . $GLOBALS['xoopsModule']->getInfo('systemIcons16'));
+$pathIcon32      = $GLOBALS['xoops']->url('www/' . $GLOBALS['xoopsModule']->getInfo('systemIcons32'));
+$xoopsModuleAdminPath = $GLOBALS['xoops']->path('www/' . $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin'));
+require_once "{$xoopsModuleAdminPath}/moduleadmin/moduleadmin.php";
+
+
+$myts =& MyTextSanitizer::getInstance();
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+    include_once $GLOBALS['xoops']->path("/class/template.php");
     $xoopsTpl = new XoopsTpl();
 }
 
+$GLOBALS['xoopsTpl']->assign('pathIcon16', $pathIcon16);
+$GLOBALS['xoopsTpl']->assign('pathIcon32', $pathIcon32);
+
+// Load language files
+xoops_loadLanguage('admin', $mymenus->dirname);
+xoops_loadLanguage('modinfo', $mymenus->dirname);
+xoops_loadLanguage('main', $mymenus->dirname);
+
 include_once $GLOBALS['xoops']->path('class/template.php');
-include_once $GLOBALS['xoops']->path('modules/mymenus/include/functions.php');
-include_once $GLOBALS['xoops']->path('modules/mymenus/class/registry.php');
-include_once $GLOBALS['xoops']->path('modules/mymenus/class/plugin.php');
+include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");
+include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");
+include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/plugin.php");
+
+
+//Module specific elements
+//include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");
+//include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/config.php");
+
+//Handlers
+//$XXXHandler =& xoops_getModuleHandler('XXX', $mymenus->dirname);
 
 //$mymenusTpl = new XoopsTpl();
 
@@ -57,9 +76,9 @@ $pathIcon32 = '../' . $xoopsModule->getInfo('icons32');
 $indexAdmin = new ModuleAdmin();
 
 include_once $GLOBALS['xoops']->path('class/template.php');
-include_once $GLOBALS['xoops']->path('modules/mymenus/include/functions.php');
-include_once $GLOBALS['xoops']->path('modules/mymenus/class/registry.php');
-include_once $GLOBALS['xoops']->path('modules/mymenus/class/plugin.php');
+include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");
+include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");
+include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/plugin.php");
 
 $mymenusTpl = new XoopsTpl();
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {

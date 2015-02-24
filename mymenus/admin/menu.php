@@ -15,39 +15,41 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: menu.php 0 2010-07-21 18:47:04Z trabis $
+ * @version         $Id: menu.php
  */
 
-defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-$module_handler = xoops_gethandler('module');
-$module = $module_handler->getByDirname(basename(dirname(__DIR__)));
-$pathIcon32 = '../../' . $module->getInfo('icons32');
 
-xoops_loadLanguage('admin', $module->dirname());
+$moduleDirName = basename(dirname(__DIR__));
+$moduleHandler = &xoops_gethandler("module");
+$xoopsModule   = &XoopsModule::getByDirname($moduleDirName);
+$moduleInfo    = &$moduleHandler->get($xoopsModule->getVar("mid"));
+$pathIcon32    = '../../' . $moduleInfo->getInfo('systemIcons32');
+
+xoops_loadLanguage('admin', $moduleDirName);
 
 $adminmenu = array(
     array(
         'title' => _MI_MYMENUS_ADMMENU0,
-        'link' => 'admin/index.php',
-        'icon' => "{$pathIcon32}/home.png"
+        'link'  => 'admin/index.php',
+        'icon'  => "{$pathIcon32}/home.png"
     ),
     array(
         'title' => _MI_MYMENUS_MENUSMANAGER,
-        'link' => "admin/menus.php",
-        'icon' => "{$pathIcon32}/manage.png"
+        'link'  => "admin/menus.php",
+        'icon'  => "{$pathIcon32}/manage.png"
     ),
     array(
         'title' => _MI_MYMENUS_MENUMANAGER,
-        'link' => "admin/links.php",
-        'icon' => "{$pathIcon32}/insert_table_row.png"
+        'link'  => "admin/links.php",
+        'icon'  => "{$pathIcon32}/insert_table_row.png"
     ),
     array(
         'title' => _MI_MYMENUS_ABOUT,
-        'link' => "admin/about.php",
-        'icon' => "{$pathIcon32}/about.png"
+        'link'  => "admin/about.php",
+        'icon'  => "{$pathIcon32}/about.png"
     )
 );
 
 //$mymenus_adminmenu = $adminmenu;
-unset($i);

@@ -15,7 +15,7 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: about.php 12940 2015-01-21 17:33:38Z zyspec $
+ * @version         $Id: about.php
  */
 
 include_once __DIR__ . '/admin_header.php';

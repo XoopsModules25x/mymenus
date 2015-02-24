@@ -15,7 +15,7 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: dynamic.php 12940 2015-01-21 17:33:38Z zyspec $
+ * @version         $Id: dynamic.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
 defined("XOOPS_ROOT_PATH") or exit("Restricted access");
@@ -26,17 +26,17 @@ defined("XOOPS_ROOT_PATH") or exit("Restricted access");
 class DynamicMymenusPluginItem extends MymenusPluginItem
 {
 
-    function eventEnd()
+    public function eventEnd()
     {
-        $newmenus='';
+        $newmenus = '';
         $registry =& MymenusRegistry::getInstance();
-        $menus = $registry->getEntry('menus');
+        $menus    = $registry->getEntry('menus');
         foreach ($menus as $menu) {
             if (!preg_match('/{(MODULE\|.*)}/i', $menu['title'], $reg)) {
                 $newmenus[] = $menu;
                 continue;
             }
-            $result = array_map('mb_strtolower', explode('|', $reg[1]));
+            $result      = array_map('mb_strtolower', explode('|', $reg[1]));
             $moduleMenus = self::_getModuleMenus($result[1], $menu['pid']);
             foreach ($moduleMenus as $mMenu) {
                 $newmenus[] = $mMenu;
@@ -51,7 +51,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
      *
      * @return array
      */
-    function _getModuleMenus($module, $pid)
+    public function _getModuleMenus($module, $pid)
     {
         global $xoopsModule, $xoopsModuleConfig;
         static $id = -1;
@@ -72,9 +72,9 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         xoops_loadLanguage('modinfo', $module);
 
         $overwrite = false;
-        if ($force = true) {  //can set to false for debug
+        if ($force == true) {  //can set to false for debug
             if (!($xoopsModule instanceof XoopsModule) || ($xoopsModule->getVar('dirname') != $module)) {
-// @TODO: check the following 2 statements, they're basically just assigns - is this intended?
+                // @TODO: check the following 2 statements, they're basically just assigns - is this intended?
                 $_xoopsModule           = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
                 $_xoopsModuleConfig     = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
                 $module_handler         =& xoops_gethandler('module');
@@ -94,11 +94,11 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         $handler = xoops_getModuleHandler('links', 'mymenus');
         foreach ($modversion['sub'] as $links) {
             $obj = $handler->create();
-            $obj->setVars(array('title' => $links['name'],
-                            'alt_title' => $links['name'],
-                                 'link' => $GLOBALS['xoops']->url("{$path}/{$links['url']}"),
-                                   'id' => $id,
-                                  'pid' => (int) $pid)
+            $obj->setVars(array('title'     => $links['name'],
+                                'alt_title' => $links['name'],
+                                'link'      => $GLOBALS['xoops']->url("{$path}/{$links['url']}"),
+                                'id'        => $id,
+                                'pid'       => (int)$pid)
             );
             $ret[] = $obj->getValues();
             $id--;
@@ -113,5 +113,4 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
 
         return $ret;
     }
-
 }
