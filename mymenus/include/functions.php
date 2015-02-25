@@ -26,18 +26,18 @@ include_once __DIR__ . '/common.php';
  *
  * @return boolean
  */
-function mymenus_userIsAdmin()
+function mymenusUserIsAdmin()
 {
     global $xoopsUser;
     $mymenus = MymenusMymenus::getInstance();
 
-    static $mymenus_isAdmin;
-    if (isset($mymenus_isAdmin)) {
-        return $mymenus_isAdmin;
+    static $mymenusIsAdmin;
+    if (isset($mymenusIsAdmin)) {
+        return $mymenusIsAdmin;
     }
 
-    $mymenus_isAdmin = (!is_object($xoopsUser)) ? false : $xoopsUser->isAdmin($mymenus->getModule()->getVar('mid'));
-    return $mymenus_isAdmin;
+    $mymenusIsAdmin = (!is_object($xoopsUser)) ? false : $xoopsUser->isAdmin($mymenus->getModule()->getVar('mid'));
+    return $mymenusIsAdmin;
 }
 
 /**
@@ -47,7 +47,7 @@ function mymenus_userIsAdmin()
  *
  * @return array
  */
-function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, $theme_skin = '')
+function mymenusGetSkinInfo($module_skin = 'default', $use_theme_skin = false, $theme_skin = '')
 {
     include_once __DIR__ . '/common.php';
     $mymenus = MymenusMymenus::getInstance();

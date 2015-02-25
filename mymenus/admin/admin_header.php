@@ -69,7 +69,7 @@ include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/plugin.p
 
 
 //global $xoopsModule;
-$moduleInfo = $module_handler->get($xoopsModule->getVar('mid'));
+$moduleInfo = $moduleHandler->get($xoopsModule->getVar('mid'));
 $pathIcon16 = '../' . $xoopsModule->getInfo('icons16');
 $pathIcon32 = '../' . $xoopsModule->getInfo('icons32');
 

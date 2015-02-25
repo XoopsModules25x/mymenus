@@ -25,16 +25,16 @@ defined("XOOPS_ROOT_PATH") || exit("Restricted access");
  */
 class MymenusRegistry
 {
-    protected $_entries;
-    protected $_locks;
+    protected $entries;
+    protected $locks;
 
     /**
      *
      */
     protected function __construct()
     {
-        $this->_entries = array();
-        $this->_locks   = array();
+        $this->entries = array();
+        $this->locks   = array();
     }
 
     /**
@@ -66,7 +66,7 @@ class MymenusRegistry
             return false;
         }
 
-        $this->_entries[$key] = $item;
+        $this->entries[$key] = $item;
 
         return true;
     }
@@ -76,7 +76,7 @@ class MymenusRegistry
      */
     public function unsetEntry($key)
     {
-        unset($this->_entries[$key]);
+        unset($this->entries[$key]);
     }
 
     /**
@@ -86,11 +86,11 @@ class MymenusRegistry
      */
     public function getEntry($key)
     {
-        if (false == isset($this->_entries[$key])) {
+        if (false == isset($this->entries[$key])) {
             return null;
         }
 
-        return $this->_entries[$key];
+        return $this->entries[$key];
     }
 
     /**
@@ -110,7 +110,7 @@ class MymenusRegistry
      */
     public function lockEntry($key)
     {
-        $this->_locks[$key] = true;
+        $this->locks[$key] = true;
 
         return true;
     }
@@ -120,7 +120,7 @@ class MymenusRegistry
      */
     public function unlockEntry($key)
     {
-        unset($this->_locks[$key]);
+        unset($this->locks[$key]);
     }
 
     /**
@@ -130,12 +130,12 @@ class MymenusRegistry
      */
     public function isLocked($key)
     {
-        return (true == isset($this->_locks[$key]));
+        return (true == isset($this->locks[$key]));
     }
 
     public function unsetAll()
     {
-        $this->_entries = array();
-        $this->_locks   = array();
+        $this->entries = array();
+        $this->locks   = array();
     }
 }

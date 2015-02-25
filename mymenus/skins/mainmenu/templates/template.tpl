@@ -11,7 +11,7 @@
                 <{if $menu.selected}>
                     <{foreach item=sub from=$block}>
                         <{if $menu.id == $sub.pid}>
-                            <{if ($xlanguage && (($menu.title|strstr:$myStr) OR ($menu.image|strstr:$myStr)) OR !$xlanguage)}>
+                            <{if ($xlanguage && (($menu.title|strstr:$myStr) || ($menu.image|strstr:$myStr)) || !$xlanguage)}>
                                 <a class="menuSub marg5<{if $sub.css}> <{$sub.css}><{/if}><{if $sub.selected}> maincurrent<{/if}>" href="<{$sub.link}>" target="<{$sub.target}>" title="<{$sub.alt_title}>">
                                     <{if $sub.image}><img src="<{$sub.image}>" alt="<{$sub.alt_title}>" /><{/if}>
 <{$sub.title}>

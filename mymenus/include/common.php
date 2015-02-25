@@ -19,7 +19,7 @@
  * @version         svn:$id$
  */
 
- defined("XOOPS_ROOT_PATH") || die("XOOPS root path not defined");
+defined("XOOPS_ROOT_PATH") || die("XOOPS root path not defined");
 
 // This must contain the name of the folder in which reside mymenus
 define("MYMENUS_DIRNAME", basename(dirname(__DIR__)));
@@ -43,22 +43,22 @@ xoops_load('XoopsFormLoader');
 // MyTextSanitizer object
 $myts = MyTextSanitizer::getInstance();
 
-$debug       = false;
+$debug   = false;
 $mymenus = MymenusMymenus::getInstance($debug);
 
 //This is needed or it will not work in blocks.
-global $mymenus_isAdmin;
+global $mymenusIsAdmin;
 
 // Load only if module is installed
 if (is_object($mymenus->getModule())) {
     // Find if the user is admin of the module
-    $mymenus_isAdmin = mymenus_userIsAdmin();
+    $mymenusIsAdmin = mymenusUserIsAdmin();
 }
 $xoopsModule = $mymenus->getModule();
 
 // Load Xoops handlers
-$module_handler       = xoops_gethandler('module');
-$member_handler       = xoops_gethandler('member');
-$notification_handler = xoops_gethandler('notification');
-$gperm_handler        = xoops_gethandler('groupperm');
-$config_handler       = xoops_gethandler('config');
+$moduleHandler       = xoops_gethandler('module');
+$memberHandler       = xoops_gethandler('member');
+$notificationHandler = xoops_gethandler('notification');
+$gpermHandler        = xoops_gethandler('groupperm');
+$configHandler       = xoops_gethandler('config');

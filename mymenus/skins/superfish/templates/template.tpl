@@ -14,7 +14,7 @@
             <{/if}>
             <{assign var=myStr value="["|cat:$xoops_langcode|cat:"]"}>
             <{if ($xlanguage && (($menu.title|strstr:$myStr) || ($menu.image|strstr:$myStr)) || !$xlanguage)}>
-                <a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>">
+                <a href="<{$menu.link}>" target="<{$menu.target}>" title="<{$menu.alt_title}>">
                     <{if $main.image}>
                         <img src="<{$menu.image}>" alt="<{$menu.alt_title}>"/>
                     <{/if}><{$menu.title}>
@@ -22,4 +22,4 @@
                 <{if $menu.close != ''}><{$menu.close}><{/if}>
             <{/if}>
             <{/foreach}>
-            <div style="clear: both"></div>
+            <div style="clear: both;"></div>

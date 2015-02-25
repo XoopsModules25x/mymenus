@@ -30,7 +30,7 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
     {
         $registry          =& MymenusRegistry::getInstance();
         $linkArray         = $registry->getEntry('link_array');
-        $linkArray['link'] = self::_doDecoration($linkArray['link']);
+        $linkArray['link'] = self::doDecoration($linkArray['link']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -38,7 +38,7 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
     {
         $registry           =& MymenusRegistry::getInstance();
         $linkArray          = $registry->getEntry('link_array');
-        $linkArray['image'] = self::_doDecoration($linkArray['image']);
+        $linkArray['image'] = self::doDecoration($linkArray['image']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -46,7 +46,7 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
     {
         $registry           =& MymenusRegistry::getInstance();
         $linkArray          = $registry->getEntry('link_array');
-        $linkArray['title'] = self::_doDecoration($linkArray['title']);
+        $linkArray['title'] = self::doDecoration($linkArray['title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -54,7 +54,7 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
     {
         $registry               =& MymenusRegistry::getInstance();
         $linkArray              = $registry->getEntry('link_array');
-        $linkArray['alt_title'] = self::_doDecoration($linkArray['alt_title']);
+        $linkArray['alt_title'] = self::doDecoration($linkArray['alt_title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -63,7 +63,7 @@ class ConstantMymenusPluginItem extends MymenusPluginItem
      *
      * @return mixed
      */
-    protected function _doDecoration($string)
+    protected function doDecoration($string)
     {
         $registry =& MymenusRegistry::getInstance();
 //        $string = '';

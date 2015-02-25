@@ -10,12 +10,12 @@
             <{/if}>
             <{if $menu.oli}>
             <{assign var=myStr value="["|cat:$xoops_langcode|cat:"]"}>
-            <{if ($xlanguage && (($menu.title|strstr:$myStr) OR ($menu.image|strstr:$myStr)) OR !$xlanguage)}>
+            <{if ($xlanguage && (($menu.title|strstr:$myStr) || ($menu.image|strstr:$myStr)) || !$xlanguage)}>
 
             <{if $menu.hassub && $menu.level == 0}>
             <li class="dropdown<{if $menu.selected}> active<{/if}><{if $menu.css}> <{$menu.css}><{/if}>">
-                <a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>">
-                    <{if $menu.image}><img class="menu-image" src="<{$menu.image}>"/> <{/if}>
+                <a href="<{$menu.link}>" target="<{$menu.target}>" title="<{$menu.alt_title}>">
+                    <{if $menu.image}><img class="menu-image" src="<{$menu.image}>" alt="<{$menu.alt_title}>"/> <{/if}>
 <{$menu.title}> <b class="caret"></b>
 </a>
                 <{elseif $menu.hassub && $menu.level == 1}>
@@ -23,8 +23,8 @@
 <{if $menu.selected}>active<{/if}>
 <{if $menu.css}> <{$menu.css}><{/if}>
 <{if $menu.selected || $menu.css}>"<{/if}>>
-                <a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>">
-                    <{if $menu.image}><img class="menu-image" src="<{$menu.image}>"/> <{/if}>
+                <a href="<{$menu.link}>" target="<{$menu.target}>" title="<{$menu.alt_title}>">
+                    <{if $menu.image}><img class="menu-image" src="<{$menu.image}>" alt="<{$menu.alt_title}>" /> <{/if}>
 <{$menu.title}> <i class="glyphicon glyphicon-arrow-right"></i>
 </a>
                 <{else}>
@@ -32,8 +32,8 @@
 <{if $menu.selected}>active<{/if}>
 <{if $menu.css}> <{$menu.css}><{/if}>
 <{if $menu.selected || $menu.css}>"<{/if}>>
-                <a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>">
-                    <{if $menu.image}><img class="menu-image" src="<{$menu.image}>"/> <{/if}>
+                <a href="<{$menu.link}>" target="<{$menu.target}>" title="<{$menu.alt_title}>">
+                    <{if $menu.image}><img class="menu-image" src="<{$menu.image}>" alt="<{$menu.alt_title}>" /> <{/if}>
 <{$menu.title}>
 </a>
 <{/if}>

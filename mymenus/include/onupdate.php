@@ -35,8 +35,8 @@ xoops_loadLanguage('admin', $mymenus->dirname);
 function xoops_module_update_mymenus(&$xoopsModule, $previousVersion)
 {
     if ($previousVersion < 151) {
-        //if (!check_infotemplates($xoopsModule)) return false;
-        if (!check_infotable($xoopsModule)) {
+        //if (!checkInfoTemplates($xoopsModule)) return false;
+        if (!checkInfoTable($xoopsModule)) {
             return false;
         }
         //update_tables_to_150($xoopsModule);
@@ -54,7 +54,7 @@ function xoops_module_update_mymenus(&$xoopsModule, $previousVersion)
  *
  * @return bool
  */
-function check_infotemplates($module)
+function checkInfoTemplates($module)
 {
     $err = true;
     if (!file_exists(XOOPS_ROOT_PATH . "/modules/" . $module->getInfo("dirname") . "/templates/blocks/" . $module->getInfo("dirname") . "_block.tpl")) {
@@ -69,7 +69,7 @@ function check_infotemplates($module)
  *
  * @return bool
  */
-function check_infotable($module)
+function checkInfoTable($module)
 {
     global $xoopsDB;
     $err = true;

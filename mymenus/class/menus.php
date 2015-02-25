@@ -27,7 +27,7 @@ include_once dirname(__DIR__) . '/include/common.php';
 class MymenusMenus extends XoopsObject
 {
     /**
-     * @var Module_skeletonModule_skeleton
+     * @var MymenusMenus
      * @access private
      */
     private $mymenus = null;
@@ -53,7 +53,7 @@ class MymenusMenus extends XoopsObject
     public function getForm($action = false)
     {
         global $xoopsUser;
-        $groupperm_handler = xoops_gethandler('groupperm');
+        $grouppermHandler = xoops_gethandler('groupperm');
         //
         xoops_load('XoopsFormLoader');
         //
@@ -61,7 +61,7 @@ class MymenusMenus extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         //
-        $isAdmin = mymenus_userIsAdmin();
+        $isAdmin = mymenusUserIsAdmin();
         $groups  = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
         //
         $title = $this->isNew() ? _AM_MYMENUS_MENUS_ADD : _AM_MYMENUS_MENUS_EDIT;
@@ -69,37 +69,37 @@ class MymenusMenus extends XoopsObject
         $form = new XoopsThemeForm($title, 'moneusform', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         // menus: title
-        $menus_title_text = new XoopsFormText(_AM_MYMENUS_MENU_TITLE, 'title', 50, 255, $this->getVar('title', 'e'));
-        $menus_title_text->setDescription(_AM_MYMENUS_MENU_TITLE_DESC);
-        $form->addElement($menus_title_text, true);
+        $menusTitleText = new XoopsFormText(_AM_MYMENUS_MENU_TITLE, 'title', 50, 255, $this->getVar('title', 'e'));
+        $menusTitleText->setDescription(_AM_MYMENUS_MENU_TITLE_DESC);
+        $form->addElement($menusTitleText, true);
         // menus: css
-        $menus_css_text = new XoopsFormText(_AM_MYMENUS_MENU_CSS, 'css', 50, 255, $this->getVar('css', 'e'));
-        $menus_css_text->setDescription(_AM_MYMENUS_MENU_CSS_DESC);
-        $form->addElement($menus_css_text, false);
+        $menusCssText = new XoopsFormText(_AM_MYMENUS_MENU_CSS, 'css', 50, 255, $this->getVar('css', 'e'));
+        $menusCssText->setDescription(_AM_MYMENUS_MENU_CSS_DESC);
+        $form->addElement($menusCssText, false);
         // form: button tray
-        $button_tray = new XoopsFormElementTray('', '');
-        $button_tray->addElement(new XoopsFormHidden('op', 'save'));
+        $buttonTray = new XoopsFormElementTray('', '');
+        $buttonTray->addElement(new XoopsFormHidden('op', 'save'));
         //
-        $button_submit = new XoopsFormButton('', '', _SUBMIT, 'submit');
-        $button_submit->setExtra('onclick="this.form.elements.op.value=\'save\'"');
-        $button_tray->addElement($button_submit);
+        $buttonSubmit = new XoopsFormButton('', '', _SUBMIT, 'submit');
+        $buttonSubmit->setExtra('onclick="this.form.elements.op.value=\'save\'"');
+        $buttonTray->addElement($buttonSubmit);
         if ($this->isNew()) {
             // NOP
         } else {
             $form->addElement(new XoopsFormHidden('id', (int)$this->getVar('id')));
             //
-            $button_delete = new XoopsFormButton('', '', _DELETE, 'submit');
-            $button_delete->setExtra('onclick="this.form.elements.op.value=\'delete\'"');
-            $button_tray->addElement($button_delete);
+            $buttonDelete = new XoopsFormButton('', '', _DELETE, 'submit');
+            $buttonDelete->setExtra('onclick="this.form.elements.op.value=\'delete\'"');
+            $buttonTray->addElement($buttonDelete);
         }
-        $button_reset = new XoopsFormButton('', '', _RESET, 'reset');
-        $button_tray->addElement($button_reset);
+        $buttonReset = new XoopsFormButton('', '', _RESET, 'reset');
+        $buttonTray->addElement($buttonReset);
         //
-        $button_cancel = new XoopsFormButton('', '', _CANCEL, 'button');
-        $button_cancel->setExtra('onclick="history.go(-1)"');
-        $button_tray->addElement($button_cancel);
+        $buttonCancel = new XoopsFormButton('', '', _CANCEL, 'button');
+        $buttonCancel->setExtra('onclick="history.go(-1)"');
+        $buttonTray->addElement($buttonCancel);
         //
-        $form->addElement($button_tray);
+        $form->addElement($buttonTray);
         //
         return $form;
     }
