@@ -18,7 +18,7 @@
  * @version         $Id: mymenus.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-if(!defined('XOOPS_ROOT_PATH')) {
+if (!defined('XOOPS_ROOT_PATH')) {
     throw new Exception('XOOPS root path not defined');
 }
 
@@ -30,7 +30,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
     public function eventBoot()
     {
-        $registry       =& MymenusRegistry::getInstance();
+        $registry      =& MymenusRegistry::getInstance();
         $memberHandler =& xoops_getHandler('member');
         xoops_load('XoopsRequest');
 
@@ -75,7 +75,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     {
         $registry  =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
-        if (!empty($linkArray['image']) && !filter_var($linkArray['image'], FILTER_VALIDATE_URL)) {
+        if (($linkArray['image']) && !filter_var($linkArray['image'], FILTER_VALIDATE_URL)) {
             $linkArray['image'] = XOOPS_URL . '/' . $linkArray['image'];
             //Do not do this in other decorators
             $linkArray['image'] = self::doDecoration($linkArray['image']);
@@ -95,7 +95,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     {
         $registry  =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
-        if (empty($linkArray['alt_title'])) {
+        if (!($linkArray['alt_title'])) {
             $linkArray['alt_title'] = $linkArray['title'];
         }
         $linkArray['alt_title'] = self::doDecoration($linkArray['alt_title']);
@@ -173,7 +173,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     public function eventAccessFilter()
     {
         self::loadLanguage('mymenus');
-        $registry                                =& MymenusRegistry::getInstance();
+        $registry                               =& MymenusRegistry::getInstance();
         $accessFilter                           = $registry->getEntry('accessFilter');
         $accessFilter['is_owner']['name']       = _PL_MYMENUS_MYMENUS_ISOWNER;
         $accessFilter['is_owner']['method']     = 'isOwner';
@@ -216,7 +216,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
 
         $entry = $registry->getEntry($type);
-        if (empty($entry)) {
+        if (!($entry)) {
             return $ret;
         }
 

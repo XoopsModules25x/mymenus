@@ -28,7 +28,7 @@ $menusCriteria = new CriteriaCompo();
 $menusCriteria->setSort('id');
 $menusCriteria->setOrder('ASC');
 $menusList = $mymenus->getHandler('menus')->getList($menusCriteria);
-if (empty($menusList)) {
+if (!($menusList)) {
     redirect_header('menus.php', 1, _AM_MYMENUS_MSG_NOMENUS);
 }
 
@@ -224,7 +224,7 @@ class MymenusLinksUtilities
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header($GLOBALS['mymenusAdminPage'], 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        if (empty($mid)) {
+        if (!($mid)) {
             redirect_header($GLOBALS['mymenusAdminPage'] . "?op=list", 2, _AM_MYMENUS_MSG_MENU_INVALID_ERROR);
         }
         //
@@ -270,7 +270,7 @@ class MymenusLinksUtilities
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header($GLOBALS['mymenusAdminPage'], 3, implode('<br />', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        if (empty($mid)) {
+        if (!($mid)) {
             redirect_header($GLOBALS['mymenusAdminPage'] . "?op=list", 2, _AM_MYMENUS_MSG_MENU_INVALID_ERROR);
         }
         //

@@ -139,7 +139,7 @@ class MymenusBuilder
         //get all matching links
         foreach ($this->output as $idx => $menu) {
             $selected = 0;
-            if (!empty($menu['link'])) {
+            if (($menu['link'])) {
                 $selected = (false !== stristr($self, $menu['link'])) ? 1 : $selected;
             }
             $selected = ($menu['link'] == $self) ? 1 : $selected;

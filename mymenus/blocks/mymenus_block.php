@@ -148,7 +148,7 @@ function mymenus_block_show($options)
             }
             $menuCss = trim($menuCss);
         }
-        if (empty($menuCss)) {
+        if (!($menuCss)) {
              $menuCss = "";
         } else {
             $menuCss = implode(' ', $menuCss);
