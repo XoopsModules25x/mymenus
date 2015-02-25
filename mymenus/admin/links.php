@@ -159,7 +159,7 @@ switch ($op) {
         $GLOBALS['xoTheme']->addScript(XOOPS_URL . "/modules/{$mymenus->dirname}/assets/js/nestedSortable.js");
         //$GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/{$mymenus->dirname}/assets/js/switchButton.js');
         $GLOBALS['xoTheme']->addScript(XOOPS_URL . "/modules/{$mymenus->dirname}/assets/js/links.js");
-        echo mymenusAdminList($start, $mid);
+        echo MymenusLinksUtilities::mymenusAdminList($start, $mid);
         // Disable xoops debugger in dialog window
         include_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
         $xoopsLogger            =& XoopsLogger::getInstance();
@@ -209,7 +209,7 @@ class MymenusLinksUtilities
             $mymenusTpl->assign('menus', $menusArray); // not 'menus', 'links' shoult be better
         }
         //
-        $mymenusTpl->assign('addform', mymenusAdminForm(null, null, $mid));
+        $mymenusTpl->assign('addform', MymenusLinksUtilities::mymenusAdminForm(null, null, $mid));
         //
         return $mymenusTpl->fetch($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/templates/static/mymenus_admin_links.tpl"));
     }
