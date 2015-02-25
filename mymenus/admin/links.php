@@ -35,14 +35,14 @@ if (empty($menusList)) {
 $valid_menu_ids = array_keys($menusList);
 $mid            = XoopsRequest::getInt('mid', XoopsRequest::getInt('mid', '', 'POST'), 'GET');
 if ($mid && in_array($mid, $valid_menu_ids)) {
-    $menu_title = $menusList[$mid];
+    $menuTitle = $menusList[$mid];
 } else {
-    $keys       = array_keys($menusList);
-    $mid        = $valid_menu_ids[0]; //force menu id to first valid menu id in the list
-    $menu_title = $menusList[$mid]; // and get it's title
+    $keys      = array_keys($menusList);
+    $mid       = $valid_menu_ids[0]; //force menu id to first valid menu id in the list
+    $menuTitle = $menusList[$mid]; // and get it's title
 }
 $mymenusTpl->assign('mid', $mid);
-$mymenusTpl->assign('menu_title', $menu_title);
+$mymenusTpl->assign('menuTitle', $menuTitle);
 $mymenusTpl->assign('menus_list', $menusList);
 
 $id      = XoopsRequest::getInt('id', 0);
@@ -352,18 +352,18 @@ class MymenusLinksUtilities
         if (count($menusList) > 1) {
             // display menu options (if more than 1 menu available
             if (empty($linksObj->getVar('mid'))) { // initial menu value not set
-                $menu_values = array_flip($menusList);
-                $formmid     = new XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $mid);//array_shift($menu_values));
+                $menuValues = array_flip($menusList);
+                $formmid    = new XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $mid);//array_shift($menuValues));
             } else {
                 $formmid = new XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $linksObj->getVar('mid'));
             }
             $formmid->addOptionArray($menusList);
         } else {
-            $menu_keys  = array_keys($menusList);
-            $menu_title = array_shift($menusList);
-            $formmid    = new XoopsFormElementTray('Menu');
-            $formmid->addElement(new XoopsFormHidden('mid', $menu_keys[0]));
-            $formmid->addElement(new XoopsFormLabel('', $menu_title, 'menu_title'));
+            $menuKeys  = array_keys($menusList);
+            $menuTitle = array_shift($menusList);
+            $formmid   = new XoopsFormElementTray('Menu');
+            $formmid->addElement(new XoopsFormHidden('mid', $menuKeys[0]));
+            $formmid->addElement(new XoopsFormLabel('', $menuTitle, 'menuTitle'));
         }
         $form->addElement($formmid);
         // links: link
@@ -407,16 +407,16 @@ class MymenusLinksUtilities
         $formcss = new XoopsFormText(_AM_MYMENUS_MENU_CSS, 'css', 50, 255, $linksObj->getVar('css'));
         $form->addElement($formcss);
         //
-        $button_tray = new XoopsFormElementTray('', '');
-        $button_tray->addElement(new XoopsFormButton('', 'submit_button', _SUBMIT, 'submit'));
+        $buttonTray = new XoopsFormElementTray('', '');
+        $buttonTray->addElement(new XoopsFormButton('', 'submit_button', _SUBMIT, 'submit'));
         $button = new XoopsFormButton('', 'reset', _CANCEL, 'button');
         if (isset($id)) {
             $button->setExtra("onclick=\"document.location.href='" . $GLOBALS['mymenusAdminPage'] . "?op=list&amp;mid={$mid}'\"");
         } else {
             $button->setExtra("onclick=\"document.getElementById('addform').style.display = 'none'; return false;\"");
         }
-        $button_tray->addElement($button);
-        $form->addElement($button_tray);
+        $buttonTray->addElement($button);
+        $form->addElement($buttonTray);
 
         if (isset($id)) {
             $form->addElement(new XoopsFormHidden('op', 'save'));

@@ -34,7 +34,7 @@ xoops_loadLanguage('admin', $mymenus->dirname);
  * @param int $previousVersion
  * @return bool             FALSE if failed
  */
-function xoops_module_update_mymenus(&$xoopsModule, $previousVersion)
+function xoops_module_update_mymenus(XoopsObject &$xoopsModule, $previousVersion)
 {
     if ($previousVersion < 151) {
         //if (!checkInfoTemplates($xoopsModule)) return false;
@@ -63,7 +63,7 @@ class MymenusUpdater
      *
      * @return bool
      */
-    public static function checkInfoTemplates($module)
+    public static function checkInfoTemplates(XoopsObject $module)
     {
         $err = true;
         if (!file_exists(XOOPS_ROOT_PATH . "/modules/" . $module->getInfo("dirname") . "/templates/blocks/" . $module->getInfo("dirname") . "_block.tpl")) {
@@ -78,7 +78,7 @@ class MymenusUpdater
      *
      * @return bool
      */
-    public static function checkInfoTable($module)
+    public static function checkInfoTable(XoopsObject $module)
     {
 //    global $xoopsDB;
         $err = true;
@@ -193,7 +193,7 @@ class MymenusUpdater
      * @param $module
      * @return bool|null
      */
-    public static function createUpdateTable($table, $tablename, $module)
+    public static function createUpdateTable(array $table, string $tablename, XoopsObject $module)
     {
         if (!InfoTableExists($GLOBALS['xoopsDB']->prefix($module->getInfo("dirname")) . $tablename)) {
             $sql = "CREATE TABLE " . $GLOBALS['xoopsDB']->prefix($module->getInfo("dirname")) . $tablename . " (";
@@ -237,8 +237,7 @@ class MymenusUpdater
 
 }
 
-if (!function_exists("InfoColumnExists"))
-{
+if (!function_exists("InfoColumnExists")) {
     /**
      * @param $tablename
      * @param $spalte
