@@ -128,8 +128,10 @@ class MymenusBuilder
     {
         //get the currentpage
         $sel          = array();
-        $query_string = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
-        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
+//        $query_string = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
+        $query_string = XoopsRequest::getString('QUERY_STRING','', 'SERVER') ? '?' . XoopsRequest::getString('QUERY_STRING','', 'SERVER'): '';
+//        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
+        $self         = 'http://' .  XoopsRequest::getString('HTTP_HOST','', 'SERVER')  .  XoopsRequest::getString('PHP_SELF','', 'SERVER') . $query_string;
 
         //set a default page in case we don't get matches
         $default = XOOPS_URL . "/index.php";

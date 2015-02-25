@@ -61,7 +61,8 @@ class MymenusMenus extends XoopsObject
         xoops_load('XoopsFormLoader');
         //
         if ($action === false) {
-            $action = $_SERVER['REQUEST_URI'];
+//            $action = $_SERVER['REQUEST_URI'];
+            $action = XoopsRequest::getString('REQUEST_URI','', 'SERVER');
         }
         //
         $isAdmin = mymenusUserIsAdmin();

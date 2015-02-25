@@ -31,7 +31,7 @@ switch ($op) {
         $moduleAdmin = new ModuleAdmin();
         echo $moduleAdmin->addNavigation($currentFile);
         // buttons
-        if ($apply_filter == true) {
+        if ($apply_filter === true) {
             $moduleAdmin->addItemButton(_LIST, '?op=list', 'list');
         }
         $moduleAdmin->addItemButton(_ADD, $currentFile . "?op=edit", 'add');
@@ -47,7 +47,7 @@ switch ($op) {
             //
             $menusCriteria = new CriteriaCompo();
             //
-            if ($apply_filter == true) {
+            if ($apply_filter === true) {
                 // evaluate title criteria
                 if ($filter_menus_title != '') {
                     switch ($filter_menus_title_condition) {
@@ -180,7 +180,7 @@ switch ($op) {
     case 'delete':
         $id       = XoopsRequest::getInt('id', null);
         $menusObj = $mymenus->getHandler('menus')->get($id);
-        if (XoopsRequest::getBool('ok', false, 'POST') == true) {
+        if (XoopsRequest::getBool('ok', false, 'POST') === true) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -199,7 +199,8 @@ switch ($op) {
             xoops_cp_header();
             xoops_confirm(
                 array('ok' => true, 'id' => $id, 'op' => 'delete'),
-                $_SERVER['REQUEST_URI'],
+//                $_SERVER['REQUEST_URI'],
+                XoopsRequest::getString('REQUEST_URI','', 'SERVER'),
                 sprintf(_AM_MYMENUS_MENUS_SUREDEL, $menusObj->getVar('title'))
             );
             include_once __DIR__ . '/admin_footer.php';
