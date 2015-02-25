@@ -351,7 +351,7 @@ class MymenusLinksUtilities
         $menusList = $mymenus->getHandler('menus')->getList($menusCriteria);
         if (count($menusList) > 1) {
             // display menu options (if more than 1 menu available
-            if (empty($linksObj->getVar('mid'))) { // initial menu value not set
+            if (!($linksObj->getVar('mid'))) { // initial menu value not set
                 $menuValues = array_flip($menusList);
                 $formmid    = new XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $mid);//array_shift($menuValues));
             } else {
