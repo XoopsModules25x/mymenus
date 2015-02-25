@@ -34,8 +34,8 @@ if (empty($menusList)) {
 }
 
 $valid_menu_ids = array_keys($menusList);
-if (isset($_REQUEST['mid']) && in_array($_REQUEST['mid'], $valid_menu_ids)) {
-    $mid        = (int)$_REQUEST['mid'];
+$mid        = XoopsRequest::getInt('mid', XoopsRequest::getInt('mid', '', 'POST'), 'GET');
+if ($mid && in_array($mid, $valid_menu_ids)) {
     $menu_title = $menusList[$mid];
 } else {
     $keys       = array_keys($menusList);
@@ -128,7 +128,7 @@ switch ($op) {
 
     case 'order':
         $test = array();
-        $order = $_POST['mod'];
+        $order = XoopsRequest::getString('mod', '', 'POST');
         parse_str($order, $test);
         $i = 1;
         foreach ($test['mod'] as $order => $value) {
@@ -231,7 +231,10 @@ function mymenusAdminAdd($mid)
     }
 
     $newLinksObj = $mymenus->getHandler('links')->create();
-    if (!isset($_POST['hooks'])) {
+//    if (!isset($_POST['hooks'])) {
+//        $_POST['hooks'] = array();
+//    }
+    if (!(XoopsRequest::getArray('hooks', null, 'POST'))){
         $_POST['hooks'] = array();
     }
 // @TODO: clean incoming POST vars
@@ -267,7 +270,7 @@ function mymenusAdminSave($id, $mid)
     $linksObj = $mymenus->getHandler('links')->get((int)$id);
 
     //if this was moved then parent could be in different menu, if so then set parent to top level
-    if (!empty($_POST['pid'])) {
+    if (XoopsRequest::getInt('pid', '', 'POST')) {
         $parentLinksObj = $mymenus->getHandler('links')->get($linksObj->getVar('pid'));  //get the parent oject
         if (($parentLinksObj instanceof MylinksLinks) && ($linksObj->getVar('mid') != $parentLinksObj->getVar('mid'))) {
             $linksObj->setVar('pid', 0);

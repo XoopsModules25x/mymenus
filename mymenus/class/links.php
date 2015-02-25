@@ -18,7 +18,9 @@
  * @version         $Id: links.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 include_once dirname(__DIR__) . '/include/common.php';
 
 /**

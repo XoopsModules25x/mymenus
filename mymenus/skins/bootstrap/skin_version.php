@@ -18,14 +18,14 @@
  * @version         $Id: skin_version.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-$skinversion['template'] = 'templates/template.tpl';
+$skinVersion['template'] = 'templates/template.tpl';
 
-$skinversion['css'] = array(
+$skinVersion['css'] = array(
     'css/superfish.css',
     'css/superfish-navbar.css'
 );
 
-$skinversion['js'] = array(
+$skinVersion['js'] = array(
 //        '../../assets/js/jquery-1.11.2.min.js',
 '../../../../browse.php?Frameworks/jquery/jquery.js',
 '../../assets/js/hoverIntent.js',
@@ -41,4 +41,4 @@ $header .= "\n" . '    });';
 $header .= "\n" . '  });';
 $header .= "\n" . '</script>';
 
-$skinversion['header'] = $header;
+$skinVersion['header'] = $header;

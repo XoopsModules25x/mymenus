@@ -18,14 +18,14 @@
  * @version         $Id: skin_version.php 13003 2015-02-20 04:45:42Z zyspec $
  */
 
-$skinversion['template'] = 'templates/template.tpl';
+$skinVersion['template'] = 'templates/template.tpl';
 
-$skinversion['css'] = 'css/style.css';
+$skinVersion['css'] = 'css/style.css';
 /*
- $skinversion['js'] = array();
+ $skinVersion['js'] = array();
 
- $skinversion['header'] = '';
+ $skinVersion['header'] = '';
  */
 
-$skinversion['config']['home'] = true;
-$skinversion['config']['iconset'] = 'default';
+$skinVersion['config']['home']    = true;
+$skinVersion['config']['iconset'] = 'default';

@@ -18,7 +18,10 @@
  * @version         $Id: menus.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
+
 include_once dirname(__DIR__) . '/include/common.php';
 
 /**

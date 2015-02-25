@@ -18,7 +18,7 @@
  * @version         $Id: skin_version.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-$skinversion['template'] = 'templates/template.tpl';
-$skinversion['css'] = array('css/tw_red.css');
-//$skinversion['js'] = array('stuHover.js');
-$skinversion['prefix'] = 'twr';
+$skinVersion['template'] = 'templates/template.tpl';
+$skinVersion['css']      = array('css/tw_red.css');
+//$skinVersion['js'] = array('stuHover.js');
+$skinVersion['prefix'] = 'twr';
