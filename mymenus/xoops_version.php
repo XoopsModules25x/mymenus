@@ -115,7 +115,7 @@ $modversion['blocks'][] = array(
     'description' => _MI_MYMENUS_BLK_DSC,
     'show_func'   => $moduleDirName . '_block_show',
     'edit_func'   => $moduleDirName . '_block_edit',
-    'options'     => "0|default|0| |block|0",
+    'options'     => "0|default|0|block||", // mid|moduleSkin|useThemeSkin|displayMethod|unique_id|themeSkin
     'template'    => $moduleDirName . '_block.tpl'
 );
 
