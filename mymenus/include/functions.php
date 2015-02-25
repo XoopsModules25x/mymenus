@@ -30,7 +30,6 @@ include_once __DIR__ . '/common.php';
  */
 function mymenusUserIsAdmin()
 {
-    global $xoopsUser;
     $mymenus = MymenusMymenus::getInstance();
 
     static $mymenusIsAdmin;
@@ -38,7 +37,7 @@ function mymenusUserIsAdmin()
         return $mymenusIsAdmin;
     }
 
-    $mymenusIsAdmin = (!is_object($xoopsUser)) ? false : $xoopsUser->isAdmin($mymenus->getModule()->getVar('mid'));
+    $mymenusIsAdmin = (!is_object($GLOBALS['xoopsUser'])) ? false : $GLOBALS['xoopsUser']->isAdmin($mymenus->getModule()->getVar('mid'));
     return $mymenusIsAdmin;
 }
 

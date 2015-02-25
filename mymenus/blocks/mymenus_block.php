@@ -17,7 +17,7 @@
  * @version         $Id: mymenus_block.php
  */
 
-if(!defined('XOOPS_ROOT_PATH')) {
+if (!defined('XOOPS_ROOT_PATH')) {
     throw new Exception('XOOPS root path not defined');
 }
 include_once dirname(__DIR__) . '/include/common.php';
@@ -29,7 +29,7 @@ include_once dirname(__DIR__) . '/include/common.php';
  */
 function mymenus_block_show($options)
 {
-    global $xoopsTpl, $xoTheme, $xoopsUser, $xoopsConfig, $xoopsLogger;
+    global $xoopsTpl, $xoopsLogger;
     $mymenus = MymenusMymenus::getInstance();
 
     $block = array();
@@ -113,10 +113,10 @@ function mymenus_block_show($options)
         $GLOBALS['xoopsTpl']->assign('xoops_module_header', $tpl_vars . @$GLOBALS['xoopsTpl']->get_template_vars("xoops_module_header"));
     } else {
         foreach ($cssArray as $file) {
-            $xoTheme->addStylesheet($file);
+            $GLOBALS['xoTheme']->addStylesheet($file);
         }
         foreach ($jsArray as $file) {
-            $xoTheme->addScript($file);
+            $GLOBALS['xoTheme']->addScript($file);
         }
         if (isset($skinInfo['header'])) {
             $GLOBALS['xoopsTpl']->assign('xoops_footer', @$GLOBALS['xoopsTpl']->get_template_vars("xoops_footer") . "\n" . $skinInfo['header']);
@@ -189,7 +189,7 @@ function mymenus_block_edit($options)
         $form = "<a href='" . $GLOBALS['xoops']->url("modules/{$mymenus->dirname}/admin/menus.php") . "'>" . _AM_MYMENUS_MSG_NOMENUS . "</a>\n";
         return $form;
     }
-    $form              = "<b>" . _MB_MYMENUS_SELECT_MENU . "</b>&nbsp;";
+    $form            = "<b>" . _MB_MYMENUS_SELECT_MENU . "</b>&nbsp;";
     $formMenusSelect = new XoopsFormSelect('', "options[0]", $options[0], 1, false);
     $formMenusSelect->addOptionArray($menusList);
     $form .= $formMenusSelect->render();

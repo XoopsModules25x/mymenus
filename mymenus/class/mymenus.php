@@ -23,6 +23,9 @@ if(!defined('XOOPS_ROOT_PATH')) {
     throw new Exception('XOOPS root path not defined');
 }
 
+/**
+ * Class MymenusMymenus
+ */
 class MymenusMymenus
 {
     public $dirname;
@@ -56,6 +59,9 @@ class MymenusMymenus
         return $instance;
     }
 
+    /**
+     * @return null
+     */
     public function &getModule()
     {
         if ($this->module === null) {

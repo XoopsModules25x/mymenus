@@ -55,7 +55,6 @@ class MymenusMenus extends XoopsObject
      */
     public function getForm($action = false)
     {
-        global $xoopsUser;
         $grouppermHandler = xoops_gethandler('groupperm');
         //
         xoops_load('XoopsFormLoader');
@@ -66,7 +65,7 @@ class MymenusMenus extends XoopsObject
         }
         //
         $isAdmin = mymenusUserIsAdmin();
-        $groups  = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
+        $groups  = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
         //
         $title = $this->isNew() ? _AM_MYMENUS_MENUS_ADD : _AM_MYMENUS_MENUS_EDIT;
         //

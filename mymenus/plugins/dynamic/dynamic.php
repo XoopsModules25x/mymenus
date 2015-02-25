@@ -55,7 +55,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
      */
     protected function getModuleMenus($module, $pid)
     {
-        global $xoopsModule, $xoopsModuleConfig;
+        global $xoopsModule;
         static $id = -1;
 
         $ret = array();
