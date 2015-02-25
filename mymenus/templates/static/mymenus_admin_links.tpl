@@ -1,6 +1,6 @@
 <style type="text/css">
     .icon-1:before, .icon-0:before {
-        content: "\2212"
+        content: "\2212";
     }
 
     .icon-1 {
@@ -10,7 +10,7 @@
         border: 0 none !important;
         padding: 0;
         margin: 1px 2px 0 0 !important;
-        cursor: pointer
+        cursor: pointer;
     }
 
     .icon-0 {
@@ -20,7 +20,7 @@
         border: 0 none !important;
         padding: 0;
         margin: 1px 2px 0 0 !important;
-        cursor: pointer
+        cursor: pointer;
     }
 </style>
 
@@ -79,10 +79,10 @@
                                 </td>
                                 <td width="3%" class="discrete">
                                     <a href="#" onclick="showWindow(<{$menu.id}>, <{$mid}>)">
-                                        <img style="padding: 1px 2px 0 0" src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>"/>
+                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>"/>
                                     </a>
                                     <a href="links.php?mid=<{$menu_id}>&amp;op=delete&amp;id=<{$menu.id}>">
-                                        <img style="padding: 1px 2px 0 0" src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/>
+                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/>
                                     </a>
                                 </td>
                             </tr>
@@ -117,10 +117,10 @@
                                                 </td>
                                                 <td width="3%" class="discrete">
                                                     <a href="#" onclick="showWindow(<{$smenu.id}>)">
-                                                        <img style="padding: 1px 2px 0 0" src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>"/>
+                                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>"/>
                                                     </a>
                                                     <a href="links.php?mid=<{$smenu_id}>&amp;op=delete&amp;id=<{$smenu.id}>">
-                                                        <img style="padding: 1px 2px 0 0" src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/>
+                                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -155,10 +155,10 @@
                                                                 </td>
                                                                 <td width="3%" class="discrete">
                                                                     <a href="#" onclick="showWindow(<{$ssmenu.id}>)">
-                                                                        <img style="padding: 1px 2px 0 0" src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>"/>
+                                                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>"/>
                                                                     </a>
                                                                     <a href="links.php?mid=<{$ssmenu_id}>&amp;op=delete&amp;id=<{$ssmenu.id}>">
-                                                                        <img style="padding: 1px 2px 0 0" src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/>
+                                                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/>
                                                                     </a>
                                                                 </td>
                                                             </tr>
@@ -178,7 +178,7 @@
     </ol>
 </div>
 
-<div style="clear:both"></div>
+<div style="clear:both;"></div>
 <br/>
 <a name="addform_anchor"></a>
 <div id="addform" class="hiddendiv" style="display:none;"><{$addform}></div>

@@ -1,6 +1,8 @@
 <u>Version 1.51 RC 1  (2015-02-24)</u>
 - adjusted Help files (mamba)
 - PSR-2 updates (mamba)
+- using XooopsRequest (mamba)
+- replaced exit() with Exceptions (mamba)
 
 <u>Version 1.51 Beta 3  (2015-02-23)</u>
 - TODO: use Xmf libraries

@@ -18,8 +18,14 @@
  * @author          Xoops Development Team
  * @version         svn:$id$
  */
-// defined("XOOPS_ROOT_PATH") || die("XOOPS root path not defined");
 
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
+
+/**
+ * Class MymenusMymenus
+ */
 class MymenusMymenus
 {
     public $dirname;
@@ -53,9 +59,12 @@ class MymenusMymenus
         return $instance;
     }
 
+    /**
+     * @return null
+     */
     public function &getModule()
     {
-        if ($this->module == null) {
+        if ($this->module === null) {
             $this->initModule();
         }
 
@@ -69,7 +78,7 @@ class MymenusMymenus
      */
     public function getConfig($name = null)
     {
-        if ($this->config == null) {
+        if ($this->config === null) {
             $this->initConfig();
         }
         if (!$name) {
@@ -95,7 +104,7 @@ class MymenusMymenus
      */
     public function setConfig($name = null, $value = null)
     {
-        if ($this->config == null) {
+        if ($this->config === null) {
             $this->initConfig();
         }
         $this->config[$name] = $value;
@@ -111,12 +120,12 @@ class MymenusMymenus
      */
     public function &getHandler($name)
     {
-        if (!isset($this->handler[$name . '_handler'])) {
+        if (!isset($this->handler[$name . 'Handler'])) {
             $this->initHandler($name);
         }
         $this->addLog("Getting handler '{$name}'");
 
-        return $this->handler[$name . '_handler'];
+        return $this->handler[$name . 'Handler'];
     }
 
     public function initModule()
@@ -144,7 +153,7 @@ class MymenusMymenus
     public function initHandler($name)
     {
         $this->addLog('INIT ' . $name . ' HANDLER');
-        $this->handler[$name . '_handler'] = xoops_getModuleHandler($name, $this->dirname);
+        $this->handler[$name . 'Handler'] = xoops_getModuleHandler($name, $this->dirname);
     }
 
     /**

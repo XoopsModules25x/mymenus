@@ -18,7 +18,7 @@
  * @version         $Id: skin_version.php 13003 2015-02-20 04:45:42Z zyspec $
  */
 
-$skinversion['template'] = 'templates/template.tpl';
-$skinversion['css'] = array('css/tw_blue.css');
-//$skinversion['js'] = array('stuHover.js');
-$skinversion['prefix'] = 'twb';
+$skinVersion['template'] = 'templates/template.tpl';
+$skinVersion['css']      = array('css/tw_blue.css');
+//$skinVersion['js'] = array('stuHover.js');
+$skinVersion['prefix'] = 'twb';

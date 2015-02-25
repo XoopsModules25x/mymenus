@@ -18,7 +18,9 @@
  * @version         $Id: smarty.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-defined("XOOPS_ROOT_PATH") or exit("Restricted access");
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 
 /**
  * Class SmartyMymenusPluginItem
@@ -30,7 +32,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
     {
         $registry          =& MymenusRegistry::getInstance();
         $linkArray         = $registry->getEntry('link_array');
-        $linkArray['link'] = self::_doDecoration($linkArray['link']);
+        $linkArray['link'] = self::doDecoration($linkArray['link']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -38,7 +40,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
     {
         $registry           =& MymenusRegistry::getInstance();
         $linkArray          = $registry->getEntry('link_array');
-        $linkArray['image'] = self::_doDecoration($linkArray['image']);
+        $linkArray['image'] = self::doDecoration($linkArray['image']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -46,7 +48,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
     {
         $registry           =& MymenusRegistry::getInstance();
         $linkArray          = $registry->getEntry('link_array');
-        $linkArray['title'] = self::_doDecoration($linkArray['title']);
+        $linkArray['title'] = self::doDecoration($linkArray['title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -54,7 +56,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
     {
         $registry               =& MymenusRegistry::getInstance();
         $linkArray              = $registry->getEntry('link_array');
-        $linkArray['alt_title'] = self::_doDecoration($linkArray['alt_title']);
+        $linkArray['alt_title'] = self::doDecoration($linkArray['alt_title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -63,7 +65,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
      *
      * @return mixed
      */
-    private function _doDecoration($string)
+    protected function doDecoration($string)
     {
         $registry =& MymenusRegistry::getInstance();
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {

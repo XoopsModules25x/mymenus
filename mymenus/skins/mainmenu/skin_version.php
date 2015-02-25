@@ -18,10 +18,10 @@
  * @version         $Id: skin_version.php 12500 2014-04-25 14:28:10Z beckmi $
  */
 
-$skinversion['template'] = 'templates/template.tpl';
+$skinVersion['template'] = 'templates/template.tpl';
 
-$skinversion['css'] = array();
+$skinVersion['css'] = array();
 
-$skinversion['js'] = array();
+$skinVersion['js'] = array();
 
-$skinversion['header'] = '';
+$skinVersion['header'] = '';

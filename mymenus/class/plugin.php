@@ -18,7 +18,9 @@
  * @version         $Id: plugin.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-defined("XOOPS_ROOT_PATH") || exit("Restricted access");
+if (!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 include_once dirname(__DIR__) . '/include/common.php';
 xoops_load('XoopsLists');
 include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");
@@ -29,20 +31,20 @@ include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry
 class MymenusPlugin
 {
 
-    protected $_registry;
-    protected $_plugins;
-    protected $_events;
-    public $mymenus;
+    protected $registry;
+    protected $plugins;
+    protected $events;
+    public    $mymenus;
 
     /**
      *
      */
     public function __construct()
     {
-        $this->_plugins  = array();
-        $this->_events   = array();
-        $this->_registry =& MymenusRegistry::getInstance();
-        $this->mymenus = MymenusMymenus::getInstance();
+        $this->plugins  = array();
+        $this->events   = array();
+        $this->registry =& MymenusRegistry::getInstance();
+        $this->mymenus  = MymenusMymenus::getInstance();
         $this->setPlugins();
         $this->setEvents();
     }
@@ -66,7 +68,7 @@ class MymenusPlugin
             $plugins_list = XoopsLists::getDirListAsArray($dir, '');
             foreach ($plugins_list as $plugin) {
                 if (file_exists($GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php"))) {
-                    $this->_plugins[] = $plugin;
+                    $this->plugins[] = $plugin;
                 }
             }
         }
@@ -74,33 +76,33 @@ class MymenusPlugin
 
     public function setEvents()
     {
-        foreach ($this->_plugins as $plugin) {
+        foreach ($this->plugins as $plugin) {
             include_once $GLOBALS['xoops']->path("/modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php");
-            $class_name = ucfirst($plugin) . 'MymenusPluginItem';
-            if (!class_exists($class_name)) {
+            $className = ucfirst($plugin) . 'MymenusPluginItem';
+            if (!class_exists($className)) {
                 continue;
             }
-            $class_methods = get_class_methods($class_name);
+            $class_methods = get_class_methods($className);
             foreach ($class_methods as $method) {
                 if (0 === strpos($method, 'event')) {
-                    $event_name                   = strtolower(str_replace('event', '', $method));
-                    $event                        = array('class_name' => $class_name, 'method' => $method);
-                    $this->_events[$event_name][] = $event;
+                    $eventName                  = strtolower(str_replace('event', '', $method));
+                    $event                      = array('className' => $className, 'method' => $method);
+                    $this->events[$eventName][] = $event;
                 }
             }
         }
     }
 
     /**
-     * @param       $event_name
+     * @param       $eventName
      * @param array $args
      */
-    public function triggerEvent($event_name, $args = array())
+    public function triggerEvent($eventName, $args = array())
     {
-        $event_name = mb_strtolower(str_replace('.', '', $event_name));
-        if (isset($this->_events[$event_name])) {
-            foreach ($this->_events[$event_name] as $event) {
-                call_user_func(array($event['class_name'], $event['method']), $args);
+        $eventName = mb_strtolower(str_replace('.', '', $eventName));
+        if (isset($this->events[$eventName])) {
+            foreach ($this->events[$eventName] as $event) {
+                call_user_func(array($event['className'], $event['method']), $args);
             }
         }
     }
@@ -119,7 +121,7 @@ class MymenusPluginItem
      */
     public function loadLanguage($name)
     {
-        $mymenus = MymenusMymenus::getInstance();
+        $mymenus  = MymenusMymenus::getInstance();
         $language = $GLOBALS['xoopsConfig']['language'];
         $path     = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/plugins/{$name}/language");
         if (!($ret = @include_once "{$path}/{$language}/{$name}.php")) {

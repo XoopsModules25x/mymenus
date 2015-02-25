@@ -18,7 +18,9 @@
  * @version         $Id: functions.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 include_once __DIR__ . '/common.php';
 
 /**
@@ -26,44 +28,43 @@ include_once __DIR__ . '/common.php';
  *
  * @return boolean
  */
-function mymenus_userIsAdmin()
+function mymenusUserIsAdmin()
 {
-    global $xoopsUser;
     $mymenus = MymenusMymenus::getInstance();
 
-    static $mymenus_isAdmin;
-    if (isset($mymenus_isAdmin)) {
-        return $mymenus_isAdmin;
+    static $mymenusIsAdmin;
+    if (isset($mymenusIsAdmin)) {
+        return $mymenusIsAdmin;
     }
 
-    $mymenus_isAdmin = (!is_object($xoopsUser)) ? false : $xoopsUser->isAdmin($mymenus->getModule()->getVar('mid'));
-    return $mymenus_isAdmin;
+    $mymenusIsAdmin = (!is_object($GLOBALS['xoopsUser'])) ? false : $GLOBALS['xoopsUser']->isAdmin($mymenus->getModule()->getVar('mid'));
+    return $mymenusIsAdmin;
 }
 
 /**
- * @param string $module_skin
- * @param boolean $use_theme_skin
- * @param string $theme_skin
+ * @param string $moduleSkin
+ * @param boolean $useThemeSkin
+ * @param string $themeSkin
  *
  * @return array
  */
-function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, $theme_skin = '')
+function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $themeSkin = '')
 {
     include_once __DIR__ . '/common.php';
     $mymenus = MymenusMymenus::getInstance();
     $error = false;
-    if ($use_theme_skin) {
+    if ($useThemeSkin) {
         $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/menu";
         if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
-            $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$theme_skin}";
+            $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$themeSkin}";
             if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
                 $error = true;
             }
         }
     }
 
-    if ($error || !$use_theme_skin) {
-        $path = "modules/{$mymenus->dirname}/skins/{$module_skin}";
+    if ($error || !$useThemeSkin) {
+        $path = "modules/{$mymenus->dirname}/skins/{$moduleSkin}";
     }
 
     $file = $GLOBALS['xoops']->path("{$path}/skin_version.php");
@@ -71,7 +72,7 @@ function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, 
 
     if (file_exists($file)) {
         include $file;
-        $info =& $skinversion;
+        $info =& $skinVersion;
     }
 
     $info['path'] = $GLOBALS['xoops']->path($path);
@@ -84,7 +85,7 @@ function mymenus_getSkinInfo($module_skin = 'default', $use_theme_skin = false, 
     }
 
     if (!isset($info['prefix'])) {
-        $info['prefix'] = $module_skin;
+        $info['prefix'] = $moduleSkin;
     }
 
     if (isset($info['css'])) {

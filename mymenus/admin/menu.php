@@ -18,8 +18,9 @@
  * @version         $Id: menu.php
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
-
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 
 $moduleDirName = basename(dirname(__DIR__));
 $moduleHandler = &xoops_gethandler("module");

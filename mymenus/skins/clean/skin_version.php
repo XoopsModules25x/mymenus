@@ -18,4 +18,4 @@
  * @version         $Id: skin_version.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-$skinversion['template'] = 'templates/template.tpl';
+$skinVersion['template'] = 'templates/template.tpl';

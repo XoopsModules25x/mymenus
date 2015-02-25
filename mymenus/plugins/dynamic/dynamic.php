@@ -18,7 +18,9 @@
  * @version         $Id: dynamic.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-defined("XOOPS_ROOT_PATH") or exit("Restricted access");
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 
 /**
  * Class DynamicMymenusPluginItem
@@ -37,7 +39,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
                 continue;
             }
             $result      = array_map('mb_strtolower', explode('|', $reg[1]));
-            $moduleMenus = self::_getModuleMenus($result[1], $menu['pid']);
+            $moduleMenus = self::getModuleMenus($result[1], $menu['pid']);
             foreach ($moduleMenus as $mMenu) {
                 $newmenus[] = $mMenu;
             }
@@ -51,9 +53,9 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
      *
      * @return array
      */
-    public function _getModuleMenus($module, $pid)
+    protected function getModuleMenus($module, $pid)
     {
-        global $xoopsModule, $xoopsModuleConfig;
+        global $xoopsModule;
         static $id = -1;
 
         $ret = array();
@@ -72,17 +74,17 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         xoops_loadLanguage('modinfo', $module);
 
         $overwrite = false;
-        if ($force == true) {  //can set to false for debug
+        if ($force === true) {  //can set to false for debug
             if (!($xoopsModule instanceof XoopsModule) || ($xoopsModule->getVar('dirname') != $module)) {
                 // @TODO: check the following 2 statements, they're basically just assigns - is this intended?
                 $_xoopsModule           = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
                 $_xoopsModuleConfig     = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
-                $module_handler         =& xoops_gethandler('module');
-                $xoopsModule            =& $module_handler->getByDirname($module);
+                $moduleHandler         =& xoops_gethandler('module');
+                $xoopsModule            =& $moduleHandler->getByDirname($module);
                 $GLOBALS['xoopsModule'] =& $xoopsModule;
                 if ($xoopsModule instanceof XoopsModule) {
-                    $config_handler               =& xoops_gethandler('config');
-                    $xoopsModuleConfig            =& $config_handler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+                    $configHandler               =& xoops_gethandler('config');
+                    $xoopsModuleConfig            =& $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
                     $GLOBALS['xoopsModuleConfig'] =& $xoopsModuleConfig;
                 }
                 $overwrite = true;

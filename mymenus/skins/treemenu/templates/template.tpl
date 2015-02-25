@@ -1,7 +1,7 @@
 <!-- DynamicDrive.com SimpleTreeMenu-->
 <script type="text/javascript">
-    ddtreemenu.closefolder = "<{$xoops_url}>/modules/mymenus/skins/treemenu/closed.gif" //set image path to "closed" folder image
-    ddtreemenu.openfolder = "<{$xoops_url}>/modules/mymenus/skins/treemenu/open.gif" //set image path to "open" folder image
+    ddtreemenu.closefolder = "<{$xoops_url}>/modules/mymenus/skins/treemenu/closed.gif"; //set image path to "closed" folder image
+    ddtreemenu.openfolder = "<{$xoops_url}>/modules/mymenus/skins/treemenu/open.gif"; //set image path to "open" folder image
 </script>
 
 <{php}>
@@ -27,20 +27,21 @@ echo "
             <{/if}>
             <{/if}>
             <{if $menu.level == 0}>
-            <{if $menu.hassub}> <{else}>  <a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>"><{$menu.title}></a></li><{/if}>
+            <{if $menu.hassub}> <{else}>  <a href="<{$menu.link}>" target="<{$menu.target}>" title="<{$menu.alt_title}>"><{$menu.title}></a></li><{/if}>
         <{if $menu.hassub}>
         <li>
             <{$menu.title}>
             <ul>
                 <{/if}>
                 <{else}>
-                <li><a href="<{$menu.link}>" target="<{$menu.target}>" alt="<{$menu.alt_title}>" title="<{$menu.alt_title}>"><{$menu.title}></a>
+                <li><a href="<{$menu.link}>" target="<{$menu.target}>" title="<{$menu.alt_title}>"><{$menu.title}></a>
                     <{/if}>
                     <{if $menu.close != ''}><{$menu.close}><{/if}>
                     <{/foreach}>
             </ul>
             <script type="text/javascript">
                 //ddtreemenu.createTree(treeid, enablepersist, opt_persist_in_days (default is 1))
+                //noinspection UnterminatedStatementJS
                 ddtreemenu.createTree('treemenu<{php}>echo "$number[0]";<{/php}>', true)
                 ddtreemenu.flatten('treemenu<{php}>echo "$number[0]";<{/php}>', 'contact')
             </script>

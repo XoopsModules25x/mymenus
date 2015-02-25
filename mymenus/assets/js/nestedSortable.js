@@ -172,7 +172,7 @@
             this.beyondMaxLevels = 0;
 
             // If the item is moved to the left, send it to its parent's level unless there are siblings below it.
-            if (parentItem != null && nextItem == null &&
+            if (parentItem != null && nextItem === null &&
                 (o.rtl && (this.positionAbs.left + this.helper.outerWidth() > parentItem.offset().left + parentItem.outerWidth()) ||
                 !o.rtl && (this.positionAbs.left < parentItem.offset().left))) {
                 parentItem.after(this.placeholder[0]);
@@ -408,7 +408,7 @@
             // Are we nesting too deep?
             if (!o.isAllowed(this.currentItem, parentItem) ||
                 parentItem && parentItem.hasClass(o.disableNesting) ||
-                o.protectRoot && (parentItem == null && !isRoot || isRoot && level > 1)) {
+                o.protectRoot && (parentItem === null && !isRoot || isRoot && level > 1)) {
                 this.placeholder.addClass(o.errorClass);
                 if (maxLevels < levels && maxLevels != 0) {
                     this.beyondMaxLevels = levels - maxLevels;

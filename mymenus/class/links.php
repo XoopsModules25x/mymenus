@@ -18,7 +18,9 @@
  * @version         $Id: links.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 include_once dirname(__DIR__) . '/include/common.php';
 
 /**
@@ -27,7 +29,7 @@ include_once dirname(__DIR__) . '/include/common.php';
 class MymenusLinks extends XoopsObject
 {
     /**
-     * @var Module_skeletonModule_skeleton
+     * @var MymenusLinks
      * @access private
      */
     private $mymenus = null;
@@ -61,8 +63,8 @@ class MymenusLinks extends XoopsObject
     {
         $hooks              = $this->getHooks();
         $hooks['mymenus'][] = 'checkAccess';
-        foreach ($hooks as $hookname => $hook) {
-            if (!mymenus_hook($hookname, 'checkAccess', array('links' => $this))) {
+        foreach ($hooks as $hookName => $hook) {
+            if (!mymenusHook($hookName, 'checkAccess', array('links' => $this))) {
                 return false;
             }
         }
@@ -117,7 +119,7 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
     /**
      * @param $obj
      */
-    public function update_weights(&$obj)
+    public function updateWeights(&$obj)
     {
         $sql = "UPDATE " . $this->table . " SET weight = weight+1";
         $sql .= " WHERE";

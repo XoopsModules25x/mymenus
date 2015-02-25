@@ -18,7 +18,9 @@
  * @version         $Id: mymenus.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
-defined("XOOPS_ROOT_PATH") || exit("Restricted access");
+if (!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 
 /**
  * Class MymenusMymenusPluginItem
@@ -28,23 +30,23 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
     public function eventBoot()
     {
-        $registry       =& MymenusRegistry::getInstance();
-        $member_handler =& xoops_getHandler('member');
+        $registry      =& MymenusRegistry::getInstance();
+        $memberHandler =& xoops_getHandler('member');
         xoops_load('XoopsRequest');
 
         $user = ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser'] : null;
         if (!$user) {
-            $user = $member_handler->createUser();
+            $user = $memberHandler->createUser();
             $user->setVar('uid', 0);
             $user->setVar('uname', $GLOBALS['xoopsConfig']['anonymous']);
         }
 
         $ownerid = XoopsRequest::getInt('uid', null, 'GET');
-        $owner   = $member_handler->getUser($ownerid);
+        $owner   = $memberHandler->getUser($ownerid);
         //if uid > 0 but user does not exists
         if (!($owner instanceof XoopsUser)) {
             //create new user
-            $owner = $member_handler->createUser();
+            $owner = $memberHandler->createUser();
         }
         if ($owner->isNew()) {
             $owner->setVar('uid', 0);
@@ -61,7 +63,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     {
         $registry          =& MymenusRegistry::getInstance();
         $linkArray         = $registry->getEntry('link_array');
-        $linkArray['link'] = self::_doDecoration($linkArray['link']);
+        $linkArray['link'] = self::doDecoration($linkArray['link']);
         //if (!eregi('mailto:', $linkArray['link']) && !eregi('://', $linkArray['link'])) {
         if (!preg_match('/mailto:/i', $linkArray['link']) && !preg_match('#://#i', $linkArray['link'])) {
             $linkArray['link'] = XOOPS_URL . '/' . $linkArray['link'];  //Do not do this in other decorators
@@ -73,10 +75,10 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     {
         $registry  =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
-        if (!empty($linkArray['image']) && !filter_var($linkArray['image'], FILTER_VALIDATE_URL)) {
+        if (($linkArray['image']) && !filter_var($linkArray['image'], FILTER_VALIDATE_URL)) {
             $linkArray['image'] = XOOPS_URL . '/' . $linkArray['image'];
             //Do not do this in other decorators
-            $linkArray['image'] = self::_doDecoration($linkArray['image']);
+            $linkArray['image'] = self::doDecoration($linkArray['image']);
             $registry->setEntry('link_array', $linkArray);
         }
     }
@@ -85,7 +87,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     {
         $registry           =& MymenusRegistry::getInstance();
         $linkArray          = $registry->getEntry('link_array');
-        $linkArray['title'] = self::_doDecoration($linkArray['title']);
+        $linkArray['title'] = self::doDecoration($linkArray['title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -93,10 +95,10 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     {
         $registry  =& MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
-        if (empty($linkArray['alt_title'])) {
+        if (!($linkArray['alt_title'])) {
             $linkArray['alt_title'] = $linkArray['title'];
         }
-        $linkArray['alt_title'] = self::_doDecoration($linkArray['alt_title']);
+        $linkArray['alt_title'] = self::doDecoration($linkArray['alt_title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -105,7 +107,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
      *
      * @return mixed
      */
-    private function _doDecoration($string)
+    protected function doDecoration($string)
     {
         $registry =& MymenusRegistry::getInstance();
         //if (!eregi("{(.*\|.*)}", $string, $reg)) {
@@ -171,13 +173,13 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     public function eventAccessFilter()
     {
         self::loadLanguage('mymenus');
-        $registry                                =& MymenusRegistry::getInstance();
-        $access_filter                           = $registry->getEntry('access_filter');
-        $access_filter['is_owner']['name']       = _PL_MYMENUS_MYMENUS_ISOWNER;
-        $access_filter['is_owner']['method']     = 'isOwner';
-        $access_filter['is_not_owner']['name']   = _PL_MYMENUS_MYMENUS_ISNOTOWNER;
-        $access_filter['is_not_owner']['method'] = 'isNotOwner';
-        $registry->setEntry('access_filter', $access_filter);
+        $registry                               =& MymenusRegistry::getInstance();
+        $accessFilter                           = $registry->getEntry('accessFilter');
+        $accessFilter['is_owner']['name']       = _PL_MYMENUS_MYMENUS_ISOWNER;
+        $accessFilter['is_owner']['method']     = 'isOwner';
+        $accessFilter['is_not_owner']['name']   = _PL_MYMENUS_MYMENUS_ISNOTOWNER;
+        $accessFilter['is_not_owner']['method'] = 'isNotOwner';
+        $registry->setEntry('accessFilter', $accessFilter);
     }
 
     /**
@@ -214,11 +216,11 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
 
         $entry = $registry->getEntry($type);
-        if (empty($entry)) {
+        if (!($entry)) {
             return $ret;
         }
 
-        $pm_handler =& xoops_gethandler('privmessage');
+        $pmHandler =& xoops_gethandler('privmessage');
 
         if ($value == 'pm_new') {
             $criteria = new CriteriaCompo(new Criteria('read_msg', 0));
@@ -234,7 +236,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
             $criteria = new Criteria('to_userid', $entry['uid']);
         }
 
-        $entry[$value] = $pm_handler->getCount($criteria);
+        $entry[$value] = $pmHandler->getCount($criteria);
 
         $registry->setEntry($type, $entry);
 

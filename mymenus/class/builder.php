@@ -127,9 +127,11 @@ class MymenusBuilder
     public function buildSelected()
     {
         //get the currentpage
-        $sel          = array();
-        $query_string = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
-        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $query_string;
+        $sel = array();
+//        $queryString = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
+        $queryString = XoopsRequest::getString('QUERY_STRING', '', 'SERVER') ? '?' . XoopsRequest::getString('QUERY_STRING', '', 'SERVER') : '';
+//        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $queryString;
+        $self = 'http://' . XoopsRequest::getString('HTTP_HOST', '', 'SERVER') . XoopsRequest::getString('PHP_SELF', '', 'SERVER') . $queryString;
 
         //set a default page in case we don't get matches
         $default = XOOPS_URL . "/index.php";
@@ -137,7 +139,7 @@ class MymenusBuilder
         //get all matching links
         foreach ($this->output as $idx => $menu) {
             $selected = 0;
-            if (!empty($menu['link'])) {
+            if (($menu['link'])) {
                 $selected = (false !== stristr($self, $menu['link'])) ? 1 : $selected;
             }
             $selected = ($menu['link'] == $self) ? 1 : $selected;

@@ -57,21 +57,21 @@
         skin_version.php structure:<br>
         <code>
             //informs where to find the template for this skin(relative to skin folder)
-            $skinversion['template'] = 'templates/template.tpl';
+            $skinVersion['template'] = 'templates/template.tpl';
 
             //informs where to find css file/files
-            $skinversion['css'] = 'assets/css/superfish.css';
+            $skinVersion['css'] = 'assets/css/superfish.css';
         </code>
         or
         <code>
-            $skinversion['css'] = array('css/superfish.css', css/anotherone.css);
+            $skinVersion['css'] = array('css/superfish.css', css/anotherone.css);
 
             //informs where to find js file/files
-            $skinversion['js'] = '../../js/assets/jquery-1.3.2.min.js';
+            $skinVersion['js'] = '../../js/assets/jquery-1.3.2.min.js';
         </code>
         or
         <code>
-            $skinversion['js'] = array(
+            $skinVersion['js'] = array(
             &nbsp;&nbsp;&nbsp;&nbsp;'../../js/jquery-1.3.2.min.js'
             &nbsp;&nbsp;&nbsp;&nbsp;'../../js/assets/hoverIntent.js',
             &nbsp;&nbsp;&nbsp;&nbsp;'../../js/superfish.js'
@@ -88,14 +88,14 @@
             $header .= "\n" . '&nbsp;&nbsp;&nbsp; });';
             $header .= "\n" . '&nbsp; });';
             $header .= "\n" . '&lt;/script&gt;';
-            $skinversion['header'] = $header;
+            $skinVersion['header'] = $header;
 
             //you can pass any configuration from this file to the template using ['config']
         </code>
         example:
         <code>
-            $skinversion['config']['home'] = true;
-            $skinversion['config']['iconset'] = 'default';
+            $skinVersion['config']['home'] = true;
+            $skinVersion['config']['iconset'] = 'default';
             This can be fetched in template with &lt;{$config.home}&gt; and &lt;{$config.iconset}&gt;
         </code>
     </p>
