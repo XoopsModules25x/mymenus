@@ -18,7 +18,10 @@
  * @author          Xoops Development Team
  * @version         svn:$id$
  */
-// defined("XOOPS_ROOT_PATH") || die("XOOPS root path not defined");
+
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 
 class MymenusMymenus
 {
@@ -55,7 +58,7 @@ class MymenusMymenus
 
     public function &getModule()
     {
-        if ($this->module == null) {
+        if ($this->module === null) {
             $this->initModule();
         }
 
@@ -69,7 +72,7 @@ class MymenusMymenus
      */
     public function getConfig($name = null)
     {
-        if ($this->config == null) {
+        if ($this->config === null) {
             $this->initConfig();
         }
         if (!$name) {
@@ -95,7 +98,7 @@ class MymenusMymenus
      */
     public function setConfig($name = null, $value = null)
     {
-        if ($this->config == null) {
+        if ($this->config === null) {
             $this->initConfig();
         }
         $this->config[$name] = $value;

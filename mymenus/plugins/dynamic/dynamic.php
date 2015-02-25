@@ -18,7 +18,9 @@
  * @version         $Id: dynamic.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-defined("XOOPS_ROOT_PATH") or exit("Restricted access");
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 
 /**
  * Class DynamicMymenusPluginItem

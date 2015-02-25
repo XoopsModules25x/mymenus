@@ -18,7 +18,9 @@
  * @version         $Id: plugin.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-defined("XOOPS_ROOT_PATH") || exit("Restricted access");
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 include_once dirname(__DIR__) . '/include/common.php';
 xoops_load('XoopsLists');
 include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");

@@ -30,7 +30,6 @@ $menusCriteria->setOrder('ASC');
 $menusList = $mymenus->getHandler('menus')->getList($menusCriteria);
 if (empty($menusList)) {
     redirect_header('menus.php', 1, _AM_MYMENUS_MSG_NOMENUS);
-    exit;
 }
 
 $valid_menu_ids = array_keys($menusList);
@@ -453,7 +452,7 @@ function mymenusAdminToggle($id, $visible)
     error_reporting(0);
     //
     $linksObj = $mymenus->getHandler('links')->get((int)$id);
-    $visible  = (1 == $linksObj->getVar('visible')) ? 0 : 1;
+    $visible  = (1 === $linksObj->getVar('visible')) ? 0 : 1;
     $linksObj->setVar('visible', $visible);
     $mymenus->getHandler('links')->insert($linksObj);
     echo $linksObj->getVar('visible');

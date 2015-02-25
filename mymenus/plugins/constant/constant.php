@@ -18,7 +18,9 @@
  * @version         $Id: constant.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-defined("XOOPS_ROOT_PATH") || exit("Restricted access");
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 
 /**
  * Class ConstantMymenusPluginItem

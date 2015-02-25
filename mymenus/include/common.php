@@ -19,7 +19,9 @@
  * @version         svn:$id$
  */
 
-defined("XOOPS_ROOT_PATH") || die("XOOPS root path not defined");
+if(!defined('XOOPS_ROOT_PATH')) {
+    throw new Exception('XOOPS root path not defined');
+}
 
 // This must contain the name of the folder in which reside mymenus
 define("MYMENUS_DIRNAME", basename(dirname(__DIR__)));
