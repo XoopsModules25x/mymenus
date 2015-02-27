@@ -65,8 +65,8 @@ class MymenusPlugin
     public function setPlugins()
     {
         if (is_dir($dir = $GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/"))) {
-            $plugins_list = XoopsLists::getDirListAsArray($dir, '');
-            foreach ($plugins_list as $plugin) {
+            $pluginsList = XoopsLists::getDirListAsArray($dir, '');
+            foreach ($pluginsList as $plugin) {
                 if (file_exists($GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php"))) {
                     $this->plugins[] = $plugin;
                 }
@@ -82,8 +82,8 @@ class MymenusPlugin
             if (!class_exists($className)) {
                 continue;
             }
-            $class_methods = get_class_methods($className);
-            foreach ($class_methods as $method) {
+            $classMethods = get_class_methods($className);
+            foreach ($classMethods as $method) {
                 if (0 === strpos($method, 'event')) {
                     $eventName                  = strtolower(str_replace('event', '', $method));
                     $event                      = array('className' => $className, 'method' => $method);
