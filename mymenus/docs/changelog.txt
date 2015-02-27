@@ -1,3 +1,7 @@
+<u>Version 1.51 RC 2  (2015-02-27)</u>
+- added check for empty $options[5] element (mamba)
+- more PSR-2 updates (mamba)
+
 <u>Version 1.51 RC 1  (2015-02-24)</u>
 - adjusted Help files (mamba)
 - PSR-2 updates (mamba)

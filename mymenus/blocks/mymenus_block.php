@@ -89,7 +89,7 @@ function mymenus_block_show($options)
     $jsArray  = array();
 
     // Get extra files from skins
-    $skinInfo = mymenusGetSkinInfo($options[1], $options[2], $options[5]);
+    $skinInfo = mymenusGetSkinInfo($options[1], $options[2], isset($options[5])?$options[5]:'');
 
     //
     if (isset($skinInfo['css'])) {
