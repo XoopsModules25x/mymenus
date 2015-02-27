@@ -38,7 +38,7 @@ $modversion = array(
     'help'                => "page=help",
     //
     'release_info'        => "release_info",
-    'release'             => "2015-02-24",
+    'release'             => "2015-02-27",
     'release_file'        => XOOPS_URL . "/modules/{$moduleDirName}/docs/release_info file",
 
     //
@@ -60,8 +60,8 @@ $modversion = array(
     'moduleIcons32'       => "assets/images/icons/32",
     //About
     'version'             => 1.51,
-    'module_status'       => "RC 1",
-    'release_date'        => "2015/02/24", // YYYY/mm/dd
+    'module_status'       => "RC 2",
+    'release_date'        => "2015/02/27", // YYYY/mm/dd
 
     'demo_site_url'       => "http://www.xoops.org",
     'demo_site_name'      => "XOOPS Demo Site",
