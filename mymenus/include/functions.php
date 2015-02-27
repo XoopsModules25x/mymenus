@@ -50,7 +50,6 @@ function mymenusUserIsAdmin()
  */
 function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $themeSkin = '')
 {
-    include_once __DIR__ . '/common.php';
     $mymenus = MymenusMymenus::getInstance();
     $error = false;
     if ($useThemeSkin) {
@@ -72,7 +71,11 @@ function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $the
 
     if (file_exists($file)) {
         include $file;
-        $info =& $skinVersion;
+        if (isset($skinVersion)) {
+            $info =& $skinVersion;
+        } elseif (isset($skinversion)) {
+            $info =& $skinversion;
+        }
     }
 
     $info['path'] = $GLOBALS['xoops']->path($path);
