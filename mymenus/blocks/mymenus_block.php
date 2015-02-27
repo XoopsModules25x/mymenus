@@ -224,7 +224,7 @@ function mymenus_block_edit($options)
     $form .= $formDisplayMethodSelect->render();
     $form .= "\n&nbsp;<i>" . sprintf(_MB_MYMENUS_DISPLAY_METHOD_DSC, $mymenus->getConfig('unique_id_prefix')) . "</i>\n<br /><br />\n";
     // option 4: unique_id
-    if (!$options[4] || ('clone' == XoopsRequest::getCmd('op', '', 'GET'))) {
+    if ($options[4] == '' || ('clone' == XoopsRequest::getCmd('op', '', 'GET'))) {
         $options[4] = time();
     }
     $form .= "<b>" . _MB_MYMENUS_UNIQUEID . "</b>&nbsp;";
