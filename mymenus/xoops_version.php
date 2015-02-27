@@ -18,7 +18,7 @@
  * @version         $Id: xoops_version.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-if(!defined('XOOPS_ROOT_PATH')) {
+if (!defined('XOOPS_ROOT_PATH')) {
     throw new Exception('XOOPS root path not defined');
 }
 
@@ -45,7 +45,7 @@ $modversion = array(
     'manual'              => "link to manual file",
     'manual_file'         => XOOPS_URL . "/modules/{$moduleDirName}/docs/install.txt",
     'min_php'             => "5.3.7",
-    'min_xoops'           => "2.5.7",
+    'min_xoops'           => "2.5.7.1",
     'min_admin'           => "1.1",
     'min_db'              => array('mysql' => '5.0.7', 'mysqli' => '5.0.7'),
     'image'               => "assets/images/mymenus.png", // Path and name of the module’s logo
@@ -121,7 +121,6 @@ $modversion['blocks'][] = array(
 
 
 // ------------------- Templates ------------------- //
-
 
 
 // ------------------- Config ------------------- //
