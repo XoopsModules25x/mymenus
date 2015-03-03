@@ -50,8 +50,8 @@ class MymenusMenus extends XoopsObject
     /**
      * Get {@link XoopsThemeForm} for adding/editing items
      *
-     * @param bool $action
-     * @return object       {@link XoopsThemeForm}
+     * @param  bool   $action
+     * @return object {@link XoopsThemeForm}
      */
     public function getForm($action = false)
     {

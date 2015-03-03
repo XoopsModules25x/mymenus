@@ -35,7 +35,6 @@ $pathIcon32      = $GLOBALS['xoops']->url('www/' . $GLOBALS['xoopsModule']->getI
 $xoopsModuleAdminPath = $GLOBALS['xoops']->path('www/' . $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin'));
 require_once "{$xoopsModuleAdminPath}/moduleadmin/moduleadmin.php";
 
-
 $myts =& MyTextSanitizer::getInstance();
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     include_once $GLOBALS['xoops']->path("/class/template.php");
@@ -54,7 +53,6 @@ include_once $GLOBALS['xoops']->path('class/template.php');
 include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");
 include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");
 include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/plugin.php");
-
 
 //Module specific elements
 //include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");

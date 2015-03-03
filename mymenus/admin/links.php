@@ -170,13 +170,11 @@ switch ($op) {
         break;
 }
 
-
 /**
  * Class MymenusLinksUtilities
  */
 class MymenusLinksUtilities
 {
-
 
     /**
      * Display the links in a menu
@@ -306,7 +304,7 @@ class MymenusLinksUtilities
      * @param null $id
      * @param null $pid
      *
-     * @param null $mid
+     * @param  null   $mid
      * @return string
      */
     public static function mymenusAdminForm($id = null, $pid = null, $mid = null)
@@ -432,7 +430,7 @@ class MymenusLinksUtilities
      *
      * Update the {@see MymenusLinks} weight (order)
      *
-     * @param integer $id of links object
+     * @param integer $id     of links object
      * @param integer $weight
      */
     public static function mymenusAdminMove($id, $weight)

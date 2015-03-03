@@ -119,7 +119,6 @@ $modversion['blocks'][] = array(
     'template'    => $moduleDirName . '_block.tpl'
 );
 
-
 // ------------------- Templates ------------------- //
 
 

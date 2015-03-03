@@ -38,6 +38,7 @@ function mymenusUserIsAdmin()
     }
 
     $mymenusIsAdmin = (!is_object($GLOBALS['xoopsUser'])) ? false : $GLOBALS['xoopsUser']->isAdmin($mymenus->getModule()->getVar('mid'));
+
     return $mymenusIsAdmin;
 }
 
