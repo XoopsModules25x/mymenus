@@ -18,9 +18,8 @@
  * @version         $Id: plugin.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+
 include_once dirname(__DIR__) . '/include/common.php';
 xoops_load('XoopsLists');
 include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");
@@ -65,7 +64,7 @@ class MymenusPlugin
     public function setPlugins()
     {
         if (is_dir($dir = $GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/"))) {
-            $pluginsList = XoopsLists::getDirListAsArray($dir, '');
+            $pluginsList = XoopsLists::getDirListAsArray($dir);
             foreach ($pluginsList as $plugin) {
                 if (file_exists($GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php"))) {
                     $this->plugins[] = $plugin;
@@ -77,7 +76,7 @@ class MymenusPlugin
     public function setEvents()
     {
         foreach ($this->plugins as $plugin) {
-            include_once $GLOBALS['xoops']->path("/modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php");
+            include_once $GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php");
             $className = ucfirst($plugin) . 'MymenusPluginItem';
             if (!class_exists($className)) {
                 continue;
@@ -123,11 +122,14 @@ class MymenusPluginItem
     {
         $mymenus  = MymenusMymenus::getInstance();
         $language = $GLOBALS['xoopsConfig']['language'];
-        $path     = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/plugins/{$name}/language");
-        if (!($ret = @include_once "{$path}/{$language}/{$name}.php")) {
-            $ret = @include_once "{$path}/english/{$name}.php";
-        }
+//        $path     = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/plugins/{$name}/language");
+//        if (!($ret = @include_once "{$path}/{$language}/{$name}.php")) {
+//            $ret = @include_once "{$path}/english/{$name}.php";
+//        }
+//        return $ret;
 
-        return $ret;
+        $path2     = "{$mymenus->dirname}/plugins/{$name}/{$language}/";
+        xoops_loadLanguage($name, $path2);
+        return true;
     }
 }

@@ -18,8 +18,8 @@
  * @version         $Id: index.php
  */
 
-$currentFile = basename(__FILE__);
 include_once __DIR__ . '/admin_header.php';
+$currentFile = basename(__FILE__);
 
 // admin navigation
 xoops_cp_header();

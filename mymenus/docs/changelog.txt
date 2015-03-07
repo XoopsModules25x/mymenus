@@ -1,3 +1,6 @@
+<u>Version 1.51 RC 3  (2015-02-27)</u>
+- reverting  "throw new Exception" for XOOPS_ROOT_PATH check (zyspec/mamba)
+
 <u>Version 1.51 RC 2  (2015-02-27)</u>
 - added check for empty $options[5] element (mamba)
 - more PSR-2 updates (mamba)

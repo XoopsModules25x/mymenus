@@ -18,9 +18,8 @@
  * @version         $Id: functions.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-if(!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+
 include_once __DIR__ . '/common.php';
 
 /**
@@ -38,6 +37,7 @@ function mymenusUserIsAdmin()
     }
 
     $mymenusIsAdmin = (!is_object($GLOBALS['xoopsUser'])) ? false : $GLOBALS['xoopsUser']->isAdmin($mymenus->getModule()->getVar('mid'));
+
     return $mymenusIsAdmin;
 }
 
@@ -52,7 +52,7 @@ function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $the
 {
     include_once __DIR__ . '/common.php';
     $mymenus = MymenusMymenus::getInstance();
-    $error = false;
+    $error   = false;
     if ($useThemeSkin) {
         $path = "themes/" . $GLOBALS['xoopsConfig']['theme_set'] . "/menu";
         if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {

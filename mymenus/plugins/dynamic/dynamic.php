@@ -18,9 +18,7 @@
  * @version         $Id: dynamic.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-if(!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 /**
  * Class DynamicMymenusPluginItem
@@ -79,11 +77,11 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
                 // @TODO: check the following 2 statements, they're basically just assigns - is this intended?
                 $_xoopsModule           = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
                 $_xoopsModuleConfig     = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
-                $moduleHandler         =& xoops_gethandler('module');
+                $moduleHandler          =& xoops_gethandler('module');
                 $xoopsModule            =& $moduleHandler->getByDirname($module);
                 $GLOBALS['xoopsModule'] =& $xoopsModule;
                 if ($xoopsModule instanceof XoopsModule) {
-                    $configHandler               =& xoops_gethandler('config');
+                    $configHandler                =& xoops_gethandler('config');
                     $xoopsModuleConfig            =& $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
                     $GLOBALS['xoopsModuleConfig'] =& $xoopsModuleConfig;
                 }

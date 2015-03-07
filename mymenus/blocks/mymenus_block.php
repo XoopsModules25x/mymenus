@@ -17,9 +17,8 @@
  * @version         $Id: mymenus_block.php
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+
 include_once dirname(__DIR__) . '/include/common.php';
 
 /**
@@ -165,6 +164,7 @@ function mymenus_block_show($options)
     $registry->unsetAll();
     unset($registry, $plugin);
     $xoopsLogger->stopTime('My Menus Block');
+
     return $block;
 }
 
@@ -187,6 +187,7 @@ function mymenus_block_edit($options)
     unset($menusCriteria);
     if (0 == count($menusList)) {
         $form = "<a href='" . $GLOBALS['xoops']->url("modules/{$mymenus->dirname}/admin/menus.php") . "'>" . _AM_MYMENUS_MSG_NOMENUS . "</a>\n";
+
         return $form;
     }
     $form            = "<b>" . _MB_MYMENUS_SELECT_MENU . "</b>&nbsp;";
@@ -196,7 +197,7 @@ function mymenus_block_edit($options)
     $form .= "</select>\n&nbsp;<i>" . _MB_MYMENUS_SELECT_MENU_DSC . "</i>\n<br /><br />\n";
     // option 1: moduleSkin
     xoops_load('XoopsLists');
-    $tempModuleSkinsList = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path("/modules/{$mymenus->dirname}/skins/"), '');
+    $tempModuleSkinsList = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/skins/"), '');
     $moduleSkinsList     = array();
     foreach ($tempModuleSkinsList as $key => $moduleSkin) {
         if (file_exists($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/skins/{$moduleSkin}/skin_version.php"))) {

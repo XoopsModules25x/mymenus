@@ -19,9 +19,8 @@
  * @version         svn:$id$
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+
 //$moduleDirname = basename(dirname(__DIR__));
 //include_once(XOOPS_ROOT_PATH . "/modules/$moduleDirname/include/common.php");
 include_once __DIR__ . '/common.php';
@@ -43,6 +42,7 @@ function xoops_module_update_mymenus(XoopsObject &$xoopsModule, $previousVersion
         }
         //update_tables_to_150($xoopsModule);
     }
+
     return true;
 }
 
@@ -51,7 +51,6 @@ function xoops_module_update_mymenus(XoopsObject &$xoopsModule, $previousVersion
  */
 class MymenusUpdater
 {
-
 
 // =========================================================================================
 // This function updates any existing table of a < 1.50 version to the format used
@@ -70,6 +69,7 @@ class MymenusUpdater
             $module->setErrors("Template " . $module->getInfo("dirname") . "_block.tpl not exists!");
             $err = false;
         }
+
         return $err;
     }
 
@@ -104,7 +104,6 @@ class MymenusUpdater
             "image"     => "varchar(255) default NULL",
             "css"       => "varchar(255) default NULL"
         );
-
 
         /*
 
@@ -146,6 +145,7 @@ class MymenusUpdater
                 $result = $GLOBALS['xoopsDB']->queryF($sql);
                 if (!$result) {
                     $module->setErrors("Can't rename Table " . $GLOBALS['xoopsDB']->prefix($module->getInfo("dirname")) . "_menu");
+
                     return false;
                 }
             }
@@ -211,6 +211,7 @@ class MymenusUpdater
                 } elseif ('_links' == $tablename) {
                     $sql    = 'DROP TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo("dirname")) . '_menus';
                     $result = $GLOBALS['xoopsDB']->queryF($sql);
+
                     return false;
                 }
 
@@ -232,6 +233,7 @@ class MymenusUpdater
                 }
             }
         }
+
         return null;
     }
 
@@ -251,6 +253,7 @@ if (!function_exists("InfoColumnExists")) {
         } // Fehler!!
         $result = $GLOBALS['xoopsDB']->queryF("SHOW COLUMNS FROM " . $tablename . " LIKE '" . $spalte . "'");
         $ret    = ($GLOBALS['xoopsDB']->getRowsNum($result) > 0) ? true : false;
+
         return $ret;
     }
 }
@@ -265,10 +268,7 @@ if (!function_exists("InfoTableExists")) {
     {
         $result = $GLOBALS['xoopsDB']->queryF("SHOW TABLES LIKE '$tablename'");
         $ret    = ($GLOBALS['xoopsDB']->getRowsNum($result) > 0) ? true : false;
+
         return $ret;
     }
 }
-
-
-
-

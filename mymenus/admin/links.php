@@ -18,8 +18,9 @@
  * @version         $Id: links.php
  */
 
-$currentFile = basename(__FILE__);
 include_once __DIR__ . '/admin_header.php';
+
+$currentFile = basename(__FILE__);
 
 $mymenusTpl       = new XoopsTpl(); // will be removed???
 $mymenusAdminPage = 'links.php'; // will be removed???
@@ -170,13 +171,11 @@ switch ($op) {
         break;
 }
 
-
 /**
  * Class MymenusLinksUtilities
  */
 class MymenusLinksUtilities
 {
-
 
     /**
      * Display the links in a menu
@@ -198,7 +197,7 @@ class MymenusLinksUtilities
         $linksCriteria->setSort('weight');
         $linksCriteria->setOrder('ASC');
         //
-        $menusArray = array();
+//        $menusArray = array();
         if (($linksCount > 0) && ($linksCount >= (int)$start)) {
             $linksCriteria->setStart((int)$start);
             $linksArrays = $mymenus->getHandler('links')->getObjects($linksCriteria, false, false); // as array
@@ -306,7 +305,7 @@ class MymenusLinksUtilities
      * @param null $id
      * @param null $pid
      *
-     * @param null $mid
+     * @param  null   $mid
      * @return string
      */
     public static function mymenusAdminForm($id = null, $pid = null, $mid = null)
@@ -319,10 +318,10 @@ class MymenusLinksUtilities
         $xoopsLogger->activated = false;
         error_reporting(0);
 
-        global $pathIcon16;
+        $pathIcon16 = $GLOBALS['xoops']->url('www/' . $GLOBALS['xoopsModule']->getInfo('systemIcons16'));
 
-        $registry =& MymenusRegistry::getInstance();
-        $plugin   =& MymenusPlugin::getInstance();
+//        $registry =& MymenusRegistry::getInstance();
+//        $plugin   =& MymenusPlugin::getInstance();
 
         $linksObj = $mymenus->getHandler('links')->get((int)$id);
 
@@ -352,7 +351,7 @@ class MymenusLinksUtilities
         if (count($menusList) > 1) {
             // display menu options (if more than 1 menu available
             if (!($linksObj->getVar('mid'))) { // initial menu value not set
-                $menuValues = array_flip($menusList);
+//                $menuValues = array_flip($menusList);
                 $formmid    = new XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $mid);//array_shift($menuValues));
             } else {
                 $formmid = new XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $linksObj->getVar('mid'));
@@ -432,7 +431,7 @@ class MymenusLinksUtilities
      *
      * Update the {@see MymenusLinks} weight (order)
      *
-     * @param integer $id of links object
+     * @param integer $id     of links object
      * @param integer $weight
      */
     public static function mymenusAdminMove($id, $weight)
