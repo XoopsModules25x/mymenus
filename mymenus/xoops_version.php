@@ -18,9 +18,7 @@
  * @version         $Id: xoops_version.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 $moduleDirName = basename(__DIR__);
 
@@ -38,7 +36,7 @@ $modversion = array(
     'help'                => "page=help",
     //
     'release_info'        => "release_info",
-    'release'             => "2015-02-27",
+    'release'             => "2015-03-07",
     'release_file'        => XOOPS_URL . "/modules/{$moduleDirName}/docs/release_info file",
 
     //
@@ -60,8 +58,8 @@ $modversion = array(
     'moduleIcons32'       => "assets/images/icons/32",
     //About
     'version'             => 1.51,
-    'module_status'       => "RC 2",
-    'release_date'        => "2015/02/27", // YYYY/mm/dd
+    'module_status'       => "RC 3",
+    'release_date'        => "2015/03/07", // YYYY/mm/dd
 
     'demo_site_url'       => "http://www.xoops.org",
     'demo_site_name'      => "XOOPS Demo Site",

@@ -1,8 +1,6 @@
 <?php
 
-if(!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 // module information
 $moduleImageUrl      = MYMENUS_URL . "/assets/images/mymenus.png";

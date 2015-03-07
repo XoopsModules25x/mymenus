@@ -19,9 +19,7 @@
  * @version         svn:$id$
  */
 
-if(!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 /**
  * Class MymenusMymenus

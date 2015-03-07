@@ -19,9 +19,8 @@
  * @version         svn:$id$
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+
 //$moduleDirname = basename(dirname(__DIR__));
 //include_once(XOOPS_ROOT_PATH . "/modules/$moduleDirname/include/common.php");
 include_once __DIR__ . '/common.php';

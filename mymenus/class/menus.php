@@ -18,9 +18,7 @@
  * @version         $Id: menus.php 0 2010-07-21 18:47:04Z trabis $
  */
 
-if(!defined('XOOPS_ROOT_PATH')) {
-    throw new Exception('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 include_once dirname(__DIR__) . '/include/common.php';
 
@@ -55,17 +53,17 @@ class MymenusMenus extends XoopsObject
      */
     public function getForm($action = false)
     {
-        $grouppermHandler = xoops_gethandler('groupperm');
+//        $grouppermHandler = xoops_gethandler('groupperm');
         //
         xoops_load('XoopsFormLoader');
         //
         if ($action === false) {
 //            $action = $_SERVER['REQUEST_URI'];
-            $action = XoopsRequest::getString('REQUEST_URI','', 'SERVER');
+            $action = XoopsRequest::getString('REQUEST_URI', '', 'SERVER');
         }
         //
-        $isAdmin = mymenusUserIsAdmin();
-        $groups  = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
+//        $isAdmin = mymenusUserIsAdmin();
+//        $groups  = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
         //
         $title = $this->isNew() ? _AM_MYMENUS_MENUS_ADD : _AM_MYMENUS_MENUS_EDIT;
         //

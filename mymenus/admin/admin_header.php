@@ -19,6 +19,7 @@
  */
 
 include_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 include_once $GLOBALS['xoops']->path('www/include/cp_functions.php');
 // Include xoops admin header
 include_once $GLOBALS['xoops']->path('www/include/cp_header.php');
