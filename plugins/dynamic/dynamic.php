@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: dynamic.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
@@ -29,7 +28,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
     public function eventEnd()
     {
         $newmenus = '';
-        $registry =& MymenusRegistry::getInstance();
+        $registry = MymenusRegistry::getInstance();
         $menus    = $registry->getEntry('menus');
         foreach ($menus as $menu) {
             if (!preg_match('/{(MODULE\|.*)}/i', $menu['title'], $reg)) {
@@ -37,7 +36,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
                 continue;
             }
             $result      = array_map('mb_strtolower', explode('|', $reg[1]));
-            $moduleMenus = self::getModuleMenus($result[1], $menu['pid']);
+            $moduleMenus = $this->getModuleMenus($result[1], $menu['pid']);
             foreach ($moduleMenus as $mMenu) {
                 $newmenus[] = $mMenu;
             }
@@ -77,13 +76,13 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
                 // @TODO: check the following 2 statements, they're basically just assigns - is this intended?
                 $_xoopsModule           = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
                 $_xoopsModuleConfig     = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
-                $moduleHandler          =& xoops_gethandler('module');
-                $xoopsModule            =& $moduleHandler->getByDirname($module);
-                $GLOBALS['xoopsModule'] =& $xoopsModule;
+                $moduleHandler          = xoops_getHandler('module');
+                $xoopsModule            = $moduleHandler->getByDirname($module);
+                $GLOBALS['xoopsModule'] = $xoopsModule;
                 if ($xoopsModule instanceof XoopsModule) {
-                    $configHandler                =& xoops_gethandler('config');
-                    $xoopsModuleConfig            =& $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
-                    $GLOBALS['xoopsModuleConfig'] =& $xoopsModuleConfig;
+                    $configHandler                = xoops_getHandler('config');
+                    $xoopsModuleConfig            = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
+                    $GLOBALS['xoopsModuleConfig'] = $xoopsModuleConfig;
                 }
                 $overwrite = true;
             }
@@ -94,21 +93,22 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         $handler = xoops_getModuleHandler('links', 'mymenus');
         foreach ($modversion['sub'] as $links) {
             $obj = $handler->create();
-            $obj->setVars(array('title'     => $links['name'],
-                                'alt_title' => $links['name'],
-                                'link'      => $GLOBALS['xoops']->url("{$path}/{$links['url']}"),
-                                'id'        => $id,
-                                'pid'       => (int)$pid)
-            );
+            $obj->setVars(array(
+                              'title'     => $links['name'],
+                              'alt_title' => $links['name'],
+                              'link'      => $GLOBALS['xoops']->url("{$path}/{$links['url']}"),
+                              'id'        => $id,
+                              'pid'       => (int)$pid
+                          ));
             $ret[] = $obj->getValues();
             $id--;
         }
 
         if ($overwrite) {
-            $xoopsModule                  =& $_xoopsModule;
-            $GLOBALS['xoopsModule']       =& $xoopsModule;
-            $xoopsModuleConfig            =& $_xoopsModuleConfig;
-            $GLOBALS['xoopsModuleConfig'] =& $xoopsModuleConfig;
+            $xoopsModule                  = $_xoopsModule;
+            $GLOBALS['xoopsModule']       = $xoopsModule;
+            $xoopsModuleConfig            = $_xoopsModuleConfig;
+            $GLOBALS['xoopsModuleConfig'] = $xoopsModuleConfig;
         }
 
         return $ret;

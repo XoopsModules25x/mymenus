@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: builder.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 class MymenusBuilder
 {
@@ -55,11 +54,11 @@ class MymenusBuilder
     {
         static $idx = -1;
         static $level = -1;
-        $level += 1;
+        ++$level;
         $first = true;
 
         foreach ($this->parents[$pid] as $item) {
-            $idx += 1;
+            ++$idx;
 
             $this->output[$idx]['oul']    = false;
             $this->output[$idx]['oli']    = false;
@@ -86,7 +85,7 @@ class MymenusBuilder
         }
         $this->output[$idx]['cul'] = true;
         $this->output[$idx]['close'] .= "</ul>\n";
-        $level -= 1;
+        --$level;
     }
 
     /**
@@ -102,7 +101,7 @@ class MymenusBuilder
         $count      = count($this->parents[$pid]);
 
         foreach ($this->parents[$pid] as $item) {
-            $idx += 1;
+            ++$idx;
             $counter++;
             if ($counter == $count) {
                 $down = 0;
@@ -128,18 +127,18 @@ class MymenusBuilder
     {
         //get the currentpage
         $sel = array();
-//        $queryString = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
+        //        $queryString = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
         $queryString = XoopsRequest::getString('QUERY_STRING', '', 'SERVER') ? '?' . XoopsRequest::getString('QUERY_STRING', '', 'SERVER') : '';
-//        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $queryString;
+        //        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $queryString;
         $self = 'http://' . XoopsRequest::getString('HTTP_HOST', '', 'SERVER') . XoopsRequest::getString('PHP_SELF', '', 'SERVER') . $queryString;
 
         //set a default page in case we don't get matches
-        $default = XOOPS_URL . "/index.php";
+        $default = XOOPS_URL . '/index.php';
 
         //get all matching links
         foreach ($this->output as $idx => $menu) {
             $selected = 0;
-            if (($menu['link'])) {
+            if ($menu['link']) {
                 $selected = (false !== stristr($self, $menu['link'])) ? 1 : $selected;
             }
             $selected = ($menu['link'] == $self) ? 1 : $selected;
@@ -150,7 +149,7 @@ class MymenusBuilder
         }
 
         //From those links get only the longer one
-        $longlink = "";
+        $longlink = '';
         $longidx  = 0;
         foreach ($sel as $idx => $menu) {
             if (strlen($menu['link']) > strlen($longlink)) {

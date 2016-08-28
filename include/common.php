@@ -16,18 +16,17 @@
  * @package         mymenus
  * @since           1.5
  * @author          Xoops Development Team
- * @version         svn:$id$
- */
+  */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 // This must contain the name of the folder in which reside mymenus
-define("MYMENUS_DIRNAME", basename(dirname(__DIR__)));
-define("MYMENUS_URL", XOOPS_URL . '/modules/' . MYMENUS_DIRNAME);
-define("MYMENUS_ROOT_PATH", XOOPS_ROOT_PATH . '/modules/' . MYMENUS_DIRNAME);
-define("MYMENUS_IMAGES_URL", MYMENUS_URL . '/assets/images');
-define("MYMENUS_ADMIN_URL", MYMENUS_URL . '/admin');
-define("MYMENUS_ICONS_URL", MYMENUS_URL . '/assets/images/icons');
+define('MYMENUS_DIRNAME', basename(dirname(__DIR__)));
+define('MYMENUS_URL', XOOPS_URL . '/modules/' . MYMENUS_DIRNAME);
+define('MYMENUS_ROOT_PATH', XOOPS_ROOT_PATH . '/modules/' . MYMENUS_DIRNAME);
+define('MYMENUS_IMAGES_URL', MYMENUS_URL . '/assets/images');
+define('MYMENUS_ADMIN_URL', MYMENUS_URL . '/admin');
+define('MYMENUS_ICONS_URL', MYMENUS_URL . '/assets/images/icons');
 
 xoops_loadLanguage('common', MYMENUS_DIRNAME);
 
@@ -57,8 +56,8 @@ if (is_object($mymenus->getModule())) {
 $xoopsModule = $mymenus->getModule();
 
 // Load Xoops handlers
-$moduleHandler       = xoops_gethandler('module');
-$memberHandler       = xoops_gethandler('member');
-$notificationHandler = xoops_gethandler('notification');
-$gpermHandler        = xoops_gethandler('groupperm');
-$configHandler       = xoops_gethandler('config');
+$moduleHandler       = xoops_getHandler('module');
+$memberHandler       = xoops_getHandler('member');
+$notificationHandler = xoops_getHandler('notification');
+$gpermHandler        = xoops_getHandler('groupperm');
+$configHandler       = xoops_getHandler('config');

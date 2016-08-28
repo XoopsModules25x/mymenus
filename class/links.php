@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: links.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
@@ -107,9 +106,9 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
     private $mymenus = null;
 
     /**
-     * @param null|object $db
+     * @param null|XoopsDatabase $db
      */
-    public function __construct($db)
+    public function __construct(XoopsDatabase $db)
     {
         parent::__construct($db, 'mymenus_links', 'MymenusLinks', 'id', 'title');
         $this->mymenus = MymenusMymenus::getInstance();
@@ -120,24 +119,24 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
      */
     public function updateWeights(&$obj)
     {
-        $sql = "UPDATE " . $this->table . " SET weight = weight+1";
-        $sql .= " WHERE";
-        $sql .= " weight >= " . $obj->getVar('weight');
-        $sql .= " AND";
-        $sql .= " id <> " . $obj->getVar('id');
+        $sql = 'UPDATE ' . $this->table . ' SET weight = weight+1';
+        $sql .= ' WHERE';
+        $sql .= ' weight >= ' . $obj->getVar('weight');
+        $sql .= ' AND';
+        $sql .= ' id <> ' . $obj->getVar('id');
         //$sql .= " AND pid = " . $obj->getVar('pid');
-        $sql .= " AND";
-        $sql .= " mid = " . $obj->getVar('mid');
+        $sql .= ' AND';
+        $sql .= ' mid = ' . $obj->getVar('mid');
         $this->db->queryF($sql);
 
-        $sql = "SELECT id FROM " . $this->table;
-        $sql .= " WHERE mid = " . $obj->getVar('mid');
+        $sql = 'SELECT id FROM ' . $this->table;
+        $sql .= ' WHERE mid = ' . $obj->getVar('mid');
         //$sql .= " AND pid = " . $obj->getVar('pid');
-        $sql .= " ORDER BY weight ASC";
+        $sql .= ' ORDER BY weight ASC';
         $result = $this->db->query($sql);
         $i      = 1;  //lets start at 1 please!
         while (list($id) = $this->db->fetchrow($result)) {
-            $sql = "UPDATE " . $this->table;
+            $sql = 'UPDATE ' . $this->table;
             $sql .= " SET weight = {$i}";
             $sql .= " WHERE id = {$id}";
             $this->db->queryF($sql);

@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: plugin.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
@@ -42,7 +41,7 @@ class MymenusPlugin
     {
         $this->plugins  = array();
         $this->events   = array();
-        $this->registry =& MymenusRegistry::getInstance();
+        $this->registry = MymenusRegistry::getInstance();
         $this->mymenus  = MymenusMymenus::getInstance();
         $this->setPlugins();
         $this->setEvents();
@@ -51,7 +50,7 @@ class MymenusPlugin
     /**
      * @return MymenusPlugin
      */
-    public static function &getInstance()
+    public static function getInstance()
     {
         static $instance = false;
         if (!$instance) {
@@ -93,7 +92,7 @@ class MymenusPlugin
     }
 
     /**
-     * @param       $eventName
+     * @param string $eventName
      * @param array $args
      */
     public function triggerEvent($eventName, $args = array())
@@ -122,14 +121,15 @@ class MymenusPluginItem
     {
         $mymenus  = MymenusMymenus::getInstance();
         $language = $GLOBALS['xoopsConfig']['language'];
-//        $path     = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/plugins/{$name}/language");
-//        if (!($ret = @include_once "{$path}/{$language}/{$name}.php")) {
-//            $ret = @include_once "{$path}/english/{$name}.php";
-//        }
-//        return $ret;
+        //        $path     = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/plugins/{$name}/language");
+        //        if (!($ret = @include_once "{$path}/{$language}/{$name}.php")) {
+        //            $ret = @include_once "{$path}/english/{$name}.php";
+        //        }
+        //        return $ret;
 
-        $path2     = "{$mymenus->dirname}/plugins/{$name}/{$language}/";
+        $path2 = "{$mymenus->dirname}/plugins/{$name}/{$language}/";
         xoops_loadLanguage($name, $path2);
+
         return true;
     }
 }

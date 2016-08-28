@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: registry.php 12944 2015-01-23 13:05:09Z beckmi $
  */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
@@ -38,7 +37,7 @@ class MymenusRegistry
     }
 
     /**
-     * @return object MymenusRegistry
+     * @return MymenusRegistry
      */
     public static function getInstance()
     {

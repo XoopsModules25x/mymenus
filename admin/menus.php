@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: menus.php
  */
 
 $currentFile = basename(__FILE__);
@@ -34,8 +33,8 @@ switch ($op) {
         if ($apply_filter === true) {
             $moduleAdmin->addItemButton(_LIST, '?op=list', 'list');
         }
-        $moduleAdmin->addItemButton(_ADD, $currentFile . "?op=edit", 'add');
-        echo $moduleAdmin->renderButton();
+        $moduleAdmin->addItemButton(_ADD, $currentFile . '?op=edit', 'add');
+        echo $moduleAdmin->renderButton('left');
         //
         $menusCount = $mymenus->getHandler('menus')->getCount();
         $GLOBALS['xoopsTpl']->assign('menusCount', $menusCount);
@@ -130,8 +129,8 @@ switch ($op) {
         $moduleAdmin = new ModuleAdmin();
         echo $moduleAdmin->addNavigation($currentFile);
         // buttons
-        $moduleAdmin->addItemButton(_LIST, $currentFile . "?op=list", 'list');
-        echo $moduleAdmin->renderButton();
+        $moduleAdmin->addItemButton(_LIST, $currentFile . '?op=list', 'list');
+        echo $moduleAdmin->renderButton('left');
         //
         $id = XoopsRequest::getInt('id', 0);
         if (!$menusObj = $mymenus->getHandler('menus')->get($id)) {
@@ -197,12 +196,8 @@ switch ($op) {
             redirect_header($currentFile, 3, _AM_MYMENUS_MSG_DELETE_MENU_SUCCESS);
         } else {
             xoops_cp_header();
-            xoops_confirm(
-                array('ok' => true, 'id' => $id, 'op' => 'delete'),
-//                $_SERVER['REQUEST_URI'],
-                XoopsRequest::getString('REQUEST_URI','', 'SERVER'),
-                sprintf(_AM_MYMENUS_MENUS_SUREDEL, $menusObj->getVar('title'))
-            );
+            xoops_confirm(array('ok' => true, 'id' => $id, 'op' => 'delete'), //                $_SERVER['REQUEST_URI'],
+                          XoopsRequest::getString('REQUEST_URI', '', 'SERVER'), sprintf(_AM_MYMENUS_MENUS_SUREDEL, $menusObj->getVar('title')));
             include_once __DIR__ . '/admin_footer.php';
         }
         break;

@@ -16,7 +16,6 @@
  * @package         Mymenus
  * @since           1.5
  * @author          Xoops Development Team
- * @version         svn:$id$
  */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
@@ -47,7 +46,7 @@ class MymenusMymenus
      *
      * @return MymenusMymenus
      */
-    public static function &getInstance($debug = false)
+    public static function getInstance($debug = false)
     {
         static $instance = false;
         if (!$instance) {
@@ -60,7 +59,7 @@ class MymenusMymenus
     /**
      * @return null
      */
-    public function &getModule()
+    public function getModule()
     {
         if ($this->module === null) {
             $this->initModule();
@@ -80,7 +79,7 @@ class MymenusMymenus
             $this->initConfig();
         }
         if (!$name) {
-            $this->addLog("Getting all config");
+            $this->addLog('Getting all config');
 
             return $this->config;
         }
@@ -116,7 +115,7 @@ class MymenusMymenus
      *
      * @return mixed
      */
-    public function &getHandler($name)
+    public function getHandler($name)
     {
         if (!isset($this->handler[$name . 'Handler'])) {
             $this->initHandler($name);
@@ -132,7 +131,7 @@ class MymenusMymenus
         if (isset($xoopsModule) && is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $this->dirname) {
             $this->module = $xoopsModule;
         } else {
-            $hModule      = xoops_gethandler('module');
+            $hModule      = xoops_getHandler('module');
             $this->module = $hModule->getByDirname($this->dirname);
         }
         $this->addLog('INIT MODULE');
@@ -141,7 +140,7 @@ class MymenusMymenus
     public function initConfig()
     {
         $this->addLog('INIT CONFIG');
-        $hModConfig   = xoops_gethandler('config');
+        $hModConfig   = xoops_getHandler('config');
         $this->config = $hModConfig->getConfigsByCat(0, $this->getModule()->getVar('mid'));
     }
 

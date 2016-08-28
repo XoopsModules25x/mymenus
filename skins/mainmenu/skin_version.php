@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: skin_version.php 12500 2014-04-25 14:28:10Z beckmi $
  */
 
 $skinVersion['template'] = 'templates/template.tpl';

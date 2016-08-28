@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: mymenus.php 12940 2015-01-21 17:33:38Z zyspec $
  */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
@@ -28,8 +27,8 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
     public function eventBoot()
     {
-        $registry      =& MymenusRegistry::getInstance();
-        $memberHandler =& xoops_getHandler('member');
+        $registry      = MymenusRegistry::getInstance();
+        $memberHandler = xoops_getHandler('member');
         xoops_load('XoopsRequest');
 
         $user = ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser'] : null;
@@ -59,9 +58,9 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
     public function eventLinkDecoration()
     {
-        $registry          =& MymenusRegistry::getInstance();
+        $registry          = MymenusRegistry::getInstance();
         $linkArray         = $registry->getEntry('link_array');
-        $linkArray['link'] = self::doDecoration($linkArray['link']);
+        $linkArray['link'] = $this->doDecoration($linkArray['link']);
         //if (!eregi('mailto:', $linkArray['link']) && !eregi('://', $linkArray['link'])) {
         if (!preg_match('/mailto:/i', $linkArray['link']) && !preg_match('#://#i', $linkArray['link'])) {
             $linkArray['link'] = XOOPS_URL . '/' . $linkArray['link'];  //Do not do this in other decorators
@@ -71,32 +70,32 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
     public function eventImageDecoration()
     {
-        $registry  =& MymenusRegistry::getInstance();
+        $registry  = MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
-        if (($linkArray['image']) && !filter_var($linkArray['image'], FILTER_VALIDATE_URL)) {
+        if ($linkArray['image'] && !filter_var($linkArray['image'], FILTER_VALIDATE_URL)) {
             $linkArray['image'] = XOOPS_URL . '/' . $linkArray['image'];
             //Do not do this in other decorators
-            $linkArray['image'] = self::doDecoration($linkArray['image']);
+            $linkArray['image'] = $this->doDecoration($linkArray['image']);
             $registry->setEntry('link_array', $linkArray);
         }
     }
 
     public function eventTitleDecoration()
     {
-        $registry           =& MymenusRegistry::getInstance();
+        $registry           = MymenusRegistry::getInstance();
         $linkArray          = $registry->getEntry('link_array');
-        $linkArray['title'] = self::doDecoration($linkArray['title']);
+        $linkArray['title'] = $this->doDecoration($linkArray['title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
-    public function eventAlttitleDecoration()
+    public function eventAltTitleDecoration()
     {
-        $registry  =& MymenusRegistry::getInstance();
+        $registry  = MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
-        if (!($linkArray['alt_title'])) {
+        if (!$linkArray['alt_title']) {
             $linkArray['alt_title'] = $linkArray['title'];
         }
-        $linkArray['alt_title'] = self::doDecoration($linkArray['alt_title']);
+        $linkArray['alt_title'] = $this->doDecoration($linkArray['alt_title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -107,7 +106,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
      */
     protected function doDecoration($string)
     {
-        $registry =& MymenusRegistry::getInstance();
+        $registry = MymenusRegistry::getInstance();
         //if (!eregi("{(.*\|.*)}", $string, $reg)) {
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
             return $string;
@@ -117,24 +116,24 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         list($validator, $value) = array_map('strtolower', explode('|', $reg[1]));
 
         //just to prevent any bad admin to get easy passwords
-        if ($value == 'pass') {
+        if ($value === 'pass') {
             return $string;
         }
 
-        if ($validator == 'user') {
+        if ($validator === 'user') {
             $user   = $registry->getEntry('user');
-            $value  = isset($user[$value]) ? $user[$value] : self::getExtraValue('user', $value);
+            $value  = isset($user[$value]) ? $user[$value] : $this->getExtraValue('user', $value);
             $string = str_replace($expression, $value, $string);
         }
 
-        if ($validator == 'uri') {
+        if ($validator === 'uri') {
             $value  = XoopsRequest::getString($value, 0, 'GET');
             $string = str_replace($expression, $value, $string);
         }
 
-        if ($validator == 'owner') {
+        if ($validator === 'owner') {
             $owner  = $registry->getEntry('owner');
-            $value  = isset($owner[$value]) ? $owner[$value] : self::getExtraValue('owner', $value);
+            $value  = isset($owner[$value]) ? $owner[$value] : $this->getExtraValue('owner', $value);
             $string = str_replace($expression, $value, $string);
         }
 
@@ -143,13 +142,13 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
     public function eventFormLinkDescription()
     {
-        $registry    =& MymenusRegistry::getInstance();
+        $registry    = MymenusRegistry::getInstance();
         $description = $registry->getEntry('form_link_description');
     }
 
     public function eventHasAccess()
     {
-        $registry =& MymenusRegistry::getInstance();
+        $registry = MymenusRegistry::getInstance();
         $menu     = $registry->getEntry('menu');
         $groups   = $registry->getEntry('user_groups');
         if ($menu['visible'] == 0 || !array_intersect($menu['groups'], $groups)) {
@@ -170,8 +169,8 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
     public function eventAccessFilter()
     {
-        self::loadLanguage('mymenus');
-        $registry                               =& MymenusRegistry::getInstance();
+        $this->loadLanguage('mymenus');
+        $registry                               = MymenusRegistry::getInstance();
         $accessFilter                           = $registry->getEntry('accessFilter');
         $accessFilter['is_owner']['name']       = _PL_MYMENUS_MYMENUS_ISOWNER;
         $accessFilter['is_owner']['method']     = 'isOwner';
@@ -185,7 +184,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
      */
     public function isOwner()
     {
-        $registry =& MymenusRegistry::getInstance();
+        $registry = MymenusRegistry::getInstance();
 
         return ($registry->getEntry('user_uid') != 0 && $registry->getEntry('user_uid') == $registry->getEntry('get_uid')) ? true : false;
     }
@@ -195,7 +194,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
      */
     public function isNotOwner()
     {
-        return !self::isOwner();
+        return !$this->isOwner();
     }
 
     /**
@@ -206,7 +205,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
      */
     public function getExtraValue($type = 'user', $value)
     {
-        $registry =& MymenusRegistry::getInstance();
+        $registry = MymenusRegistry::getInstance();
         $ret      = 0;
         $values   = array('pm_new', 'pm_readed', 'pm_total');
         if (!in_array($value, $values)) {
@@ -214,23 +213,23 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
 
         $entry = $registry->getEntry($type);
-        if (!($entry)) {
+        if (!$entry) {
             return $ret;
         }
 
-        $pmHandler =& xoops_gethandler('privmessage');
+        $pmHandler = xoops_getHandler('privmessage');
 
-        if ($value == 'pm_new') {
+        if ($value === 'pm_new') {
             $criteria = new CriteriaCompo(new Criteria('read_msg', 0));
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 
-        if ($value == 'pm_readed') {
+        if ($value === 'pm_readed') {
             $criteria = new CriteriaCompo(new Criteria('read_msg', 1));
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 
-        if ($value == 'pm_total') {
+        if ($value === 'pm_total') {
             $criteria = new Criteria('to_userid', $entry['uid']);
         }
 

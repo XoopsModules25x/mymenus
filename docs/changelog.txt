@@ -1,3 +1,16 @@
+Final        2016-08-28
+=================================
+- code cosmetics (mamba)
+- removed @version (mamba)
+- addNavigation(basename(__FILE__))  (mamba)
+- dirname(__FILE__) to __DIR__ (mamba)
+- XOOPS 2.5.8, PHP 7 (mamba)
+- replaced < b /> with < b > (mamba)
+- Unnecessary double quotes (mamba)
+- reference mismatch (mamba)
+- Hardening to type safe (mamba)
+- update Help (mamba)
+
 <u>Version 1.51 RC 3  (2015-02-27)</u>
 - reverting  "throw new Exception" for XOOPS_ROOT_PATH check (zyspec/mamba)
 

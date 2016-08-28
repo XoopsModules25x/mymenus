@@ -15,14 +15,9 @@
  * @package         Mytabs
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: admin_footer.php
  */
 
-echo "<div class='adminfooter'>\n"
-     . "  <div class='txtcenter'>\n"
-     . "    <a href='http://www.xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n"
-     . "  </div>\n"
-     . "  " . _AM_MODULEADMIN_ADMIN_FOOTER . "\n"
-     . "</div>\n";
+echo "<div class='adminfooter'>\n" . "  <div class='txtcenter'>\n" . "    <a href='http://www.xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n"
+     . "  </div>\n" . '  ' . _AM_MODULEADMIN_ADMIN_FOOTER . "\n" . "</div>\n";
 
 xoops_cp_footer();

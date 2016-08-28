@@ -16,6 +16,6 @@
  * @package         Mymenus
  * @since           1.5
  * @author          Xoops Development Team
- * @version         svn:$id$
  */
 // constants for accounts
+

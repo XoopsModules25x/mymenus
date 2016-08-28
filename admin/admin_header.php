@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: admin_header.php
  */
 
 include_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
@@ -31,14 +30,14 @@ xoops_load('XoopsRequest');
 include_once dirname(__DIR__) . '/include/common.php';
 //$mymenus = MymenusMymenus::getInstance($debug);
 
-$pathIcon16      = $GLOBALS['xoops']->url('www/' . $GLOBALS['xoopsModule']->getInfo('systemIcons16'));
-$pathIcon32      = $GLOBALS['xoops']->url('www/' . $GLOBALS['xoopsModule']->getInfo('systemIcons32'));
+$pathIcon16           = $GLOBALS['xoops']->url('www/' . $GLOBALS['xoopsModule']->getInfo('systemIcons16'));
+$pathIcon32           = $GLOBALS['xoops']->url('www/' . $GLOBALS['xoopsModule']->getInfo('systemIcons32'));
 $xoopsModuleAdminPath = $GLOBALS['xoops']->path('www/' . $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin'));
 require_once "{$xoopsModuleAdminPath}/moduleadmin/moduleadmin.php";
 
-$myts =& MyTextSanitizer::getInstance();
+$myts = MyTextSanitizer::getInstance();
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
-    include_once $GLOBALS['xoops']->path("/class/template.php");
+    include_once $GLOBALS['xoops']->path('/class/template.php');
     $xoopsTpl = new XoopsTpl();
 }
 
@@ -60,7 +59,7 @@ include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/plugin.p
 //include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/config.php");
 
 //Handlers
-//$XXXHandler =& xoops_getModuleHandler('XXX', $mymenus->dirname);
+//$XXXHandler = xoops_getModuleHandler('XXX', $mymenus->dirname);
 
 //$mymenusTpl = new XoopsTpl();
 

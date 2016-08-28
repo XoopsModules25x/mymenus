@@ -15,7 +15,6 @@
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: menus.php 0 2010-07-21 18:47:04Z trabis $
  */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
@@ -48,22 +47,22 @@ class MymenusMenus extends XoopsObject
     /**
      * Get {@link XoopsThemeForm} for adding/editing items
      *
-     * @param  bool   $action
-     * @return object {@link XoopsThemeForm}
+     * @param  bool|string $action
+     * @return XoopsThemeForm {@link XoopsThemeForm}
      */
     public function getForm($action = false)
     {
-//        $grouppermHandler = xoops_gethandler('groupperm');
+        //        $grouppermHandler = xoops_gethandler('groupperm');
         //
         xoops_load('XoopsFormLoader');
         //
         if ($action === false) {
-//            $action = $_SERVER['REQUEST_URI'];
+            //            $action = $_SERVER['REQUEST_URI'];
             $action = XoopsRequest::getString('REQUEST_URI', '', 'SERVER');
         }
         //
-//        $isAdmin = mymenusUserIsAdmin();
-//        $groups  = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
+        //        $isAdmin = mymenusUserIsAdmin();
+        //        $groups  = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : array(0 => XOOPS_GROUP_ANONYMOUS);
         //
         $title = $this->isNew() ? _AM_MYMENUS_MENUS_ADD : _AM_MYMENUS_MENUS_EDIT;
         //
@@ -118,9 +117,9 @@ class MymenusMenusHandler extends XoopsPersistableObjectHandler
     private $mymenus = null;
 
     /**
-     * @param null|object $db
+     * @param null|XoopsDatabase $db
      */
-    public function __construct($db)
+    public function __construct(XoopsDatabase $db)
     {
         parent::__construct($db, 'mymenus_menus', 'MymenusMenus', 'id', 'title', 'css');
         $this->mymenus = MymenusMymenus::getInstance();

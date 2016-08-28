@@ -14,7 +14,6 @@
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author      Bleekk
- * @version     $Id: order.js 12940 2015-01-21 17:33:38Z zyspec $
  */
 
 $(document).ready(function() {
