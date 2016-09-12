@@ -48,9 +48,9 @@ class MymenusMymenus
      */
     public static function getInstance($debug = false)
     {
-        static $instance = false;
-        if (!$instance) {
-            $instance = new self($debug);
+        static $instance;
+        if (null === $instance) {
+            $instance = new static($debug);
         }
 
         return $instance;

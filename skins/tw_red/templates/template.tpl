@@ -29,9 +29,11 @@
                                                     <{if $sub.pid == $menu.id}>
                                                         <{if ($xlanguage && (($menu.title|strstr:$myStr) || ($menu.image|strstr:$myStr)) || !$xlanguage)}>
                                                             <li<{if $sub.class}> class="<{$sub.css}>"<{/if}>>
-                                                                <a href="<{$sub.link}>" target="<{$sub.target}>" title="<{$sub.alt_title}>">
+                                                                <a href="<{$sub.link}>" target="<{$sub.target}>"
+                                                                   title="<{$sub.alt_title}>">
                                                                     <{if $sub.image}>
-                                                                        <img src="<{$sub.image}>" alt="<{$sub.alt_title}>"/>
+                                                                        <img src="<{$sub.image}>"
+                                                                             alt="<{$sub.alt_title}>"/>
                                                                     <{/if}>
                                                                     <{$sub.title}>
                                                                 </a>

@@ -59,7 +59,8 @@
                         <table class="width100">
                             <tr>
                                 <td width="12%">
-                                    <img style="padding: 0 5px 0 2px;" src="<{xoAppUrl}>modules/mymenus/assets/images/actions/move_vertical-16.png">
+                                    <img style="padding: 0 5px 0 2px;"
+                                         src="<{xoAppUrl}>modules/mymenus/assets/images/actions/move_vertical-16.png">
                                     <{$menu.title}>
                                 </td>
                                 <td width="17%" class="discrete">
@@ -73,17 +74,22 @@
                                 </td>
                                 <td width="1%" class="discrete">
                             <span id="hidden-result_<{$menu.id}>" style="display:none;">
-                                <img style="margin: 3px 4px 0 0;" src="../assets/images/loading.gif" title="loading" alt="loading"/>
+                                <img style="margin: 3px 4px 0 0;" src="../assets/images/loading.gif" title="loading"
+                                     alt="loading"/>
                             </span>
-                                    <input id="id-<{$menu.id}>" type="button" title="<{$smarty.const._AM_MYMENUS_ACTION_TOGGLE}>" class="toggleBtn icon-<{$menu.visible}>"
+                                    <input id="id-<{$menu.id}>" type="button"
+                                           title="<{$smarty.const._AM_MYMENUS_ACTION_TOGGLE}>"
+                                           class="toggleBtn icon-<{$menu.visible}>"
                                            onclick="itemOnOff(<{$menu.id}>)" readonly="readonly">
                                 </td>
                                 <td width="3%" class="discrete">
                                     <a href="#" onclick="showWindow(<{$menu.id}>, <{$mid}>)">
-                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>"/>
+                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 edit.png}>"
+                                             title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>"/>
                                     </a>
                                     <a href="links.php?mid=<{$menu_id}>&amp;op=delete&amp;id=<{$menu.id}>">
-                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/>
+                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 delete.png}>"
+                                             title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/>
                                     </a>
                                 </td>
                             </tr>
@@ -98,7 +104,8 @@
                                         <table width="100%">
                                             <tr>
                                                 <td width="12%">
-                                                    <img style="padding: 0 5px 0 2px;" src="<{xoAppUrl}>modules/mymenus/assets/images/actions/move_vertical-16.png">
+                                                    <img style="padding: 0 5px 0 2px;"
+                                                         src="<{xoAppUrl}>modules/mymenus/assets/images/actions/move_vertical-16.png">
                                                     <{$smenu.title}>
                                                 </td>
                                                 <td width="17%" class="discrete">
@@ -112,17 +119,26 @@
                                                 </td>
                                                 <td width="1%" class="discrete">
                                     <span id="hidden-result_<{$smenu.id}>" style="display:none;">
-                                        <img style="margin: 3px 4px 0 0;" src="../assets/images/loading.gif" title="loading" alt="loading"/>
+                                        <img style="margin: 3px 4px 0 0;" src="../assets/images/loading.gif"
+                                             title="loading" alt="loading"/>
                                     </span>
-                                                    <input id="id-<{$smenu.id}>" type="button" title="<{$smarty.const._AM_MYMENUS_ACTION_TOGGLE}>" class="toggleBtn icon-<{$smenu.visible}>"
+                                                    <input id="id-<{$smenu.id}>" type="button"
+                                                           title="<{$smarty.const._AM_MYMENUS_ACTION_TOGGLE}>"
+                                                           class="toggleBtn icon-<{$smenu.visible}>"
                                                            onclick="itemOnOff(<{$smenu.id}>)">
                                                 </td>
                                                 <td width="3%" class="discrete">
                                                     <a href="#" onclick="showWindow(<{$smenu.id}>)">
-                                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>" alt="<{$smarty.const._EDIT}>"/>
+                                                        <img style="padding: 1px 2px 0 0;"
+                                                             src="<{xoModuleIcons16 edit.png}>"
+                                                             title="<{$smarty.const._EDIT}>"
+                                                             alt="<{$smarty.const._EDIT}>"/>
                                                     </a>
                                                     <a href="links.php?mid=<{$smenu_id}>&amp;op=delete&amp;id=<{$smenu.id}>">
-                                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>" alt="<{$smarty.const._DELETE}>"/>
+                                                        <img style="padding: 1px 2px 0 0;"
+                                                             src="<{xoModuleIcons16 delete.png}>"
+                                                             title="<{$smarty.const._DELETE}>"
+                                                             alt="<{$smarty.const._DELETE}>"/>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -137,7 +153,8 @@
                                                         <table width="100%">
                                                             <tr>
                                                                 <td width="12%">
-                                                                    <img style="padding: 0 5px 0 2px;" src="<{xoAppUrl}>modules/mymenus/assets/images/actions/move_vertical-16.png">
+                                                                    <img style="padding: 0 5px 0 2px;"
+                                                                         src="<{xoAppUrl}>modules/mymenus/assets/images/actions/move_vertical-16.png">
                                                                     <{$ssmenu.title}>
                                                                 </td>
                                                                 <td width="17%" class="discrete">
@@ -151,18 +168,25 @@
                                                                 </td>
                                                                 <td width="1%" class="discrete">
                                             <span id="hidden-result_<{$ssmenu.id}>" style="display:none;">
-                                                <img style="margin: 3px 4px 0 0;" src="../assets/images/loading.gif" title="loading" alt="loading"/>
+                                                <img style="margin: 3px 4px 0 0;" src="../assets/images/loading.gif"
+                                                     title="loading" alt="loading"/>
                                             </span>
-                                                                    <input id="id-<{$ssmenu.id}>" type="button" title="<{$smarty.const._AM_MYMENUS_ACTION_TOGGLE}>"
-                                                                           class="toggleBtn icon-<{$ssmenu.visible}>" onclick="itemOnOff(<{$ssmenu.id}>)">
+                                                                    <input id="id-<{$ssmenu.id}>" type="button"
+                                                                           title="<{$smarty.const._AM_MYMENUS_ACTION_TOGGLE}>"
+                                                                           class="toggleBtn icon-<{$ssmenu.visible}>"
+                                                                           onclick="itemOnOff(<{$ssmenu.id}>)">
                                                                 </td>
                                                                 <td width="3%" class="discrete">
                                                                     <a href="#" onclick="showWindow(<{$ssmenu.id}>)">
-                                                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 edit.png}>" title="<{$smarty.const._EDIT}>"
+                                                                        <img style="padding: 1px 2px 0 0;"
+                                                                             src="<{xoModuleIcons16 edit.png}>"
+                                                                             title="<{$smarty.const._EDIT}>"
                                                                              alt="<{$smarty.const._EDIT}>"/>
                                                                     </a>
                                                                     <a href="links.php?mid=<{$ssmenu_id}>&amp;op=delete&amp;id=<{$ssmenu.id}>">
-                                                                        <img style="padding: 1px 2px 0 0;" src="<{xoModuleIcons16 delete.png}>" title="<{$smarty.const._DELETE}>"
+                                                                        <img style="padding: 1px 2px 0 0;"
+                                                                             src="<{xoModuleIcons16 delete.png}>"
+                                                                             title="<{$smarty.const._DELETE}>"
                                                                              alt="<{$smarty.const._DELETE}>"/>
                                                                     </a>
                                                                 </td>

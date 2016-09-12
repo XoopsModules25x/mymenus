@@ -27,7 +27,8 @@ echo "
             <{/if}>
             <{/if}>
             <{if $menu.level == 0}>
-            <{if $menu.hassub}> <{else}>  <a href="<{$menu.link}>" target="<{$menu.target}>" title="<{$menu.alt_title}>"><{$menu.title}></a></li><{/if}>
+            <{if $menu.hassub}> <{else}> <a href="<{$menu.link}>" target="<{$menu.target}>"
+                                            title="<{$menu.alt_title}>"><{$menu.title}></a></li><{/if}>
         <{if $menu.hassub}>
         <li>
             <{$menu.title}>

@@ -18,13 +18,11 @@
  */
 
 include_once __DIR__ . '/admin_header.php';
-$currentFile = basename(__FILE__);
 
 // admin navigation
 xoops_cp_header();
-$indexAdmin = new ModuleAdmin();
 
-echo $indexAdmin->addNavigation('index.php');
-echo $indexAdmin->renderIndex();
+echo $adminObject->addNavigation(basename(__FILE__));
+echo $adminObject->renderIndex();
 
 include __DIR__ . '/admin_footer.php';

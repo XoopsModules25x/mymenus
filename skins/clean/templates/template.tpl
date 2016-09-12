@@ -15,7 +15,8 @@
             <{if ($xlanguage && (($menu.title|strstr:$myStr) || ($menu.image|strstr:$myStr)) || !$xlanguage)}>
             <{if $menu.id == $sub.pid}>
             <li<{if $sub.css}> class="<{$sub.css}>"<{/if}>>
-                <a<{if $sub.selected}> class="active"<{/if}> href="<{$sub.link}>" target="<{$sub.target}>" title="<{$sub.alt_title}>"><{$sub.title}>
+                <a<{if $sub.selected}> class="active"<{/if}> href="<{$sub.link}>" target="<{$sub.target}>"
+                                                             title="<{$sub.alt_title}>"><{$sub.title}>
                 </a>
                 <{if !empty($block.subsub)}>
                     <{foreach item=subsub from=$block name=subsublp}>
@@ -23,7 +24,9 @@
                             <ul class="dropdown-menu"><!-- subsub menu --><{/if}>
                     <{if $sub.id == $subsub.pid}>
                         <li<{if $subsub.css}> class="<{$subsub.css}>"<{/if}>>
-                        <a<{if $subsub.selected}> class="active"<{/if}> href="<{$subsub.link}>" target="<{$subsub.target}>" title="<{$subsub.alt_title}>"><{$subsub.title}>
+                        <a<{if $subsub.selected}> class="active"<{/if}> href="<{$subsub.link}>"
+                                                                        target="<{$subsub.target}>"
+                                                                        title="<{$subsub.alt_title}>"><{$subsub.title}>
                         </a>
                     <{/if}>
                         <{if $smarty.foreach.subsublp.last}>

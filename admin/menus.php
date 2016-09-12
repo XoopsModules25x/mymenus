@@ -99,12 +99,15 @@ switch ($op) {
             }
             $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav);
             //
-            $filter_menus_title_condition_select = new XoopsFormSelect(_AM_MYMENUS_MENU_TITLE, 'filter_menus_title_condition', $filter_menus_title_condition, 1, false);
+            $filter_menus_title_condition_select = new XoopsFormSelect(_AM_MYMENUS_MENU_TITLE,
+                                                                       'filter_menus_title_condition',
+                                                                       $filter_menus_title_condition, 1, false);
             $filter_menus_title_condition_select->addOption('CONTAINS', _CONTAINS);
             $filter_menus_title_condition_select->addOption('MATCHES', _MATCHES);
             $filter_menus_title_condition_select->addOption('STARTSWITH', _STARTSWITH);
             $filter_menus_title_condition_select->addOption('ENDSWITH', _ENDSWITH);
-            $GLOBALS['xoopsTpl']->assign('filter_menus_title_condition_select', $filter_menus_title_condition_select->render());
+            $GLOBALS['xoopsTpl']->assign('filter_menus_title_condition_select',
+                                         $filter_menus_title_condition_select->render());
             $GLOBALS['xoopsTpl']->assign('filter_menus_title_condition', $filter_menus_title_condition);
             $GLOBALS['xoopsTpl']->assign('filter_menus_title', $filter_menus_title);
             //
@@ -197,7 +200,8 @@ switch ($op) {
         } else {
             xoops_cp_header();
             xoops_confirm(array('ok' => true, 'id' => $id, 'op' => 'delete'), //                $_SERVER['REQUEST_URI'],
-                          XoopsRequest::getString('REQUEST_URI', '', 'SERVER'), sprintf(_AM_MYMENUS_MENUS_SUREDEL, $menusObj->getVar('title')));
+                          XoopsRequest::getString('REQUEST_URI', '', 'SERVER'),
+                          sprintf(_AM_MYMENUS_MENUS_SUREDEL, $menusObj->getVar('title')));
             include_once __DIR__ . '/admin_footer.php';
         }
         break;

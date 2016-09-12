@@ -25,7 +25,7 @@ $moduleDirName = basename(__DIR__);
 $modversion = array(
     'name'                => _MI_MYMENUS_MD_NAME,
     'description'         => _MI_MYMENUS_MD_DESC,
-    'author'              => 'Trabis (www.xuups.com)',
+    'author'              => 'Trabis (www.xuups.com), contributors: Mamba, Bleek, Zyspec, Luciorota',
     //    'author_mail'         => " ",
     'author_website_url'  => 'http://xuups.com',
     'author_website_name' => 'XUUPS',
@@ -35,7 +35,7 @@ $modversion = array(
     'help'                => 'page=help',
     //
     'release_info'        => 'release_info',
-    'release'             => '2015-03-07',
+    'release'             => '2016-09-12',
     'release_file'        => XOOPS_URL . "/modules/{$moduleDirName}/docs/release_info file",
 
     //
@@ -56,9 +56,9 @@ $modversion = array(
     'moduleIcons16'       => 'assets/images/icons/16',
     'moduleIcons32'       => 'assets/images/icons/32',
     //About
-    'version'             => 1.51,
-    'module_status'       => 'RC 3',
-    'release_date'        => '2015/03/07', // YYYY/mm/dd
+    'version'             => 1.52,
+    'module_status'       => 'RC1',
+    'release_date'        => '2016/08/28', // YYYY/mm/dd
 
     'demo_site_url'       => 'http://www.xoops.org',
     'demo_site_name'      => 'XOOPS Demo Site',
