@@ -64,7 +64,9 @@ class MymenusUpdater
     public static function checkInfoTemplates(XoopsObject $module)
     {
         $err = true;
-        if (!file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/templates/blocks/' . $module->getInfo('dirname') . '_block.tpl')) {
+        if (!file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/templates/blocks/'
+                         . $module->getInfo('dirname') . '_block.tpl')
+        ) {
             $module->setErrors('Template ' . $module->getInfo('dirname') . '_block.tpl not exists!');
             $err = false;
         }
@@ -140,10 +142,12 @@ class MymenusUpdater
         // RENAME TABLE 'mymenus_menu' TO 'mymenus_links'
         if (!InfoTableExists($GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_links')) {
             if (InfoTableExists($GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_menu')) {
-                $sql    = 'RENAME TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_menu TO ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_links;';
+                $sql    = 'RENAME TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_menu TO '
+                          . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_links;';
                 $result = $GLOBALS['xoopsDB']->queryF($sql);
                 if (!$result) {
-                    $module->setErrors("Can't rename Table " . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_menu');
+                    $module->setErrors("Can't rename Table " . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname'))
+                                       . '_menu');
 
                     return false;
                 }
@@ -187,8 +191,8 @@ class MymenusUpdater
     }
 
     /**
-     * @param array $table
-     * @param string $tablename
+     * @param array       $table
+     * @param string      $tablename
      * @param XoopsObject $module
      * @return bool|null
      */
@@ -203,7 +207,8 @@ class MymenusUpdater
             //    echo $sql;
             $result = $GLOBALS['xoopsDB']->queryF($sql);
             if (!$result) {
-                $module->setErrors("Can't create Table " . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename);
+                $module->setErrors("Can't create Table " . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname'))
+                                   . $tablename);
 
                 if ('_menu' === $tablename) {
                     return false;
@@ -215,17 +220,20 @@ class MymenusUpdater
                 }
             } else {
                 if ('_menu' === $tablename) {
-                    $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename . " (id,title) VALUES (1,'Default')";
+                    $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename
+                              . " (id,title) VALUES (1,'Default')";
                     $result = $GLOBALS['xoopsDB']->queryF($sql);
                 }
             }
         } else {
             foreach ($table as $s => $w) {
                 if (!InfoColumnExists($GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename, $s)) {
-                    $sql    = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename . ' ADD ' . $s . ' ' . $w . ';';
+                    $sql    = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename
+                              . ' ADD ' . $s . ' ' . $w . ';';
                     $result = $GLOBALS['xoopsDB']->queryF($sql);
                 } else {
-                    $sql    = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename . ' CHANGE ' . $s . ' ' . $s . ' ' . $w . ';';
+                    $sql    = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename
+                              . ' CHANGE ' . $s . ' ' . $s . ' ' . $w . ';';
                     $result = $GLOBALS['xoopsDB']->queryF($sql);
                 }
             }

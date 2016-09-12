@@ -52,9 +52,9 @@ class MymenusPlugin
      */
     public static function getInstance()
     {
-        static $instance = false;
-        if (!$instance) {
-            $instance = new MymenusPlugin();
+        static $instance;
+        if (null === $instance) {
+            $instance = new static();
         }
 
         return $instance;
@@ -93,7 +93,7 @@ class MymenusPlugin
 
     /**
      * @param string $eventName
-     * @param array $args
+     * @param array  $args
      */
     public function triggerEvent($eventName, $args = array())
     {
@@ -113,11 +113,11 @@ class MymenusPluginItem
 {
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return mixed
      */
-    public function loadLanguage($name)
+    public static function loadLanguage($name)
     {
         $mymenus  = MymenusMymenus::getInstance();
         $language = $GLOBALS['xoopsConfig']['language'];

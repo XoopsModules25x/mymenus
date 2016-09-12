@@ -55,7 +55,8 @@ function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $the
     if ($useThemeSkin) {
         $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set'] . '/menu';
         if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
-            $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$themeSkin}";
+            $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set']
+                    . "/modules/{$mymenus->dirname}/skins/{$themeSkin}";
             if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
                 $error = true;
             }
@@ -71,7 +72,7 @@ function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $the
 
     if (file_exists($file)) {
         include $file;
-        $info =& $skinVersion;
+        $info = $skinVersion;
     }
 
     $info['path'] = $GLOBALS['xoops']->path($path);

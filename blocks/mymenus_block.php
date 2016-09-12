@@ -108,7 +108,8 @@ function mymenus_block_show($options)
         if (isset($skinInfo['header'])) {
             $tpl_vars .= "\n{$skinInfo['header']}";
         }
-        $GLOBALS['xoopsTpl']->assign('xoops_module_header', $tpl_vars . @$GLOBALS['xoopsTpl']->get_template_vars('xoops_module_header'));
+        $GLOBALS['xoopsTpl']->assign('xoops_module_header',
+                                     $tpl_vars . @$GLOBALS['xoopsTpl']->get_template_vars('xoops_module_header'));
     } else {
         foreach ($cssArray as $file) {
             $GLOBALS['xoTheme']->addStylesheet($file);
@@ -117,7 +118,8 @@ function mymenus_block_show($options)
             $GLOBALS['xoTheme']->addScript($file);
         }
         if (isset($skinInfo['header'])) {
-            $GLOBALS['xoopsTpl']->assign('xoops_footer', @$GLOBALS['xoopsTpl']->get_template_vars('xoops_footer') . "\n" . $skinInfo['header']);
+            $GLOBALS['xoopsTpl']->assign('xoops_footer', @$GLOBALS['xoopsTpl']->get_template_vars('xoops_footer') . "\n"
+                                                         . $skinInfo['header']);
         }
     }
     //
@@ -183,7 +185,8 @@ function mymenus_block_edit($options)
     $menusList = $mymenus->getHandler('menus')->getList($menusCriteria);
     unset($menusCriteria);
     if (0 == count($menusList)) {
-        $form = "<a href='" . $GLOBALS['xoops']->url("modules/{$mymenus->dirname}/admin/menus.php") . "'>" . _AM_MYMENUS_MSG_NOMENUS . "</a>\n";
+        $form = "<a href='" . $GLOBALS['xoops']->url("modules/{$mymenus->dirname}/admin/menus.php") . "'>"
+                . _AM_MYMENUS_MSG_NOMENUS . "</a>\n";
 
         return $form;
     }
@@ -194,7 +197,8 @@ function mymenus_block_edit($options)
     $form .= "</select>\n&nbsp;<i>" . _MB_MYMENUS_SELECT_MENU_DSC . "</i>\n<br><br>\n";
     // option 1: moduleSkin
     xoops_load('XoopsLists');
-    $tempModuleSkinsList = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/skins/"), '');
+    $tempModuleSkinsList = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/skins/"),
+                                                         '');
     $moduleSkinsList     = array();
     foreach ($tempModuleSkinsList as $key => $moduleSkin) {
         if (file_exists($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/skins/{$moduleSkin}/skin_version.php"))) {
@@ -220,7 +224,8 @@ function mymenus_block_edit($options)
     $formDisplayMethodSelect = new XoopsFormSelect('', 'options[3]', $options[3], 1);
     $formDisplayMethodSelect->addOptionArray($displayMethodsList);
     $form .= $formDisplayMethodSelect->render();
-    $form .= "\n&nbsp;<i>" . sprintf(_MB_MYMENUS_DISPLAY_METHOD_DSC, $mymenus->getConfig('unique_id_prefix')) . "</i>\n<br><br>\n";
+    $form .= "\n&nbsp;<i>" . sprintf(_MB_MYMENUS_DISPLAY_METHOD_DSC, $mymenus->getConfig('unique_id_prefix'))
+             . "</i>\n<br><br>\n";
     // option 4: unique_id
     if (!$options[4] || ('clone' === XoopsRequest::getCmd('op', '', 'GET'))) {
         $options[4] = time();
@@ -230,14 +235,19 @@ function mymenus_block_edit($options)
     $form .= $formUniqueIdText->render();
     $form .= "\n&nbsp;<i>" . _MB_MYMENUS_UNIQUEID_DSC . "</i>\n<br><br>\n";
     // option 5: themeSkin
-    if (file_exists($GLOBALS['xoops']->path('/themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/"))) {
+    if (file_exists($GLOBALS['xoops']->path('/themes/' . $GLOBALS['xoopsConfig']['theme_set']
+                                            . "/modules/{$mymenus->dirname}/skins/"))) {
         xoops_load('XoopsLists');
-        $tempThemeSkinsList = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path('/themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/"), '');
+        $tempThemeSkinsList = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path('/themes/'
+                                                                                    . $GLOBALS['xoopsConfig']['theme_set']
+                                                                                    . "/modules/{$mymenus->dirname}/skins/"), '');
         if (isset($tempThemeSkinsList)) {
             $themeSkinsList = array();
             foreach ($tempThemeSkinsList as $key => $themeSkin) {
-                if (file_exists($GLOBALS['xoops']->path('/themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$themeSkin}/skin_version.php"))) {
-                    $themeSkinsList[$themeSkin] = '/themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$themeSkin}";
+                if (file_exists($GLOBALS['xoops']->path('/themes/' . $GLOBALS['xoopsConfig']['theme_set']
+                                                        . "/modules/{$mymenus->dirname}/skins/{$themeSkin}/skin_version.php"))) {
+                    $themeSkinsList[$themeSkin] = '/themes/' . $GLOBALS['xoopsConfig']['theme_set']
+                                                  . "/modules/{$mymenus->dirname}/skins/{$themeSkin}";
                 }
             }
             $form .= '<b>' . _MB_MYMENUS_SELECT_SKIN_FROM_THEME . '</b>&nbsp;';

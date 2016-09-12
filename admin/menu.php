@@ -20,6 +20,7 @@
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 $moduleDirName = basename(dirname(__DIR__));
+/** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler = xoops_getHandler('module');
 $xoopsModule   = XoopsModule::getByDirname($moduleDirName);
 $moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
@@ -51,4 +52,3 @@ $adminmenu = array(
 );
 
 //$mymenus_adminmenu = $adminmenu;
-

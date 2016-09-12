@@ -25,9 +25,10 @@ defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 class MymenusMymenusPluginItem extends MymenusPluginItem
 {
 
-    public function eventBoot()
+    public static function eventBoot()
     {
         $registry      = MymenusRegistry::getInstance();
+        /** @var XoopsMemberHandler $memberHandler */
         $memberHandler = xoops_getHandler('member');
         xoops_load('XoopsRequest');
 
@@ -51,16 +52,18 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
         $registry->setEntry('user', $user->getValues());
         $registry->setEntry('owner', $owner->getValues());
-        $registry->setEntry('user_groups', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS));
-        $registry->setEntry('user_uid', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getVar('uid') : 0);
+        $registry->setEntry('user_groups', ($GLOBALS['xoopsUser'] instanceof
+                                            XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS));
+        $registry->setEntry('user_uid',
+                            ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getVar('uid') : 0);
         $registry->setEntry('get_uid', XoopsRequest::getInt('uid', 0, 'GET'));
     }
 
-    public function eventLinkDecoration()
+    public static function eventLinkDecoration()
     {
         $registry          = MymenusRegistry::getInstance();
         $linkArray         = $registry->getEntry('link_array');
-        $linkArray['link'] = $this->doDecoration($linkArray['link']);
+        $linkArray['link'] = self::doDecoration($linkArray['link']);
         //if (!eregi('mailto:', $linkArray['link']) && !eregi('://', $linkArray['link'])) {
         if (!preg_match('/mailto:/i', $linkArray['link']) && !preg_match('#://#i', $linkArray['link'])) {
             $linkArray['link'] = XOOPS_URL . '/' . $linkArray['link'];  //Do not do this in other decorators
@@ -68,34 +71,34 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry->setEntry('link_array', $linkArray);
     }
 
-    public function eventImageDecoration()
+    public static function eventImageDecoration()
     {
         $registry  = MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
         if ($linkArray['image'] && !filter_var($linkArray['image'], FILTER_VALIDATE_URL)) {
             $linkArray['image'] = XOOPS_URL . '/' . $linkArray['image'];
             //Do not do this in other decorators
-            $linkArray['image'] = $this->doDecoration($linkArray['image']);
+            $linkArray['image'] = self::doDecoration($linkArray['image']);
             $registry->setEntry('link_array', $linkArray);
         }
     }
 
-    public function eventTitleDecoration()
+    public static function eventTitleDecoration()
     {
         $registry           = MymenusRegistry::getInstance();
         $linkArray          = $registry->getEntry('link_array');
-        $linkArray['title'] = $this->doDecoration($linkArray['title']);
+        $linkArray['title'] = self::doDecoration($linkArray['title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
-    public function eventAltTitleDecoration()
+    public static function eventAltTitleDecoration()
     {
         $registry  = MymenusRegistry::getInstance();
         $linkArray = $registry->getEntry('link_array');
         if (!$linkArray['alt_title']) {
             $linkArray['alt_title'] = $linkArray['title'];
         }
-        $linkArray['alt_title'] = $this->doDecoration($linkArray['alt_title']);
+        $linkArray['alt_title'] = self::doDecoration($linkArray['alt_title']);
         $registry->setEntry('link_array', $linkArray);
     }
 
@@ -104,7 +107,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
      *
      * @return mixed
      */
-    protected function doDecoration($string)
+    protected static function doDecoration($string)
     {
         $registry = MymenusRegistry::getInstance();
         //if (!eregi("{(.*\|.*)}", $string, $reg)) {
@@ -122,7 +125,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
         if ($validator === 'user') {
             $user   = $registry->getEntry('user');
-            $value  = isset($user[$value]) ? $user[$value] : $this->getExtraValue('user', $value);
+            $value  = isset($user[$value]) ? $user[$value] : static::getExtraValue('user', $value);
             $string = str_replace($expression, $value, $string);
         }
 
@@ -133,20 +136,20 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
         if ($validator === 'owner') {
             $owner  = $registry->getEntry('owner');
-            $value  = isset($owner[$value]) ? $owner[$value] : $this->getExtraValue('owner', $value);
+            $value  = isset($owner[$value]) ? $owner[$value] : static::getExtraValue('owner', $value);
             $string = str_replace($expression, $value, $string);
         }
 
         return $string;
     }
 
-    public function eventFormLinkDescription()
+    public static function eventFormLinkDescription()
     {
         $registry    = MymenusRegistry::getInstance();
         $description = $registry->getEntry('form_link_description');
     }
 
-    public function eventHasAccess()
+    public static function eventHasAccess()
     {
         $registry = MymenusRegistry::getInstance();
         $menu     = $registry->getEntry('menu');
@@ -167,9 +170,9 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
     }
 
-    public function eventAccessFilter()
+    public static function eventAccessFilter()
     {
-        $this->loadLanguage('mymenus');
+        static::loadLanguage('mymenus');
         $registry                               = MymenusRegistry::getInstance();
         $accessFilter                           = $registry->getEntry('accessFilter');
         $accessFilter['is_owner']['name']       = _PL_MYMENUS_MYMENUS_ISOWNER;
@@ -186,7 +189,8 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     {
         $registry = MymenusRegistry::getInstance();
 
-        return ($registry->getEntry('user_uid') != 0 && $registry->getEntry('user_uid') == $registry->getEntry('get_uid')) ? true : false;
+        return ($registry->getEntry('user_uid') != 0
+                && $registry->getEntry('user_uid') == $registry->getEntry('get_uid')) ? true : false;
     }
 
     /**
@@ -203,7 +207,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
      *
      * @return int
      */
-    public function getExtraValue($type = 'user', $value)
+    public static function getExtraValue($type = 'user', $value)
     {
         $registry = MymenusRegistry::getInstance();
         $ret      = 0;

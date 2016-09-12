@@ -100,6 +100,7 @@ class MymenusMenus extends XoopsObject
         $buttonTray->addElement($buttonCancel);
         //
         $form->addElement($buttonTray);
+
         //
         return $form;
     }

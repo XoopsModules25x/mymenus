@@ -41,9 +41,9 @@ class MymenusRegistry
      */
     public static function getInstance()
     {
-        static $instance = false;
-        if (!$instance) {
-            $instance = new self();
+        static $instance;
+        if (null === $instance) {
+            $instance = new static();
         }
 
         return $instance;

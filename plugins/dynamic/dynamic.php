@@ -25,7 +25,7 @@ defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 class DynamicMymenusPluginItem extends MymenusPluginItem
 {
 
-    public function eventEnd()
+    public static function eventEnd()
     {
         $newmenus = '';
         $registry = MymenusRegistry::getInstance();
@@ -36,7 +36,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
                 continue;
             }
             $result      = array_map('mb_strtolower', explode('|', $reg[1]));
-            $moduleMenus = $this->getModuleMenus($result[1], $menu['pid']);
+            $moduleMenus = self::getModuleMenus($result[1], $menu['pid']);
             foreach ($moduleMenus as $mMenu) {
                 $newmenus[] = $mMenu;
             }
@@ -50,7 +50,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
      *
      * @return array
      */
-    protected function getModuleMenus($module, $pid)
+    protected static function getModuleMenus($module, $pid)
     {
         global $xoopsModule;
         static $id = -1;
@@ -76,10 +76,12 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
                 // @TODO: check the following 2 statements, they're basically just assigns - is this intended?
                 $_xoopsModule           = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
                 $_xoopsModuleConfig     = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
+                /** @var XoopsModuleHandler $moduleHandler */
                 $moduleHandler          = xoops_getHandler('module');
                 $xoopsModule            = $moduleHandler->getByDirname($module);
                 $GLOBALS['xoopsModule'] = $xoopsModule;
                 if ($xoopsModule instanceof XoopsModule) {
+                    /** @var XoopsConfigHandler $configHandler */
                     $configHandler                = xoops_getHandler('config');
                     $xoopsModuleConfig            = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
                     $GLOBALS['xoopsModuleConfig'] = $xoopsModuleConfig;
