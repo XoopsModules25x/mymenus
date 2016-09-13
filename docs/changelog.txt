@@ -1,5 +1,7 @@
-Final        2016-08-28
-=================================
+<u>Version 1.52 Final  (2016-09-12)</u>
+- fixing static methods (goffy/mamba)
+
+<u>Version 1.51 Final  (2016-08-28)</u>
 - code cosmetics (mamba)
 - removed @version (mamba)
 - addNavigation(basename(__FILE__))  (mamba)

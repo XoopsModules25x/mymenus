@@ -23,6 +23,9 @@ $moduleDirName = basename(__DIR__);
 
 // ------------------- Informations ------------------- //
 $modversion = array(
+    'version'             => 1.52,
+    'module_status'       => 'Final',
+    'release_date'        => '2016/09/12', // YYYY/mm/dd
     'name'                => _MI_MYMENUS_MD_NAME,
     'description'         => _MI_MYMENUS_MD_DESC,
     'author'              => 'Trabis (www.xuups.com), contributors: Mamba, Bleek, Zyspec, Luciorota',
@@ -55,11 +58,6 @@ $modversion = array(
     // Local icons paths
     'moduleIcons16'       => 'assets/images/icons/16',
     'moduleIcons32'       => 'assets/images/icons/32',
-    //About
-    'version'             => 1.52,
-    'module_status'       => 'RC1',
-    'release_date'        => '2016/08/28', // YYYY/mm/dd
-
     'demo_site_url'       => 'http://www.xoops.org',
     'demo_site_name'      => 'XOOPS Demo Site',
     'support_url'         => 'http://xoops.org/modules/newbb',
