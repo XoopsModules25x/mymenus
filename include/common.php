@@ -16,7 +16,7 @@
  * @package         mymenus
  * @since           1.5
  * @author          Xoops Development Team
-  */
+ */
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
@@ -56,8 +56,13 @@ if (is_object($mymenus->getModule())) {
 $xoopsModule = $mymenus->getModule();
 
 // Load Xoops handlers
+/** @var XoopsModuleHandler $moduleHandler */
 $moduleHandler       = xoops_getHandler('module');
+/** @var XoopsMemberHandler $memberHandler */
 $memberHandler       = xoops_getHandler('member');
+/** @var XoopsNotificationHandler $notificationHandler*/
 $notificationHandler = xoops_getHandler('notification');
+/** @var XoopsGroupPermHandler $gpermHandler */
 $gpermHandler        = xoops_getHandler('groupperm');
+/** @var XoopsConfigHandler $configHandler */
 $configHandler       = xoops_getHandler('config');
