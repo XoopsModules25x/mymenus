@@ -23,9 +23,9 @@ $moduleDirName = basename(__DIR__);
 
 // ------------------- Informations ------------------- //
 $modversion = array(
-    'version'             => 1.52,
-    'module_status'       => 'Final',
-    'release_date'        => '2016/09/12', // YYYY/mm/dd
+    'version'             => 1.53,
+    'module_status'       => 'Beta 1',
+    'release_date'        => '2016/09/21', // YYYY/mm/dd
     'name'                => _MI_MYMENUS_MD_NAME,
     'description'         => _MI_MYMENUS_MD_DESC,
     'author'              => 'Trabis (www.xuups.com), contributors: Mamba, Bleek, Zyspec, Luciorota',

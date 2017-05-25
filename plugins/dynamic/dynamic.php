@@ -27,7 +27,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
 
     public static function eventEnd()
     {
-        $newmenus = '';
+        $newmenus = array();
         $registry = MymenusRegistry::getInstance();
         $menus    = $registry->getEntry('menus');
         foreach ($menus as $menu) {
