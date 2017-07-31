@@ -10,11 +10,17 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
+ */
+
+use Xmf\Request;
+
+/**
+ * Class MymenusBuilder
  */
 class MymenusBuilder
 {
@@ -80,10 +86,10 @@ class MymenusBuilder
                 $this->output[$idx]['hassub'] = true;
                 $this->buildMenus($item['id']);
             }
-            $this->output[$idx]['cli'] = true;
+            $this->output[$idx]['cli']   = true;
             $this->output[$idx]['close'] .= "</li>\n";
         }
-        $this->output[$idx]['cul'] = true;
+        $this->output[$idx]['cul']   = true;
         $this->output[$idx]['close'] .= "</ul>\n";
         --$level;
     }
@@ -128,14 +134,9 @@ class MymenusBuilder
         //get the currentpage
         $sel = array();
         //        $queryString = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
-        $queryString = XoopsRequest::getString('QUERY_STRING', '', 'SERVER') ? '?'
-                                                                               . XoopsRequest::getString('QUERY_STRING',
-                                                                                                         '',
-                                                                                                         'SERVER') : '';
+        $queryString = Request::getString('QUERY_STRING', '', 'SERVER') ? '?' . Request::getString('QUERY_STRING', '', 'SERVER') : '';
         //        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $queryString;
-        $self = 'http://' . XoopsRequest::getString('HTTP_HOST', '', 'SERVER') . XoopsRequest::getString('PHP_SELF', '',
-                                                                                                         'SERVER')
-                . $queryString;
+        $self = 'http://' . Request::getString('HTTP_HOST', '', 'SERVER') . Request::getString('PHP_SELF', '', 'SERVER') . $queryString;
 
         //set a default page in case we don't get matches
         $default = XOOPS_URL . '/index.php';

@@ -11,12 +11,12 @@
 /**
  * Modules Javascript
  *
- * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright   XOOPS Project (https://xoops.org)
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author      Bleekk
  */
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('ol.sortable').nestedSortable({
         handle: 'div',
         items: 'li',
@@ -31,16 +31,16 @@ $(document).ready(function() {
         isTree: true,
         expandOnHover: 700,
         startCollapsed: true,
-        update: function(event, ui) {
+        update: function (event, ui) {
             var list = $(this).nestedSortable('serialize');
-            $.post('links.php', {op:"order", mod:list}, function(o){
+            $.post('links.php', {op: "order", mod: list}, function (o) {
                 console.log(o);
-            },'json');
+            }, 'json');
         }
     });
 
-    $('.disclose').on('click', function() {
-    $(this).closest('li').toggleClass('mjs-nestedSortable-collapsed').toggleClass('mjs-nestedSortable-expanded');
+    $('.disclose').on('click', function () {
+        $(this).closest('li').toggleClass('mjs-nestedSortable-collapsed').toggleClass('mjs-nestedSortable-expanded');
     });
 
     $("#addform").dialog({
@@ -53,41 +53,41 @@ $(document).ready(function() {
 
     $("#new-link")
         .button()
-        .click(function() {
-        $("#addform").dialog("open");
-    });
+        .click(function () {
+            $("#addform").dialog("open");
+        });
 
 });
 
-    function itemOnOff(id) {
-        $("#hidden-result_ "+ id).show();
-        var $id = '#id-'+id;
-        $("#result").load("links.php?id=" + id + "&op=toggle", function(response, status, xhr) {
-            if (status == "error") {
-                var msg = "Sorry but there was an error: ";
-                $("#error").html( msg + xhr.status + " " + xhr.statusText );
-             } else {
-                 $("#hidden-result_" + id).hide();
-                 $('#id-' + id).toggleClass("icon-0 icon-1");
-             }
+function itemOnOff(id) {
+    $("#hidden-result_ " + id).show();
+    var $id = '#id-' + id;
+    $("#result").load("links.php?id=" + id + "&op=toggle", function (response, status, xhr) {
+        if (status == "error") {
+            var msg = "Sorry but there was an error: ";
+            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+        } else {
+            $("#hidden-result_" + id).hide();
+            $('#id-' + id).toggleClass("icon-0 icon-1");
+        }
 
-        });
-    }
+    });
+}
 
-    function showWindow(id, menuid){
-        $("#hidden-result_" + id).show();
-        $("#result").load( "links.php?op=edit&id=" + id + "&mid=" + menuid + "", function(response, status, xhr) {
-              if (status == "error") {
-                var msg = "Sorry but there was an error: ";
-                $("#error").html(msg + xhr.status + " " + xhr.statusText);
-              } else {
-                $("#hidden-result_" + id).hide();
-            }
-        }).dialog({
-            width: 550,
-            modal:true,
-            close: function() {
-                $("#result").empty();
-            }
-        });
-    }
+function showWindow(id, menuid) {
+    $("#hidden-result_" + id).show();
+    $("#result").load("links.php?op=edit&id=" + id + "&mid=" + menuid + "", function (response, status, xhr) {
+        if (status == "error") {
+            var msg = "Sorry but there was an error: ";
+            $("#error").html(msg + xhr.status + " " + xhr.statusText);
+        } else {
+            $("#hidden-result_" + id).hide();
+        }
+    }).dialog({
+        width: 550,
+        modal: true,
+        close: function () {
+            $("#result").empty();
+        }
+    });
+}

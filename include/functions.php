@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package         Mymenus
  * @since           1.0
@@ -19,7 +19,7 @@
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-include_once __DIR__ . '/common.php';
+require_once __DIR__ . '/common.php';
 
 /**
  * Checks if a user is admin of Mymenus
@@ -49,14 +49,13 @@ function mymenusUserIsAdmin()
  */
 function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $themeSkin = '')
 {
-    include_once __DIR__ . '/common.php';
+    require_once __DIR__ . '/common.php';
     $mymenus = MymenusMymenus::getInstance();
     $error   = false;
     if ($useThemeSkin) {
         $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set'] . '/menu';
         if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
-            $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set']
-                    . "/modules/{$mymenus->dirname}/skins/{$themeSkin}";
+            $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$themeSkin}";
             if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
                 $error = true;
             }

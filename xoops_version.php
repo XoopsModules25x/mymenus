@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package         Mymenus
  * @since           1.0
@@ -25,7 +25,7 @@ $moduleDirName = basename(__DIR__);
 $modversion = array(
     'version'             => 1.53,
     'module_status'       => 'Beta 1',
-    'release_date'        => '2016/09/21', // YYYY/mm/dd
+    'release_date'        => '2017/07/20', // YYYY/mm/dd
     'name'                => _MI_MYMENUS_MD_NAME,
     'description'         => _MI_MYMENUS_MD_DESC,
     'author'              => 'Trabis (www.xuups.com), contributors: Mamba, Bleek, Zyspec, Luciorota',
@@ -38,27 +38,23 @@ $modversion = array(
     'help'                => 'page=help',
     //
     'release_info'        => 'release_info',
-    'release'             => '2016-09-12',
+    'release'             => '2017-07-20',
     'release_file'        => XOOPS_URL . "/modules/{$moduleDirName}/docs/release_info file",
 
     //
     'manual'              => 'link to manual file',
     'manual_file'         => XOOPS_URL . "/modules/{$moduleDirName}/docs/install.txt",
     'min_php'             => '5.5',
-    'min_xoops'           => '2.5.8',
+    'min_xoops'           => '2.5.9',
     'min_admin'           => '1.2',
-    'min_db'              => array('mysql' => '5.0.7', 'mysqli' => '5.0.7'),
-    'image'               => 'assets/images/mymenus.png', // Path and name of the module’s logo
+    'min_db'              => array('mysql' => '5.5'),
+    'image'               => 'assets/images/logoModule.png', // Path and name of the module’s logo
     'official'            => 1, //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
     'dirname'             => "{$moduleDirName}",
-    //Frameworks paths
-    'dirmoduleadmin'      => 'Frameworks/moduleclasses',
-    'systemIcons16'       => 'Frameworks/moduleclasses/icons/16',
-    'systemIcons32'       => 'Frameworks/moduleclasses/icons/32',
     // Local icons paths
-    'moduleIcons16'       => 'assets/images/icons/16',
-    'moduleIcons32'       => 'assets/images/icons/32',
-    'demo_site_url'       => 'http://www.xoops.org',
+    'modicons16'          => 'assets/images/icons/16',
+    'modicons32'          => 'assets/images/icons/32',
+    'demo_site_url'       => 'https://xoops.org',
     'demo_site_name'      => 'XOOPS Demo Site',
     'support_url'         => 'https://xoops.org/modules/newbb',
     'support_name'        => 'Support Forum',
@@ -83,7 +79,7 @@ $modversion = array(
     'hasNotification'     => 0
 );
 
-include_once XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . '/include/constants.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . '/include/constants.php';
 
 // ------------------- Help files ------------------- //
 $modversion['helpsection'] = array(

@@ -4,7 +4,7 @@
             <a href="<{$xoops_url}>" title="<{$smarty.const._MB_MYMENUS_HOME}>"
                style="background-image:url('<{$skinurl}>/<{$config.iconset}>/bc_separator.png');">
                 <img class="mymenus-breadcrumb-home" src="<{$skinurl}>/<{$config.iconset}>/home.png"
-                     alt="<{$smarty.const._MB_MYMENUS_HOME}>"/>
+                     alt="<{$smarty.const._MB_MYMENUS_HOME}>">
             </a>
         </li>
     <{/if}>
