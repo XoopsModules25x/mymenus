@@ -18,4 +18,3 @@
  * @author          Xoops Development Team
  */
 // constants for accounts
-

@@ -1,13 +1,13 @@
 /* ================================================================
-This copyright notice must be kept untouched in the stylesheet at
-all times.
+ This copyright notice must be kept untouched in the stylesheet at
+ all times.
 
-The original version of this script and the associated (x)html
-is available at http://www.stunicholls.com/menu/pro_drop_1.html
-Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
-This script and the associated (x)html may be modified in any
-way to fit your requirements.
-=================================================================== */
+ The original version of this script and the associated (x)html
+ is available at http://www.stunicholls.com/menu/pro_drop_1.html
+ Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
+ This script and the associated (x)html may be modified in any
+ way to fit your requirements.
+ =================================================================== */
 stuHover = function () {
     var cssRule;
     var newSelector;
