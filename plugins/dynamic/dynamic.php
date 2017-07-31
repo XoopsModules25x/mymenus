@@ -74,8 +74,8 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         if ($force === true) {  //can set to false for debug
             if (!($xoopsModule instanceof XoopsModule) || ($xoopsModule->getVar('dirname') != $module)) {
                 // @TODO: check the following 2 statements, they're basically just assigns - is this intended?
-                $_xoopsModule           = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
-                $_xoopsModuleConfig     = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
+                $_xoopsModule       = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
+                $_xoopsModuleConfig = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
                 /** @var XoopsModuleHandler $moduleHandler */
                 $moduleHandler          = xoops_getHandler('module');
                 $xoopsModule            = $moduleHandler->getByDirname($module);
