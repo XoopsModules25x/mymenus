@@ -44,8 +44,7 @@ define('_AM_MYMENUS_MSG_DELETE_MENU_SUCCESS', 'Menu deleted successfully!');
 define('_AM_MYMENUS_MSG_EDIT_MENU_SUCCESS', 'Menu updated!');
 define('_AM_MYMENUS_MSG_SUCCESS', 'Done!');
 define('_AM_MYMENUS_MSG_AYSC', 'Are you sure to delete this category?<br>');
-define('_AM_MYMENUS_MSG_AYSL',
-       'Warning: if this link contains sublinks, they will be deleted too.<br>Are you sure to delete it? <br>');
+define('_AM_MYMENUS_MSG_AYSL', 'Warning: if this link contains sublinks, they will be deleted too.<br>Are you sure to delete it? <br>');
 define('_AM_MYMENUS_MSG_NOTFOUND', 'No entries found!');
 define('_AM_MYMENUS_MSG_NOMENUS', 'Please create a menu first!');
 

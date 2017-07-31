@@ -16,7 +16,7 @@
                                         <span class="menu-left"></span>
                                         <span class="menu-mid">
                                             <{if $menu.image}>
-                                                <img src="<{$menu.image}>" alt="<{$menu.alt_title}>"/>
+                                                <img src="<{$menu.image}>" alt="<{$menu.alt_title}>">
                                             <{/if}>
                                             <{$menu.title}>
                                         </span>
@@ -33,7 +33,7 @@
                                                                    title="<{$sub.alt_title}>">
                                                                     <{if $sub.image}>
                                                                         <img src="<{$sub.image}>"
-                                                                             alt="<{$sub.alt_title}>"/>
+                                                                             alt="<{$sub.alt_title}>">
                                                                     <{/if}>
                                                                     <{$sub.title}>
                                                                 </a>

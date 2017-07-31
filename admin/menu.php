@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package         Mymenus
  * @since           1.0
@@ -20,13 +20,18 @@
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 $moduleDirName = basename(dirname(__DIR__));
-/** @var XoopsModuleHandler $moduleHandler */
-$moduleHandler = xoops_getHandler('module');
-$xoopsModule   = XoopsModule::getByDirname($moduleDirName);
-$moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
-$pathIcon32    = '../../' . $moduleInfo->getInfo('systemIcons32');
 
-xoops_loadLanguage('admin', $moduleDirName);
+if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
+} else {
+    $moduleHelper = Xmf\Module\Helper::getHelper('system');
+}
+$adminObject = \Xmf\Module\Admin::getInstance();
+
+$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
+//$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+
+// Load language files
+$moduleHelper->loadLanguage('modinfo');
 
 $adminmenu = array(
     array(

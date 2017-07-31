@@ -23,13 +23,13 @@
                         <a href="<{$menu.link}>" class="top_link<{if $menu.selected}> selected<{/if}>"
                            target="<{$menu.target}>" title="<{$menu.alt_title}>">
                             <span <{if $menu.hassub}>class="down"<{/if}>><{if $menu.image}><img src="<{$menu.image}>"
-                                                                                                alt="<{$menu.alt_title}>" /><{/if}><{$menu.title}></span>
+                                                                                                alt="<{$menu.alt_title}>"><{/if}><{$menu.title}></span>
                         </a>
                     <{else}>
                         <a href="<{$menu.link}>" <{if $menu.hassub}> class="fly"<{/if}> target="<{$menu.target}>"
                            title="<{$menu.alt_title}>">
                             <{if $menu.image}><img src="<{$menu.image}>"
-                                                   alt="<{$menu.alt_title}>" /><{/if}><{$menu.title}></a>
+                                                   alt="<{$menu.alt_title}>"><{/if}><{$menu.title}></a>
                     <{/if}>
                 <{/if}>
                 <{if $menu.close != ''}><{$menu.close}><{/if}>

@@ -44,13 +44,13 @@
                     <td>
                         <a href="?op=edit&amp;id=<{$menu.id}>"><img src="<{xoModuleIcons16 edit.png}>"
                                                                     title="<{$smarty.const._EDIT}>"
-                                                                    alt="<{$smarty.const._EDIT}>"/></a>
+                                                                    alt="<{$smarty.const._EDIT}>"></a>
                         <a href="?op=delete&amp;id=<{$menu.id}>"><img src="<{xoModuleIcons16 delete.png}>"
                                                                       title="<{$smarty.const._DELETE}>"
-                                                                      alt="<{$smarty.const._DELETE}>"/></a>
+                                                                      alt="<{$smarty.const._DELETE}>"></a>
                         <a href="links.php?op=list&amp;mid=<{$menu.id}>"><img src="<{xoModuleIcons16 forward.png}>"
                                                                               title="<{$smarty.const._AM_MYMENUS_ACTION_GOTO_MENU}>"
-                                                                              alt="<{$smarty.const._AM_MYMENUS_ACTION_GOTO_MENU}>"/></a>
+                                                                              alt="<{$smarty.const._AM_MYMENUS_ACTION_GOTO_MENU}>"></a>
                     </td>
                 </tr>
             <{/foreach}>

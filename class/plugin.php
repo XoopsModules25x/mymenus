@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package         Mymenus
  * @since           1.0
@@ -19,20 +19,19 @@
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-include_once dirname(__DIR__) . '/include/common.php';
+require_once __DIR__ . '/../include/common.php';
 xoops_load('XoopsLists');
-include_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");
+require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");
 
 /**
  * Class MymenusPlugin
  */
 class MymenusPlugin
 {
-
     protected $registry;
     protected $plugins;
     protected $events;
-    public    $mymenus;
+    public $mymenus;
 
     /**
      *
@@ -75,7 +74,7 @@ class MymenusPlugin
     public function setEvents()
     {
         foreach ($this->plugins as $plugin) {
-            include_once $GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php");
+            require_once $GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php");
             $className = ucfirst($plugin) . 'MymenusPluginItem';
             if (!class_exists($className)) {
                 continue;
@@ -93,7 +92,7 @@ class MymenusPlugin
 
     /**
      * @param string $eventName
-     * @param array  $args
+     * @param array $args
      */
     public function triggerEvent($eventName, $args = array())
     {
@@ -122,8 +121,8 @@ class MymenusPluginItem
         $mymenus  = MymenusMymenus::getInstance();
         $language = $GLOBALS['xoopsConfig']['language'];
         //        $path     = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/plugins/{$name}/language");
-        //        if (!($ret = @include_once "{$path}/{$language}/{$name}.php")) {
-        //            $ret = @include_once "{$path}/english/{$name}.php";
+        //        if (!($ret = @require_once "{$path}/{$language}/{$name}.php")) {
+        //            $ret = @require_once "{$path}/english/{$name}.php";
         //        }
         //        return $ret;
 

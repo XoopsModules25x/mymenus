@@ -10,19 +10,20 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-include_once __DIR__ . '/admin_header.php';
+require_once __DIR__ . '/admin_header.php';
 
 // admin navigation
 xoops_cp_header();
+$adminObject = \Xmf\Module\Admin::getInstance();
 
-echo $adminObject->addNavigation(basename(__FILE__));
-echo $adminObject->renderIndex();
+$adminObject->displayNavigation(basename(__FILE__));
+$adminObject->displayIndex();
 
 include __DIR__ . '/admin_footer.php';

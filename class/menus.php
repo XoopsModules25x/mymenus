@@ -10,16 +10,18 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  */
 
+use Xmf\Request;
+
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-include_once dirname(__DIR__) . '/include/common.php';
+require_once __DIR__ . '/../include/common.php';
 
 /**
  * Class MymenusMenus
@@ -52,13 +54,13 @@ class MymenusMenus extends XoopsObject
      */
     public function getForm($action = false)
     {
-        //        $grouppermHandler = xoops_gethandler('groupperm');
+        //        $grouppermHandler = xoops_getHandler('groupperm');
         //
         xoops_load('XoopsFormLoader');
         //
         if ($action === false) {
             //            $action = $_SERVER['REQUEST_URI'];
-            $action = XoopsRequest::getString('REQUEST_URI', '', 'SERVER');
+            $action = Request::getString('REQUEST_URI', '', 'SERVER');
         }
         //
         //        $isAdmin = mymenusUserIsAdmin();

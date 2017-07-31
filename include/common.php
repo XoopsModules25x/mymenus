@@ -11,7 +11,7 @@
 /**
  * Mymenus module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         mymenus
  * @since           1.5
@@ -30,13 +30,12 @@ define('MYMENUS_ICONS_URL', MYMENUS_URL . '/assets/images/icons');
 
 xoops_loadLanguage('common', MYMENUS_DIRNAME);
 
-include_once MYMENUS_ROOT_PATH . '/class/mymenus.php'; // MymenusMymenus class
-include_once MYMENUS_ROOT_PATH . '/include/config.php'; // IN PROGRESS
-include_once MYMENUS_ROOT_PATH . '/include/functions.php';
-include_once MYMENUS_ROOT_PATH . '/include/constants.php';
+require_once MYMENUS_ROOT_PATH . '/class/mymenus.php'; // MymenusMymenus class
+require_once MYMENUS_ROOT_PATH . '/include/config.php'; // IN PROGRESS
+require_once MYMENUS_ROOT_PATH . '/include/functions.php';
+require_once MYMENUS_ROOT_PATH . '/include/constants.php';
 
 xoops_load('XoopsUserUtility');
-xoops_load('XoopsRequest');
 xoops_load('XoopsFormLoader');
 
 // MyTextSanitizer object
@@ -60,7 +59,7 @@ $xoopsModule = $mymenus->getModule();
 $moduleHandler       = xoops_getHandler('module');
 /** @var XoopsMemberHandler $memberHandler */
 $memberHandler       = xoops_getHandler('member');
-/** @var XoopsNotificationHandler $notificationHandler*/
+/** @var XoopsNotificationHandler $notificationHandler */
 $notificationHandler = xoops_getHandler('notification');
 /** @var XoopsGroupPermHandler $gpermHandler */
 $gpermHandler        = xoops_getHandler('groupperm');

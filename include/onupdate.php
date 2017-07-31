@@ -11,7 +11,7 @@
 /**
  * Mymenus module
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @package         mymenus
  * @since           1.5
@@ -21,16 +21,16 @@
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
 //$moduleDirname = basename(dirname(__DIR__));
-//include_once(XOOPS_ROOT_PATH . "/modules/$moduleDirname/include/common.php");
-include_once __DIR__ . '/common.php';
+//require_once(XOOPS_ROOT_PATH . "/modules/$moduleDirname/include/common.php");
+require_once __DIR__ . '/common.php';
 $mymenus = MymenusMymenus::getInstance($debug);
 
 xoops_loadLanguage('admin', $mymenus->dirname);
 
 /**
- * @param object|XoopsObject $xoopsModule
- * @param  int               $previousVersion
- * @return bool FALSE if failed
+ * @param  object|XoopsObject $xoopsModule
+ * @param  int                $previousVersion
+ * @return bool               FALSE if failed
  */
 function xoops_module_update_mymenus(XoopsObject $xoopsModule, $previousVersion)
 {
@@ -64,9 +64,7 @@ class MymenusUpdater
     public static function checkInfoTemplates(XoopsObject $module)
     {
         $err = true;
-        if (!file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/templates/blocks/'
-                         . $module->getInfo('dirname') . '_block.tpl')
-        ) {
+        if (!file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/templates/blocks/' . $module->getInfo('dirname') . '_block.tpl')) {
             $module->setErrors('Template ' . $module->getInfo('dirname') . '_block.tpl not exists!');
             $err = false;
         }
@@ -142,12 +140,10 @@ class MymenusUpdater
         // RENAME TABLE 'mymenus_menu' TO 'mymenus_links'
         if (!InfoTableExists($GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_links')) {
             if (InfoTableExists($GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_menu')) {
-                $sql    = 'RENAME TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_menu TO '
-                          . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_links;';
+                $sql    = 'RENAME TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_menu TO ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_links;';
                 $result = $GLOBALS['xoopsDB']->queryF($sql);
                 if (!$result) {
-                    $module->setErrors("Can't rename Table " . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname'))
-                                       . '_menu');
+                    $module->setErrors("Can't rename Table " . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_menu');
 
                     return false;
                 }
@@ -207,8 +203,7 @@ class MymenusUpdater
             //    echo $sql;
             $result = $GLOBALS['xoopsDB']->queryF($sql);
             if (!$result) {
-                $module->setErrors("Can't create Table " . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname'))
-                                   . $tablename);
+                $module->setErrors("Can't create Table " . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename);
 
                 if ('_menu' === $tablename) {
                     return false;
@@ -220,20 +215,17 @@ class MymenusUpdater
                 }
             } else {
                 if ('_menu' === $tablename) {
-                    $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename
-                              . " (id,title) VALUES (1,'Default')";
+                    $sql    = 'INSERT INTO ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename . " (id,title) VALUES (1,'Default')";
                     $result = $GLOBALS['xoopsDB']->queryF($sql);
                 }
             }
         } else {
             foreach ($table as $s => $w) {
                 if (!InfoColumnExists($GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename, $s)) {
-                    $sql    = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename
-                              . ' ADD ' . $s . ' ' . $w . ';';
+                    $sql    = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename . ' ADD ' . $s . ' ' . $w . ';';
                     $result = $GLOBALS['xoopsDB']->queryF($sql);
                 } else {
-                    $sql    = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename
-                              . ' CHANGE ' . $s . ' ' . $s . ' ' . $w . ';';
+                    $sql    = 'ALTER TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename . ' CHANGE ' . $s . ' ' . $s . ' ' . $w . ';';
                     $result = $GLOBALS['xoopsDB']->queryF($sql);
                 }
             }
@@ -252,7 +244,7 @@ if (!function_exists('InfoColumnExists')) {
      */
     function InfoColumnExists($tablename, $spalte)
     {
-        if ($tablename == '' || $spalte == '') {
+        if ($tablename === '' || $spalte === '') {
             return true;
         } // Fehler!!
         $result = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM ' . $tablename . " LIKE '" . $spalte . "'");

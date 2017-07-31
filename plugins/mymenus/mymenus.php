@@ -10,12 +10,14 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package         Mymenus
  * @since           1.0
  * @author          trabis <lusopoemas@gmail.com>
  */
+
+use Xmf\Request;
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
@@ -24,13 +26,11 @@ defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
  */
 class MymenusMymenusPluginItem extends MymenusPluginItem
 {
-
     public static function eventBoot()
     {
         $registry      = MymenusRegistry::getInstance();
         /** @var XoopsMemberHandler $memberHandler */
         $memberHandler = xoops_getHandler('member');
-        xoops_load('XoopsRequest');
 
         $user = ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser'] : null;
         if (!$user) {
@@ -39,7 +39,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
             $user->setVar('uname', $GLOBALS['xoopsConfig']['anonymous']);
         }
 
-        $ownerid = XoopsRequest::getInt('uid', null, 'GET');
+        $ownerid = Request::getInt('uid', null, 'GET');
         $owner   = $memberHandler->getUser($ownerid);
         //if uid > 0 but user does not exists
         if (!($owner instanceof XoopsUser)) {
@@ -52,11 +52,9 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
         $registry->setEntry('user', $user->getValues());
         $registry->setEntry('owner', $owner->getValues());
-        $registry->setEntry('user_groups', ($GLOBALS['xoopsUser'] instanceof
-                                            XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS));
-        $registry->setEntry('user_uid',
-                            ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getVar('uid') : 0);
-        $registry->setEntry('get_uid', XoopsRequest::getInt('uid', 0, 'GET'));
+        $registry->setEntry('user_groups', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS));
+        $registry->setEntry('user_uid', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getVar('uid') : 0);
+        $registry->setEntry('get_uid', Request::getInt('uid', 0, 'GET'));
     }
 
     public static function eventLinkDecoration()
@@ -130,7 +128,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
 
         if ($validator === 'uri') {
-            $value  = XoopsRequest::getString($value, 0, 'GET');
+            $value  = Request::getString($value, 0, 'GET');
             $string = str_replace($expression, $value, $string);
         }
 

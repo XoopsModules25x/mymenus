@@ -16,7 +16,7 @@
             <{if ($xlanguage && (($menu.title|strstr:$myStr) || ($menu.image|strstr:$myStr)) || !$xlanguage)}>
                 <a href="<{$menu.link}>" target="<{$menu.target}>" title="<{$menu.alt_title}>">
                     <{if $main.image}>
-                        <img src="<{$menu.image}>" alt="<{$menu.alt_title}>" />
+                        <img src="<{$menu.image}>" alt="<{$menu.alt_title}>">
                     <{/if}>
                     <{$menu.title}>
                 </a>

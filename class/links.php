@@ -10,7 +10,7 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package         Mymenus
  * @since           1.0
@@ -19,7 +19,7 @@
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 
-include_once dirname(__DIR__) . '/include/common.php';
+require_once __DIR__ . '/../include/common.php';
 
 /**
  * Class MymenusLinks
@@ -86,7 +86,7 @@ class MymenusLinks extends XoopsObject
             $line   = explode('|', $line);
             $hook   = trim($line[0]);
             $method = isset($line[1]) ? trim($line[1]) : '';
-            //$info = split(',', trim($line[0]));
+            //$info = explode(',', trim($line[0]));
             $ret[$hook][] = $method;
         }
 
@@ -117,7 +117,7 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
     /**
      * @param $obj
      */
-    public function updateWeights(&$obj)
+    public function updateWeights($obj)
     {
         $sql = 'UPDATE ' . $this->table . ' SET weight = weight+1';
         $sql .= ' WHERE';
@@ -132,10 +132,10 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
         $sql = 'SELECT id FROM ' . $this->table;
         $sql .= ' WHERE mid = ' . $obj->getVar('mid');
         //$sql .= " AND pid = " . $obj->getVar('pid');
-        $sql .= ' ORDER BY weight ASC';
+        $sql    .= ' ORDER BY weight ASC';
         $result = $this->db->query($sql);
         $i      = 1;  //lets start at 1 please!
-        while (list($id) = $this->db->fetchrow($result)) {
+        while (list($id) = $this->db->fetchRow($result)) {
             $sql = 'UPDATE ' . $this->table;
             $sql .= " SET weight = {$i}";
             $sql .= " WHERE id = {$id}";

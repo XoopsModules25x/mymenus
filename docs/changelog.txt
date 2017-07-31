@@ -1,5 +1,19 @@
 <u>Version 1.53 Beta 1  (NOT RELEASED)</u>
 - set $newmenus as array() (mamba)
+- removed '/' from void HTML elements (&lt;br&gt;, &lt;img&gt;, etc) (mamba)
+- HTML 5: removed 'selected' and 'checked' (mamba)
+- updated file headers for consistency (mamba)
+- renamed several $indexAdmin with $adminObject for consistency (mamba)
+- Updates for PayPal changes (zyspec)
+- update Help, .html to .tpl (mamba)
+- added Contributing.md (mamba)
+- moved functions to Utility class (mamba)
+- include_once to require_once (mamba)
+- php-cs-fixer updates (mamba)
+- started conversion to XMF (mamba)
+    &nbsp;&nbsp;- updated addInfoBoxLine entries (mamba)
+    &nbsp;&nbsp;- displayNavigation(basename(__FILE__))  (mamba)
+    &nbsp;&nbsp;- changed to ->displayButton('left') (mamba)
 
 <u>Version 1.52 Final  (2016-09-12)</u>
 - fixing static methods (goffy/mamba)
