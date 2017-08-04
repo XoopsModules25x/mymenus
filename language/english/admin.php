@@ -67,3 +67,11 @@ define('_AM_MYMENUS_LINKS_SUREDEL', "Are you sure to delete '%s' link and all su
 define('_AM_MYMENUS_MSG_DELETE_LINK_SUCCESS', 'Link deleted successfully!');
 
 define('_AM_MYMENUS_MENU_MENU', 'Menu');
+//1.53
+define('_AM_MYMENUS_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
+define('_AM_MYMENUS_UPGRADEFAILED1', "Update failed - couldn't add new fields");
+define('_AM_MYMENUS_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
+define('_AM_MYMENUS_ERROR_COLUMN', 'Could not create column in database : %s');
+define('_AM_MYMENUS_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
+define('_AM_MYMENUS_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
+define('_AM_MYMENUS_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
