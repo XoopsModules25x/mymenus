@@ -17,12 +17,12 @@
  * @author          trabis <lusopoemas@gmail.com>, bleekk <bleekk@outlook.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 $moduleDirName = basename(__DIR__);
 
 // ------------------- Informations ------------------- //
-$modversion = array(
+$modversion = [
     'version'             => 1.53,
     'module_status'       => 'Beta 1',
     'release_date'        => '2017/07/20', // YYYY/mm/dd
@@ -47,7 +47,7 @@ $modversion = array(
     'min_php'             => '5.5',
     'min_xoops'           => '2.5.9',
     'min_admin'           => '1.2',
-    'min_db'              => array('mysql' => '5.5'),
+    'min_db'              => ['mysql' => '5.5'],
     'image'               => 'assets/images/logoModule.png', // Path and name of the module’s logo
     'official'            => 1, //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
     'dirname'             => "{$moduleDirName}",
@@ -77,7 +77,7 @@ $modversion = array(
     'hasComments'         => 0,
     // Notification
     'hasNotification'     => 0
-);
+];
 
 require_once XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . '/include/constants.php';
 
@@ -97,13 +97,13 @@ $modversion['helpsection'] = [
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 
 // Tables created by sql file (without prefix!)
-$modversion['tables'] = array(
+$modversion['tables'] = [
     $moduleDirName . '_links',
     $moduleDirName . '_menus'
-);
+];
 
 // ------------------- Blocks ------------------- //
-$modversion['blocks'][] = array(
+$modversion['blocks'][] = [
     'file'        => $moduleDirName . '_block.php',
     'name'        => _MI_MYMENUS_BLK,
     'description' => _MI_MYMENUS_BLK_DSC,
@@ -111,38 +111,38 @@ $modversion['blocks'][] = array(
     'edit_func'   => $moduleDirName . '_block_edit',
     'options'     => '0|default|0|block||', // mid|moduleSkin|useThemeSkin|displayMethod|unique_id|themeSkin
     'template'    => $moduleDirName . '_block.tpl'
-);
+];
 
 // ------------------- Templates ------------------- //
 
 // ------------------- Config ------------------- //
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'admin_perpage',
     'title'       => '_MI_MYMENUS_CONF_ADMINPERPAGE',
     'description' => '_MI_MYMENUS_CONF_ADMINPERPAGE_DSC',
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => '10',
-    'options'     => array('5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30, '50' => 50)
-);
+    'options'     => ['5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30, '50' => 50]
+];
 
-$modversion['config'][] = array(
+$modversion['config'][] = [
     'name'        => 'assign_method',
     'title'       => '_MI_MYMENUS_CONF_ASSIGN_METHOD',
     'description' => '_MI_MYMENUS_CONF_ASSIGN_METHOD_DSC',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => 'xotheme',
-    'options'     => array(
+    'options'     => [
         _MI_MYMENUS_CONF_ASSIGN_METHOD_XOOPSTPL => 'xoopstpl',
         _MI_MYMENUS_CONF_ASSIGN_METHOD_XOTHEME  => 'xotheme'
-    )
-);
-$modversion['config'][] = array(
+    ]
+];
+$modversion['config'][] = [
     'name'        => 'unique_id_prefix',
     'title'       => '_MI_MYMENUS_CONF_UNIQUE_ID_PREFIX',
     'description' => '_MI_MYMENUS_CONF_UNIQUE_ID_PREFIX_DSC',
     'formtype'    => 'text',
     'valuetype'   => 'text',
     'default'     => 'xoops_menu_'
-);
+];

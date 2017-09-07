@@ -19,7 +19,7 @@
 
 use Xmf\Request;
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once __DIR__ . '/../include/common.php';
 
@@ -33,7 +33,7 @@ function mymenus_block_show($options)
     global $xoopsTpl, $xoopsLogger;
     $mymenus = MymenusMymenus::getInstance();
 
-    $block = array();
+    $block = [];
     $xoopsLogger->startTime('My Menus Block');
     $myts = MyTextSanitizer::getInstance();
 
@@ -86,8 +86,8 @@ function mymenus_block_show($options)
 
     /*--------------------------------------------------------------*/
     // Default files to load
-    $cssArray = array();
-    $jsArray  = array();
+    $cssArray = [];
+    $jsArray  = [];
 
     // Get extra files from skins
     $skinInfo = mymenusGetSkinInfo($options[1], $options[2], isset($options[5]) ? $options[5] : '');
@@ -125,13 +125,13 @@ function mymenus_block_show($options)
     }
     //
     $blockTpl = new XoopsTpl();
-    $blockTpl->assign(array(
+    $blockTpl->assign([
                           'block'     => $block,
                           'config'    => $skinInfo['config'],
                           'skinurl'   => $skinInfo['url'],
                           'skinpath'  => $skinInfo['path'],
                           'xlanguage' => xoops_isActiveModule('xlanguage') ? true : false // xLanguage check
-                      ));
+                      ]);
     // Assign ul class
     $menusObj = $mymenus->getHandler('menus')->get($mid);
     $blockTpl->assign('menucss', $menusObj->getVar('css'));
@@ -198,7 +198,7 @@ function mymenus_block_edit($options)
     // option 1: moduleSkin
     xoops_load('XoopsLists');
     $tempModuleSkinsList = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/skins/"), '');
-    $moduleSkinsList     = array();
+    $moduleSkinsList     = [];
     foreach ($tempModuleSkinsList as $key => $moduleSkin) {
         if (file_exists($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/skins/{$moduleSkin}/skin_version.php"))) {
             $moduleSkinsList[$moduleSkin] = $moduleSkin;
@@ -215,10 +215,10 @@ function mymenus_block_edit($options)
     $form                  .= $formUseThemeSkinRadio->render();
     $form                  .= "\n&nbsp;<i>" . _MB_MYMENUS_USE_THEME_SKIN_DSC . "</i>\n<br><br>\n";
     // option 3: displayMethod
-    $displayMethodsList      = array(
+    $displayMethodsList      = [
         'block'    => _MB_MYMENUS_DISPLAY_METHOD_BLOCK,
         'template' => _MB_MYMENUS_DISPLAY_METHOD_TEMPLATE
-    );
+    ];
     $form                    .= '<b>' . _MB_MYMENUS_DISPLAY_METHOD . '</b>&nbsp;';
     $formDisplayMethodSelect = new XoopsFormSelect('', 'options[3]', $options[3], 1);
     $formDisplayMethodSelect->addOptionArray($displayMethodsList);
@@ -237,7 +237,7 @@ function mymenus_block_edit($options)
         xoops_load('XoopsLists');
         $tempThemeSkinsList = XoopsLists::getDirListAsArray($GLOBALS['xoops']->path('/themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/"), '');
         if (isset($tempThemeSkinsList)) {
-            $themeSkinsList = array();
+            $themeSkinsList = [];
             foreach ($tempThemeSkinsList as $key => $themeSkin) {
                 if (file_exists($GLOBALS['xoops']->path('/themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$themeSkin}/skin_version.php"))) {
                     $themeSkinsList[$themeSkin] = '/themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$themeSkin}";

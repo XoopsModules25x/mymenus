@@ -18,6 +18,6 @@
  */
 
 $skinVersion['template'] = 'templates/template.tpl';
-$skinVersion['css']      = array('css/tw_red.css');
+$skinVersion['css']      = ['css/tw_red.css'];
 //$skinVersion['js'] = array('stuHover.js');
 $skinVersion['prefix'] = 'twr';

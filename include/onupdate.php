@@ -18,7 +18,7 @@
  * @author          Xoops Development Team
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 //$moduleDirname = basename(dirname(__DIR__));
 //require_once(XOOPS_ROOT_PATH . "/modules/$moduleDirname/include/common.php");
@@ -82,13 +82,13 @@ class MymenusUpdater
         //    global $xoopsDB;
         $err = true;
 
-        $tables_menus = array(
+        $tables_menus = [
             'id'    => 'int(5) NOT NULL auto_increment',
             'title' => "varchar(255) NOT NULL default ''",
             'css'   => "varchar(255) NOT NULL default ''"
-        );
+        ];
 
-        $tables_links = array(
+        $tables_links = [
             'id'        => 'int(5) NOT NULL auto_increment',
             'pid'       => "int(5) NOT NULL default '0'",
             'mid'       => "int(5) NOT NULL default '0'",
@@ -102,7 +102,7 @@ class MymenusUpdater
             'hooks'     => 'text default NULL',
             'image'     => 'varchar(255) default NULL',
             'css'       => 'varchar(255) default NULL'
-        );
+        ];
 
         /*
 

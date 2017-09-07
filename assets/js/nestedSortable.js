@@ -4,7 +4,7 @@
  * http://mjsarfatti.com/code/nestedSortable
  *
  * Depends on:
- *	 jquery.ui.sortable.js 1.8+
+ *   jquery.ui.sortable.js 1.8+
  *
  * Copyright (c) 2010-2012 Manuele J Sarfatti
  * Licensed under the MIT License
@@ -258,8 +258,8 @@
 
                 if (res) {
                     str.push(((o.key || res[1]) + '[' + (o.key && o.expression ? res[1] : res[2]) + ']')
-                    + '='
-                    + (pid ? (o.key && o.expression ? pid[1] : pid[2]) : o.rootID));
+                        + '='
+                        + (pid ? (o.key && o.expression ? pid[1] : pid[2]) : o.rootID));
                 }
             });
 

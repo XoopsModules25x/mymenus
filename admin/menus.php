@@ -198,7 +198,7 @@ switch ($op) {
             redirect_header($currentFile, 3, _AM_MYMENUS_MSG_DELETE_MENU_SUCCESS);
         } else {
             xoops_cp_header();
-            xoops_confirm(array('ok' => true, 'id' => $id, 'op' => 'delete'), //                $_SERVER['REQUEST_URI'],
+            xoops_confirm(['ok' => true, 'id' => $id, 'op' => 'delete'], //                $_SERVER['REQUEST_URI'],
                           Request::getString('REQUEST_URI', '', 'SERVER'), sprintf(_AM_MYMENUS_MENUS_SUREDEL, $menusObj->getVar('title')));
             require_once __DIR__ . '/admin_footer.php';
         }

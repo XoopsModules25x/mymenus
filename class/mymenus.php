@@ -18,7 +18,7 @@
  * @author          Xoops Development Team
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * Class MymenusMymenus
@@ -30,7 +30,7 @@ class MymenusMymenus
     public $handler;
     public $config;
     public $debug;
-    public $debugArray = array();
+    public $debugArray = [];
 
     /**
      * @param $debug

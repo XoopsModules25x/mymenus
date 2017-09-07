@@ -32,8 +32,7 @@ class MymenusUtility extends XoopsObject
                     file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
                 }
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         }
     }
@@ -120,7 +119,7 @@ class MymenusUtility extends XoopsObject
             }
         }
 
-        if (!$success) {
+        if (false === $success) {
             $module->setErrors(sprintf(_AM_MYMENUS_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
         }
 

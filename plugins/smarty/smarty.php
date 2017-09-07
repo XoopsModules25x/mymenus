@@ -17,14 +17,13 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * Class SmartyMymenusPluginItem
  */
 class SmartyMymenusPluginItem extends MymenusPluginItem
 {
-
     public static function eventLinkDecoration()
     {
         $registry          = MymenusRegistry::getInstance();

@@ -18,7 +18,7 @@
  * @author          Xoops Development Team
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 // This must contain the name of the folder in which reside mymenus
 define('MYMENUS_DIRNAME', basename(dirname(__DIR__)));

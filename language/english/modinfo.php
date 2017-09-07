@@ -40,14 +40,6 @@ define('_MI_MYMENUS_DIRNAME', basename(dirname(dirname(__DIR__))));
 define('_MI_MYMENUS_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('_MI_MYMENUS_BACK_2_ADMIN', 'Back to Administration of ');
 //1.53
-//Help
-define('_MI_MYMENUS_DIRNAME', basename(dirname(dirname(__DIR__))));
-define('_MI_MYMENUS_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
-define('_MI_MYMENUS_BACK_2_ADMIN', 'Back to Administration of ');
-define('_MI_MYMENUS_OVERVIEW', 'Overview');
-
-//define('_MI_MYMENUS_HELP_DIR', __DIR__);
-
 //help multi-page
 define('_MI_MYMENUS_DISCLAIMER', 'Disclaimer');
 define('_MI_MYMENUS_LICENSE', 'License');

@@ -17,7 +17,7 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once __DIR__ . '/common.php';
 
@@ -67,7 +67,7 @@ function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $the
     }
 
     $file = $GLOBALS['xoops']->path("{$path}/skin_version.php");
-    $info = array();
+    $info = [];
 
     if (file_exists($file)) {
         include $file;
@@ -102,7 +102,7 @@ function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $the
     }
 
     if (!isset($info['config'])) {
-        $info['config'] = array();
+        $info['config'] = [];
     }
 
     return $info;

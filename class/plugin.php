@@ -17,7 +17,7 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once __DIR__ . '/../include/common.php';
 xoops_load('XoopsLists');
@@ -38,8 +38,8 @@ class MymenusPlugin
      */
     public function __construct()
     {
-        $this->plugins  = array();
-        $this->events   = array();
+        $this->plugins  = [];
+        $this->events   = [];
         $this->registry = MymenusRegistry::getInstance();
         $this->mymenus  = MymenusMymenus::getInstance();
         $this->setPlugins();
@@ -83,7 +83,7 @@ class MymenusPlugin
             foreach ($classMethods as $method) {
                 if (0 === strpos($method, 'event')) {
                     $eventName                  = strtolower(str_replace('event', '', $method));
-                    $event                      = array('className' => $className, 'method' => $method);
+                    $event                      = ['className' => $className, 'method' => $method];
                     $this->events[$eventName][] = $event;
                 }
             }
@@ -94,12 +94,12 @@ class MymenusPlugin
      * @param string $eventName
      * @param array $args
      */
-    public function triggerEvent($eventName, $args = array())
+    public function triggerEvent($eventName, $args = [])
     {
         $eventName = mb_strtolower(str_replace('.', '', $eventName));
         if (isset($this->events[$eventName])) {
             foreach ($this->events[$eventName] as $event) {
-                call_user_func(array($event['className'], $event['method']), $args);
+                call_user_func([$event['className'], $event['method']], $args);
             }
         }
     }

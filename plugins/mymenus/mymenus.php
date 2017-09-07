@@ -19,7 +19,7 @@
 
 use Xmf\Request;
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * Class MymenusMymenusPluginItem
@@ -52,7 +52,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
         $registry->setEntry('user', $user->getValues());
         $registry->setEntry('owner', $owner->getValues());
-        $registry->setEntry('user_groups', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : array(XOOPS_GROUP_ANONYMOUS));
+        $registry->setEntry('user_groups', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS]);
         $registry->setEntry('user_uid', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getVar('uid') : 0);
         $registry->setEntry('get_uid', Request::getInt('uid', 0, 'GET'));
     }
@@ -209,7 +209,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     {
         $registry = MymenusRegistry::getInstance();
         $ret      = 0;
-        $values   = array('pm_new', 'pm_readed', 'pm_total');
+        $values   = ['pm_new', 'pm_readed', 'pm_total'];
         if (!in_array($value, $values)) {
             return $ret;
         }

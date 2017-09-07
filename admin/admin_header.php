@@ -66,5 +66,3 @@ require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/plugin.p
 //$XXXHandler = xoops_getModuleHandler('XXX', $mymenus->dirname);
 
 $mymenusTpl = new XoopsTpl();
-
-

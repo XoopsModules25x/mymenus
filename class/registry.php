@@ -17,7 +17,7 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * Class MymenusRegistry
@@ -32,8 +32,8 @@ class MymenusRegistry
      */
     protected function __construct()
     {
-        $this->entries = array();
-        $this->locks   = array();
+        $this->entries = [];
+        $this->locks   = [];
     }
 
     /**
@@ -134,7 +134,7 @@ class MymenusRegistry
 
     public function unsetAll()
     {
-        $this->entries = array();
-        $this->locks   = array();
+        $this->entries = [];
+        $this->locks   = [];
     }
 }

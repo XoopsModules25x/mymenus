@@ -17,17 +17,16 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
  * Class DynamicMymenusPluginItem
  */
 class DynamicMymenusPluginItem extends MymenusPluginItem
 {
-
     public static function eventEnd()
     {
-        $newmenus = array();
+        $newmenus = [];
         $registry = MymenusRegistry::getInstance();
         $menus    = $registry->getEntry('menus');
         foreach ($menus as $menu) {
@@ -55,7 +54,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         global $xoopsModule;
         static $id = -1;
 
-        $ret = array();
+        $ret = [];
         //Sanitizing $module
         if (preg_match('/[^a-z0-9\\/\\\\_.:-]/i', $module)) {
             return $ret;
@@ -89,19 +88,19 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
                 $overwrite = true;
             }
         }
-        $modversion['sub'] = array();
+        $modversion['sub'] = [];
         include $file;
 
         $handler = xoops_getModuleHandler('links', 'mymenus');
         foreach ($modversion['sub'] as $links) {
             $obj = $handler->create();
-            $obj->setVars(array(
+            $obj->setVars([
                               'title'     => $links['name'],
                               'alt_title' => $links['name'],
                               'link'      => $GLOBALS['xoops']->url("{$path}/{$links['url']}"),
                               'id'        => $id,
                               'pid'       => (int)$pid
-                          ));
+                          ]);
             $ret[] = $obj->getValues();
             $id--;
         }

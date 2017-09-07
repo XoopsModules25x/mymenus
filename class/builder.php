@@ -24,8 +24,8 @@ use Xmf\Request;
  */
 class MymenusBuilder
 {
-    public $parents = array();
-    public $output  = array();
+    public $parents = [];
+    public $output  = [];
 
     /**
      * @param $array
@@ -132,7 +132,7 @@ class MymenusBuilder
     public function buildSelected()
     {
         //get the currentpage
-        $sel = array();
+        $sel = [];
         //        $queryString = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
         $queryString = Request::getString('QUERY_STRING', '', 'SERVER') ? '?' . Request::getString('QUERY_STRING', '', 'SERVER') : '';
         //        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $queryString;

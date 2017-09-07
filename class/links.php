@@ -17,7 +17,7 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once __DIR__ . '/../include/common.php';
 
@@ -48,8 +48,8 @@ class MymenusLinks extends XoopsObject
         $this->initVar('link', XOBJ_DTYPE_TXTBOX);
         $this->initVar('weight', XOBJ_DTYPE_INT, 255);
         $this->initVar('target', XOBJ_DTYPE_TXTBOX);
-        $this->initVar('groups', XOBJ_DTYPE_ARRAY, serialize(array(XOOPS_GROUP_ANONYMOUS, XOOPS_GROUP_USERS)));
-        $this->initVar('hooks', XOBJ_DTYPE_ARRAY, serialize(array()));
+        $this->initVar('groups', XOBJ_DTYPE_ARRAY, serialize([XOOPS_GROUP_ANONYMOUS, XOOPS_GROUP_USERS]));
+        $this->initVar('hooks', XOBJ_DTYPE_ARRAY, serialize([]));
         $this->initVar('image', XOBJ_DTYPE_TXTBOX);
         $this->initVar('css', XOBJ_DTYPE_TXTBOX);
     }
@@ -62,7 +62,7 @@ class MymenusLinks extends XoopsObject
         $hooks              = $this->getHooks();
         $hooks['mymenus'][] = 'checkAccess';
         foreach ($hooks as $hookName => $hook) {
-            if (!mymenusHook($hookName, 'checkAccess', array('links' => $this))) {
+            if (!mymenusHook($hookName, 'checkAccess', ['links' => $this])) {
                 return false;
             }
         }
@@ -75,7 +75,7 @@ class MymenusLinks extends XoopsObject
      */
     public function getHooks()
     {
-        $ret  = array();
+        $ret  = [];
         $data = $this->getVar('hooks', 'n');
         if (!$data) {
             return $ret;

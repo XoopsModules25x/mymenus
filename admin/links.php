@@ -103,7 +103,7 @@ switch ($op) {
             redirect_header($currentFile, 3, _AM_MYMENUS_MSG_DELETE_LINK_SUCCESS);
         } else {
             xoops_cp_header();
-            xoops_confirm(array('ok' => true, 'id' => $id, 'op' => 'delete'), //                $_SERVER['REQUEST_URI'],
+            xoops_confirm(['ok' => true, 'id' => $id, 'op' => 'delete'], //                $_SERVER['REQUEST_URI'],
                           Request::getString('REQUEST_URI', '', 'SERVER'), sprintf(_AM_MYMENUS_LINKS_SUREDEL, $linksObj->getVar('title')));
             require_once __DIR__ . '/admin_footer.php';
         }
@@ -125,7 +125,7 @@ switch ($op) {
         break;
 
     case 'order':
-        $test  = array();
+        $test  = [];
         $order = Request::getString('mod', '', 'POST');
         parse_str($order, $test);
         $i = 1;
@@ -240,7 +240,7 @@ class MymenusLinksUtility
         //        $_POST['hooks'] = array();
         //    }
         if (!Request::getArray('hooks', null, 'POST')) {
-            $_POST['hooks'] = array();
+            $_POST['hooks'] = [];
         }
         // @TODO: clean incoming POST vars
         $newLinksObj->setVars($_POST);
