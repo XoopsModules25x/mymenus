@@ -117,22 +117,22 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         list($validator, $value) = array_map('strtolower', explode('|', $reg[1]));
 
         //just to prevent any bad admin to get easy passwords
-        if ($value === 'pass') {
+        if ('pass' === $value) {
             return $string;
         }
 
-        if ($validator === 'user') {
+        if ('user' === $validator) {
             $user   = $registry->getEntry('user');
             $value  = isset($user[$value]) ? $user[$value] : static::getExtraValue('user', $value);
             $string = str_replace($expression, $value, $string);
         }
 
-        if ($validator === 'uri') {
+        if ('uri' === $validator) {
             $value  = Request::getString($value, 0, 'GET');
             $string = str_replace($expression, $value, $string);
         }
 
-        if ($validator === 'owner') {
+        if ('owner' === $validator) {
             $owner  = $registry->getEntry('owner');
             $value  = isset($owner[$value]) ? $owner[$value] : static::getExtraValue('owner', $value);
             $string = str_replace($expression, $value, $string);
@@ -152,7 +152,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $registry = MymenusRegistry::getInstance();
         $menu     = $registry->getEntry('menu');
         $groups   = $registry->getEntry('user_groups');
-        if ($menu['visible'] == 0 || !array_intersect($menu['groups'], $groups)) {
+        if (0 == $menu['visible'] || !array_intersect($menu['groups'], $groups)) {
             $registry->setEntry('has_access', 'no');
 
             return;
@@ -187,7 +187,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
     {
         $registry = MymenusRegistry::getInstance();
 
-        return ($registry->getEntry('user_uid') != 0
+        return (0 != $registry->getEntry('user_uid')
                 && $registry->getEntry('user_uid') == $registry->getEntry('get_uid')) ? true : false;
     }
 
@@ -221,17 +221,17 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
 
         $pmHandler = xoops_getHandler('privmessage');
 
-        if ($value === 'pm_new') {
+        if ('pm_new' === $value) {
             $criteria = new CriteriaCompo(new Criteria('read_msg', 0));
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 
-        if ($value === 'pm_readed') {
+        if ('pm_readed' === $value) {
             $criteria = new CriteriaCompo(new Criteria('read_msg', 1));
             $criteria->add(new Criteria('to_userid', $entry['uid']));
         }
 
-        if ($value === 'pm_total') {
+        if ('pm_total' === $value) {
             $criteria = new Criteria('to_userid', $entry['uid']);
         }
 

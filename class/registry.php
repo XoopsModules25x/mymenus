@@ -59,7 +59,7 @@ class MymenusRegistry
      */
     public function setEntry($key, $item)
     {
-        if ($this->isLocked($key) === true) {
+        if (true === $this->isLocked($key)) {
             trigger_error("Unable to set entry `{$key}`. Entry is locked.", E_USER_WARNING);
 
             return false;

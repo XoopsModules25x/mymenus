@@ -244,7 +244,7 @@ if (!function_exists('InfoColumnExists')) {
      */
     function InfoColumnExists($tablename, $spalte)
     {
-        if ($tablename === '' || $spalte === '') {
+        if ('' === $tablename || '' === $spalte) {
             return true;
         } // Fehler!!
         $result = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM ' . $tablename . " LIKE '" . $spalte . "'");

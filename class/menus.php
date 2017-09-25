@@ -58,7 +58,7 @@ class MymenusMenus extends XoopsObject
         //
         xoops_load('XoopsFormLoader');
         //
-        if ($action === false) {
+        if (false === $action) {
             //            $action = $_SERVER['REQUEST_URI'];
             $action = Request::getString('REQUEST_URI', '', 'SERVER');
         }

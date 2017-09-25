@@ -71,7 +71,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
         $expression = $reg[0];
         list($validator, $value) = array_map('mb_strtolower', explode('|', $reg[1]));
 
-        if ($validator === 'smarty') {
+        if ('smarty' === $validator) {
             if (isset($GLOBALS['xoopsTpl']->_tpl_vars[$value])) {
                 $string = str_replace($expression, $GLOBALS['xoopsTpl']->_tpl_vars[$value], $string);
             }

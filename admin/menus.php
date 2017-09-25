@@ -32,7 +32,7 @@ switch ($op) {
         $adminObject = \Xmf\Module\Admin::getInstance();
         $adminObject->displayNavigation($currentFile);
         // buttons
-        if ($apply_filter === true) {
+        if (true === $apply_filter) {
             $adminObject->addItemButton(_LIST, '?op=list', 'list');
         }
         $adminObject->addItemButton(_ADD, $currentFile . '?op=edit', 'add');
@@ -48,9 +48,9 @@ switch ($op) {
             //
             $menusCriteria = new CriteriaCompo();
             //
-            if ($apply_filter === true) {
+            if (true === $apply_filter) {
                 // evaluate title criteria
-                if ($filter_menus_title !== '') {
+                if ('' !== $filter_menus_title) {
                     switch ($filter_menus_title_condition) {
                         case 'CONTAINS':
                         default:
@@ -150,7 +150,7 @@ switch ($op) {
             redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $id         = Request::getInt('id', 0, 'POST');
-        $isNewMenus = ($id == 0) ? true : false;
+        $isNewMenus = (0 == $id) ? true : false;
         //
         $menus_title = Request::getString('title', '', 'POST');
         $menus_css   = Request::getString('css', '', 'POST');
@@ -181,7 +181,7 @@ switch ($op) {
     case 'delete':
         $id       = Request::getInt('id', null);
         $menusObj = $mymenus->getHandler('menus')->get($id);
-        if (Request::getBool('ok', false, 'POST') === true) {
+        if (true === Request::getBool('ok', false, 'POST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }

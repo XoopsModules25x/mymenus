@@ -100,7 +100,7 @@ function mymenus_block_show($options)
         $jsArray = array_merge($jsArray, $skinInfo['js']);
     }
     //
-    if ($mymenus->getConfig('assign_method') === 'xoopstpl') {
+    if ('xoopstpl' === $mymenus->getConfig('assign_method')) {
         $tpl_vars = '';
         foreach ($cssArray as $file) {
             $tpl_vars .= "\n<link rel='stylesheet' type='text/css' media='all' href='{$file}'>";

@@ -81,7 +81,7 @@ switch ($op) {
     case 'delete':
         $id       = Request::getInt('id', null);
         $linksObj = $mymenus->getHandler('links')->get($id);
-        if (Request::getBool('ok', false, 'POST') === true) {
+        if (true === Request::getBool('ok', false, 'POST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }

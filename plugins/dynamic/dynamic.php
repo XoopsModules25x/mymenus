@@ -70,7 +70,7 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         xoops_loadLanguage('modinfo', $module);
 
         $overwrite = false;
-        if ($force === true) {  //can set to false for debug
+        if (true === $force) {  //can set to false for debug
             if (!($xoopsModule instanceof XoopsModule) || ($xoopsModule->getVar('dirname') != $module)) {
                 // @TODO: check the following 2 statements, they're basically just assigns - is this intended?
                 $_xoopsModule       = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
