@@ -35,7 +35,7 @@ function mymenus_block_show($options)
 
     $block = [];
     $xoopsLogger->startTime('My Menus Block');
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");
     require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");

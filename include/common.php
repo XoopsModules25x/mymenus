@@ -39,7 +39,7 @@ xoops_load('XoopsUserUtility');
 xoops_load('XoopsFormLoader');
 
 // MyTextSanitizer object
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 $debug   = false;
 $mymenus = MymenusMymenus::getInstance($debug);

@@ -7,21 +7,27 @@
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*/
+/**
+ *
+ * @copyright       XOOPS Project (https://xoops.org)
+ * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @author          XOOPS Project <www.xoops.org> <www.xoops.ir>
  */
+
+defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
- * @copyright       XOOPS Project (https://xoops.org)
- * @license         http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @package         Mymenus
- * @since           1.0
- * @author          trabis <lusopoemas@gmail.com>
+ * Class UserlogCorePreload
  */
-
-require_once __DIR__ . '/admin_header.php';
-xoops_cp_header();
-
-$adminObject->displayNavigation(basename(__FILE__));
-$adminObject::setPaypal('xoopsfoundation@gmail.com');
-$adminObject->displayAbout(false);
-
-require_once __DIR__ . '/admin_footer.php';
+class MymenusCorePreload extends XoopsPreloadItem
+{
+    // to add PSR-4 autoloader
+    /**
+     * @param $args
+     */
+    public static function eventCoreIncludeCommonEnd($args)
+    {
+        include __DIR__ . '/autoloader.php';
+    }
+}
