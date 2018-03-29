@@ -17,16 +17,18 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
+use XoopsModules\Mymenus;
+
 require_once __DIR__ . '/../../../include/cp_header.php';
 require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
 xoops_load('XoopsFormLoader');
 
-require_once __DIR__ . '/../class/Utility.php';
+// require_once __DIR__ . '/../class/Utility.php';
 require_once __DIR__ . '/../include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 //$mymenus = MymenusMymenus::getInstance($debug);
-$helper = \Xmf\Module\Helper::getHelper($moduleDirName);
+$helper = Mymenus\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject = Xmf\Module\Admin::getInstance();
 
@@ -34,7 +36,7 @@ $myts = \MyTextSanitizer::getInstance();
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }
 
 $pathIcon16      = Xmf\Module\Admin::iconUrl('', 16);
@@ -61,4 +63,4 @@ require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/plugin.p
 //Handlers
 //$XXXHandler = xoops_getModuleHandler('XXX', $mymenus->dirname);
 
-$mymenusTpl = new XoopsTpl();
+$mymenusTpl = new \XoopsTpl();

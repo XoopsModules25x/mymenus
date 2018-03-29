@@ -23,10 +23,10 @@ require_once __DIR__ . '/admin_header.php';
 
 $currentFile = basename(__FILE__);
 
-$mymenusTpl       = new XoopsTpl(); // will be removed???
+$mymenusTpl       = new \XoopsTpl(); // will be removed???
 $mymenusAdminPage = 'links.php'; // will be removed???
 
-$menusCriteria = new CriteriaCompo();
+$menusCriteria = new \CriteriaCompo();
 $menusCriteria->setSort('id');
 $menusCriteria->setOrder('ASC');
 $menusList = $mymenus->getHandler('menus')->getList($menusCriteria);
@@ -86,9 +86,9 @@ switch ($op) {
                 redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             //get sub item
-            $linksCriteria = new CriteriaCompo();
-            $linksCriteria->add(new Criteria('id', $id));
-            $linksCriteria->add(new Criteria('pid', $id), 'OR');
+            $linksCriteria = new \CriteriaCompo();
+            $linksCriteria->add(new \Criteria('id', $id));
+            $linksCriteria->add(new \Criteria('pid', $id), 'OR');
             //first delete links level 2
             $query  = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('mymenus_links');
             $query  .= ' WHERE pid = (SELECT id FROM (SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('mymenus_links') . " WHERE pid = {$id}) AS sec);";
@@ -187,7 +187,7 @@ class MymenusLinksUtility
         $mymenus = MymenusMymenus::getInstance();
         global $mymenusTpl;
         //
-        $linksCriteria = new CriteriaCompo(new Criteria('mid', (int)$mid));
+        $linksCriteria = new \CriteriaCompo(new \Criteria('mid', (int)$mid));
         $linksCount    = $mymenus->getHandler('links')->getCount($linksCriteria);
         $mymenusTpl->assign('count', $linksCount);
         //
@@ -205,7 +205,7 @@ class MymenusLinksUtility
             $mymenusTpl->assign('menus', $menusArray); // not 'menus', 'links' shoult be better
         }
         //
-        $mymenusTpl->assign('addform', MymenusLinksUtility::mymenusAdminForm(null, null, $mid));
+        $mymenusTpl->assign('addform', self::mymenusAdminForm(null, null, $mid));
 
         //
         return $mymenusTpl->fetch($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/templates/static/mymenus_admin_links.tpl"));
@@ -225,7 +225,7 @@ class MymenusLinksUtility
             redirect_header($GLOBALS['mymenusAdminPage'] . '?op=list', 2, _AM_MYMENUS_MSG_MENU_INVALID_ERROR);
         }
         //
-        $linksCiteria = new CriteriaCompo(new Criteria('mid', $mid));
+        $linksCiteria = new \CriteriaCompo(new \Criteria('mid', $mid));
         $linksCiteria->setSort('weight');
         $linksCiteria->setOrder('DESC');
         $linksCiteria->setLimit(1);
@@ -335,15 +335,15 @@ class MymenusLinksUtility
         } else {
             $formTitle = _EDIT;
         }
-        $form = new XoopsThemeForm($formTitle, 'admin_form', $GLOBALS['mymenusAdminPage'], 'post', true);
+        $form = new \XoopsThemeForm($formTitle, 'admin_form', $GLOBALS['mymenusAdminPage'], 'post', true);
         // links: title
-        $formtitle = new XoopsFormText(_AM_MYMENUS_MENU_TITLE, 'title', 50, 255, $linksObj->getVar('title'));
+        $formtitle = new \XoopsFormText(_AM_MYMENUS_MENU_TITLE, 'title', 50, 255, $linksObj->getVar('title'));
         $form->addElement($formtitle, true);
         // links: alt_title
-        $formalttitle = new XoopsFormText(_AM_MYMENUS_MENU_ALTTITLE, 'alt_title', 50, 255, $linksObj->getVar('alt_title'));
+        $formalttitle = new \XoopsFormText(_AM_MYMENUS_MENU_ALTTITLE, 'alt_title', 50, 255, $linksObj->getVar('alt_title'));
         $form->addElement($formalttitle);
         // links: mid
-        $menusCriteria = new CriteriaCompo();
+        $menusCriteria = new \CriteriaCompo();
         $menusCriteria->setSort('title');
         $menusCriteria->setOrder('ASC');
         $menusList = $mymenus->getHandler('menus')->getList($menusCriteria);
@@ -351,47 +351,47 @@ class MymenusLinksUtility
             // display menu options (if more than 1 menu available
             if (!$linksObj->getVar('mid')) { // initial menu value not set
                 //                $menuValues = array_flip($menusList);
-                $formmid = new XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $mid);//array_shift($menuValues));
+                $formmid = new \XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $mid);//array_shift($menuValues));
             } else {
-                $formmid = new XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $linksObj->getVar('mid'));
+                $formmid = new \XoopsFormSelect(_AM_MYMENUS_MENU_MENU, 'mid', $linksObj->getVar('mid'));
             }
             $formmid->addOptionArray($menusList);
         } else {
             $menuKeys  = array_keys($menusList);
             $menuTitle = array_shift($menusList);
-            $formmid   = new XoopsFormElementTray('Menu');
-            $formmid->addElement(new XoopsFormHidden('mid', $menuKeys[0]));
-            $formmid->addElement(new XoopsFormLabel('', $menuTitle, 'menuTitle'));
+            $formmid   = new \XoopsFormElementTray('Menu');
+            $formmid->addElement(new \XoopsFormHidden('mid', $menuKeys[0]));
+            $formmid->addElement(new \XoopsFormLabel('', $menuTitle, 'menuTitle'));
         }
         $form->addElement($formmid);
         // links: link
-        $formlink = new XoopsFormText(_AM_MYMENUS_MENU_LINK, 'link', 50, 255, $linksObj->getVar('link'));
+        $formlink = new \XoopsFormText(_AM_MYMENUS_MENU_LINK, 'link', 50, 255, $linksObj->getVar('link'));
         $form->addElement($formlink);
         // links: image
-        $formimage = new XoopsFormText(_AM_MYMENUS_MENU_IMAGE, 'image', 50, 255, $linksObj->getVar('image'));
+        $formimage = new \XoopsFormText(_AM_MYMENUS_MENU_IMAGE, 'image', 50, 255, $linksObj->getVar('image'));
         $form->addElement($formimage);
         //
         //$form->addElement($formparent);
         // links: visible
         $statontxt  = "&nbsp;<img src='{$pathIcon16}/1.png' alt='" . _YES . "'>&nbsp;" . _YES . '&nbsp;&nbsp;&nbsp;';
         $statofftxt = "&nbsp;<img src='{$pathIcon16}/0.png' alt='" . _NO . "'>&nbsp;" . _NO . '&nbsp;';
-        $formvis    = new XoopsFormRadioYN(_AM_MYMENUS_MENU_VISIBLE, 'visible', $linksObj->getVar('visible'), $statontxt, $statofftxt);
+        $formvis    = new \XoopsFormRadioYN(_AM_MYMENUS_MENU_VISIBLE, 'visible', $linksObj->getVar('visible'), $statontxt, $statofftxt);
         $form->addElement($formvis);
         // links: target
-        $formtarget = new XoopsFormSelect(_AM_MYMENUS_MENU_TARGET, 'target', $linksObj->getVar('target'));
+        $formtarget = new \XoopsFormSelect(_AM_MYMENUS_MENU_TARGET, 'target', $linksObj->getVar('target'));
         $formtarget->addOption('_self', _AM_MYMENUS_MENU_TARG_SELF);
         $formtarget->addOption('_blank', _AM_MYMENUS_MENU_TARG_BLANK);
         $formtarget->addOption('_parent', _AM_MYMENUS_MENU_TARG_PARENT);
         $formtarget->addOption('_top', _AM_MYMENUS_MENU_TARG_TOP);
         $form->addElement($formtarget);
         // links: groups
-        $formgroups = new XoopsFormSelectGroup(_AM_MYMENUS_MENU_GROUPS, 'groups', true, $linksObj->getVar('groups'), 5, true);
+        $formgroups = new \XoopsFormSelectGroup(_AM_MYMENUS_MENU_GROUPS, 'groups', true, $linksObj->getVar('groups'), 5, true);
         $formgroups->setDescription(_AM_MYMENUS_MENU_GROUPS_HELP);
         $form->addElement($formgroups);
         // @TODO: reintroduce hooks
         /*
             //links: hooks
-            $formhooks = new XoopsFormSelect(_AM_MYMENUS_MENU_ACCESS_FILTER, "hooks", $linksObj->getVar('hooks'), 5, true);
+            $formhooks = new \XoopsFormSelect(_AM_MYMENUS_MENU_ACCESS_FILTER, "hooks", $linksObj->getVar('hooks'), 5, true);
             $plugin->triggerEvent('AccessFilter');
             $results = $registry->getEntry('accessFilter');
             if ($results) {
@@ -402,12 +402,12 @@ class MymenusLinksUtility
             $form->addElement($formhooks);
         */
         // links: css
-        $formcss = new XoopsFormText(_AM_MYMENUS_MENU_CSS, 'css', 50, 255, $linksObj->getVar('css'));
+        $formcss = new \XoopsFormText(_AM_MYMENUS_MENU_CSS, 'css', 50, 255, $linksObj->getVar('css'));
         $form->addElement($formcss);
         //
-        $buttonTray = new XoopsFormElementTray('', '');
-        $buttonTray->addElement(new XoopsFormButton('', 'submit_button', _SUBMIT, 'submit'));
-        $button = new XoopsFormButton('', 'reset', _CANCEL, 'button');
+        $buttonTray = new \XoopsFormElementTray('', '');
+        $buttonTray->addElement(new \XoopsFormButton('', 'submit_button', _SUBMIT, 'submit'));
+        $button = new \XoopsFormButton('', 'reset', _CANCEL, 'button');
         if (isset($id)) {
             $button->setExtra("onclick=\"document.location.href='" . $GLOBALS['mymenusAdminPage'] . "?op=list&amp;mid={$mid}'\"");
         } else {
@@ -417,10 +417,10 @@ class MymenusLinksUtility
         $form->addElement($buttonTray);
 
         if (isset($id)) {
-            $form->addElement(new XoopsFormHidden('op', 'save'));
-            $form->addElement(new XoopsFormHidden('id', $id));
+            $form->addElement(new \XoopsFormHidden('op', 'save'));
+            $form->addElement(new \XoopsFormHidden('id', $id));
         } else {
-            $form->addElement(new XoopsFormHidden('op', 'add'));
+            $form->addElement(new \XoopsFormHidden('op', 'add'));
         }
 
         return $form->render();

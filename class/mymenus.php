@@ -18,7 +18,7 @@
  * @author          Xoops Development Team
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class MymenusMymenus
@@ -38,7 +38,8 @@ class MymenusMymenus
     protected function __construct($debug)
     {
         $this->debug   = $debug;
-        $this->dirname = basename(dirname(__DIR__));
+       $moduleDirName = basename(dirname(__DIR__));
+       parent::__construct($moduleDirName);
     }
 
     /**

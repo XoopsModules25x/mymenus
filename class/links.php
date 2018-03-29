@@ -17,7 +17,7 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once __DIR__ . '/../include/common.php';
 
@@ -38,7 +38,7 @@ class MymenusLinks extends XoopsObject
     public function __construct()
     {
         $this->mymenus = MymenusMymenus::getInstance();
-        $this->db      = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db      = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->initVar('id', XOBJ_DTYPE_INT);
         $this->initVar('pid', XOBJ_DTYPE_INT);
         $this->initVar('mid', XOBJ_DTYPE_INT);
@@ -106,9 +106,9 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
     private $mymenus = null;
 
     /**
-     * @param null|XoopsDatabase $db
+     * @param null|\XoopsDatabase $db
      */
-    public function __construct(XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, 'mymenus_links', 'MymenusLinks', 'id', 'title');
         $this->mymenus = MymenusMymenus::getInstance();
@@ -135,7 +135,7 @@ class MymenusLinksHandler extends XoopsPersistableObjectHandler
         $sql    .= ' ORDER BY weight ASC';
         $result = $this->db->query($sql);
         $i      = 1;  //lets start at 1 please!
-        while (list($id) = $this->db->fetchRow($result)) {
+        while (false !== (list($id) = $this->db->fetchRow($result))) {
             $sql = 'UPDATE ' . $this->table;
             $sql .= " SET weight = {$i}";
             $sql .= " WHERE id = {$id}";

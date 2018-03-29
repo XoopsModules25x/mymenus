@@ -18,7 +18,7 @@
  * @author          Xoops Development Team
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 //$moduleDirname = basename(dirname(__DIR__));
 //require_once(XOOPS_ROOT_PATH . "/modules/$moduleDirname/include/common.php");
@@ -28,11 +28,11 @@ $mymenus = MymenusMymenus::getInstance($debug);
 xoops_loadLanguage('admin', $mymenus->dirname);
 
 /**
- * @param  object|XoopsObject $xoopsModule
+ * @param  object|\XoopsObject $xoopsModule
  * @param  int                $previousVersion
  * @return bool               FALSE if failed
  */
-function xoops_module_update_mymenus(XoopsObject $xoopsModule, $previousVersion)
+function xoops_module_update_mymenus(\XoopsObject $xoopsModule, $previousVersion)
 {
     if ($previousVersion < 151) {
         //if (!checkInfoTemplates($xoopsModule)) return false;
@@ -61,7 +61,7 @@ class MymenusUpdater
      *
      * @return bool
      */
-    public static function checkInfoTemplates(XoopsObject $module)
+    public static function checkInfoTemplates(\XoopsObject $module)
     {
         $err = true;
         if (!file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getInfo('dirname') . '/templates/blocks/' . $module->getInfo('dirname') . '_block.tpl')) {
@@ -77,7 +77,7 @@ class MymenusUpdater
      *
      * @return bool
      */
-    public static function checkInfoTable(XoopsObject $module)
+    public static function checkInfoTable(\XoopsObject $module)
     {
         //    global $xoopsDB;
         $err = true;

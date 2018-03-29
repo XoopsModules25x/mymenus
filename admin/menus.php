@@ -46,7 +46,7 @@ switch ($op) {
             $filter_menus_title_condition = Request::getString('filter_menus_title_condition', '');
             $filter_menus_title           = Request::getString('filter_menus_title', '');
             //
-            $menusCriteria = new CriteriaCompo();
+            $menusCriteria = new \CriteriaCompo();
             //
             if (true === $apply_filter) {
                 // evaluate title criteria
@@ -74,7 +74,7 @@ switch ($op) {
                             $function = 'LIKE';
                             break;
                     }
-                    $menusCriteria->add(new Criteria('title', $pre . $filter_menus_title . $post, $function));
+                    $menusCriteria->add(new \Criteria('title', $pre . $filter_menus_title . $post, $function));
                 }
             }
             $GLOBALS['xoopsTpl']->assign('apply_filter', $apply_filter);
@@ -94,14 +94,14 @@ switch ($op) {
                 $linklist   = "op={$op}";
                 $linklist   .= "&filter_menus_title_condition={$filter_menus_title_condition}";
                 $linklist   .= "&filter_menus_title={$filter_menus_title}";
-                $pagenavObj = new XoopsPageNav($itemFilterCount, $limit, $start, 'start', $linklist);
+                $pagenavObj = new \XoopsPageNav($itemFilterCount, $limit, $start, 'start', $linklist);
                 $pagenav    = $pagenavObj->renderNav(4);
             } else {
                 $pagenav = '';
             }
             $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav);
             //
-            $filter_menus_title_condition_select = new XoopsFormSelect(_AM_MYMENUS_MENU_TITLE, 'filter_menus_title_condition', $filter_menus_title_condition, 1, false);
+            $filter_menus_title_condition_select = new \XoopsFormSelect(_AM_MYMENUS_MENU_TITLE, 'filter_menus_title_condition', $filter_menus_title_condition, 1, false);
             $filter_menus_title_condition_select->addOption('CONTAINS', _CONTAINS);
             $filter_menus_title_condition_select->addOption('MATCHES', _MATCHES);
             $filter_menus_title_condition_select->addOption('STARTSWITH', _STARTSWITH);
@@ -194,7 +194,7 @@ switch ($op) {
                 exit();
             }
             // Delete links
-            $mymenus->getHandler('links')->deleteAll(new Criteria('mid', $id));
+            $mymenus->getHandler('links')->deleteAll(new \Criteria('mid', $id));
             redirect_header($currentFile, 3, _AM_MYMENUS_MSG_DELETE_MENU_SUCCESS);
         } else {
             xoops_cp_header();

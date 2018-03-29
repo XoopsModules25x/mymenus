@@ -1,6 +1,6 @@
 <?php
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 // module information
 $moduleImageUrl      = MYMENUS_URL . '/assets/images/mymenus.png';

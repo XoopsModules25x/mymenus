@@ -19,7 +19,7 @@
 
 use Xmf\Request;
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class MymenusMymenusPluginItem
@@ -32,7 +32,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         /** @var XoopsMemberHandler $memberHandler */
         $memberHandler = xoops_getHandler('member');
 
-        $user = ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser'] : null;
+        $user = ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser'] : null;
         if (!$user) {
             $user = $memberHandler->createUser();
             $user->setVar('uid', 0);
@@ -42,7 +42,7 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $ownerid = Request::getInt('uid', null, 'GET');
         $owner   = $memberHandler->getUser($ownerid);
         //if uid > 0 but user does not exists
-        if (!($owner instanceof XoopsUser)) {
+        if (!($owner instanceof \XoopsUser)) {
             //create new user
             $owner = $memberHandler->createUser();
         }
@@ -52,8 +52,8 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         }
         $registry->setEntry('user', $user->getValues());
         $registry->setEntry('owner', $owner->getValues());
-        $registry->setEntry('user_groups', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS]);
-        $registry->setEntry('user_uid', ($GLOBALS['xoopsUser'] instanceof XoopsUser) ? $GLOBALS['xoopsUser']->getVar('uid') : 0);
+        $registry->setEntry('user_groups', ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getGroups() : [XOOPS_GROUP_ANONYMOUS]);
+        $registry->setEntry('user_uid', ($GLOBALS['xoopsUser'] instanceof \XoopsUser) ? $GLOBALS['xoopsUser']->getVar('uid') : 0);
         $registry->setEntry('get_uid', Request::getInt('uid', 0, 'GET'));
     }
 
@@ -222,17 +222,17 @@ class MymenusMymenusPluginItem extends MymenusPluginItem
         $pmHandler = xoops_getHandler('privmessage');
 
         if ('pm_new' === $value) {
-            $criteria = new CriteriaCompo(new Criteria('read_msg', 0));
-            $criteria->add(new Criteria('to_userid', $entry['uid']));
+            $criteria = new \CriteriaCompo(new \Criteria('read_msg', 0));
+            $criteria->add(new \Criteria('to_userid', $entry['uid']));
         }
 
         if ('pm_readed' === $value) {
-            $criteria = new CriteriaCompo(new Criteria('read_msg', 1));
-            $criteria->add(new Criteria('to_userid', $entry['uid']));
+            $criteria = new \CriteriaCompo(new \Criteria('read_msg', 1));
+            $criteria->add(new \Criteria('to_userid', $entry['uid']));
         }
 
         if ('pm_total' === $value) {
-            $criteria = new Criteria('to_userid', $entry['uid']);
+            $criteria = new \Criteria('to_userid', $entry['uid']);
         }
 
         $entry[$value] = $pmHandler->getCount($criteria);
