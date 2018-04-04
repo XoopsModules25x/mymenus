@@ -61,7 +61,7 @@ $moduleHandler       = xoops_getHandler('module');
 $memberHandler       = xoops_getHandler('member');
 /** @var XoopsNotificationHandler $notificationHandler */
 $notificationHandler = xoops_getHandler('notification');
-/** @var XoopsGroupPermHandler $gpermHandler */
-$gpermHandler        = xoops_getHandler('groupperm');
+/** @var XoopsGroupPermHandler $grouppermHandler */
+$grouppermHandler        = xoops_getHandler('groupperm');
 /** @var XoopsConfigHandler $configHandler */
 $configHandler       = xoops_getHandler('config');

@@ -145,7 +145,7 @@ class MymenusBuilder
         foreach ($this->output as $idx => $menu) {
             $selected = 0;
             if ($menu['link']) {
-                $selected = (false !== stristr($self, $menu['link'])) ? 1 : $selected;
+                $selected = (false !== stripos($self, $menu['link'])) ? 1 : $selected;
             }
             $selected = ($menu['link'] == $self) ? 1 : $selected;
             $selected = ($menu['link'] == $default) ? 1 : $selected;
