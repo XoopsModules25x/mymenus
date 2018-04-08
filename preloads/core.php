@@ -15,12 +15,14 @@
  * @author          XOOPS Project <www.xoops.org> <www.xoops.ir>
  */
 
+use XoopsModules\Mymenus;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class MymenusCorePreload
  */
-class MymenusCorePreload extends XoopsPreloadItem
+class MymenusCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
     /**

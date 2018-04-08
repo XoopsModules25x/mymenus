@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Mymenus;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -17,17 +18,19 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
+use XoopsModules\Mymenus;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class DynamicMymenusPluginItem
+ * Class DynamicPluginItem
  */
-class DynamicMymenusPluginItem extends MymenusPluginItem
+class DynamicPluginItem extends Mymenus\PluginItem
 {
     public static function eventEnd()
     {
         $newmenus = [];
-        $registry = MymenusRegistry::getInstance();
+        $registry = Mymenus\Registry::getInstance();
         $menus    = $registry->getEntry('menus');
         foreach ($menus as $menu) {
             if (!preg_match('/{(MODULE\|.*)}/i', $menu['title'], $reg)) {
@@ -71,16 +74,16 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
 
         $overwrite = false;
         if (true === $force) {  //can set to false for debug
-            if (!($xoopsModule instanceof XoopsModule) || ($xoopsModule->getVar('dirname') != $module)) {
+            if (!($xoopsModule instanceof \XoopsModule) || ($xoopsModule->getVar('dirname') != $module)) {
                 // @TODO: check the following 2 statements, they're basically just assigns - is this intended?
-                $_xoopsModule       = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
+                $_xoopsModule       = ($xoopsModule instanceof \XoopsModule) ? $xoopsModule : $xoopsModule;
                 $_xoopsModuleConfig = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
-                /** @var XoopsModuleHandler $moduleHandler */
+                /** @var \XoopsModuleHandler $moduleHandler */
                 $moduleHandler          = xoops_getHandler('module');
                 $xoopsModule            = $moduleHandler->getByDirname($module);
                 $GLOBALS['xoopsModule'] = $xoopsModule;
-                if ($xoopsModule instanceof XoopsModule) {
-                    /** @var XoopsConfigHandler $configHandler */
+                if ($xoopsModule instanceof \XoopsModule) {
+                    /** @var \XoopsConfigHandler $configHandler */
                     $configHandler                = xoops_getHandler('config');
                     $xoopsModuleConfig            = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
                     $GLOBALS['xoopsModuleConfig'] = $xoopsModuleConfig;

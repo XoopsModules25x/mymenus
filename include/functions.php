@@ -17,28 +17,11 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
+use XoopsModules\Mymenus;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once __DIR__ . '/common.php';
-
-/**
- * Checks if a user is admin of Mymenus
- *
- * @return boolean
- */
-function mymenusUserIsAdmin()
-{
-    $mymenus = MymenusMymenus::getInstance();
-
-    static $mymenusIsAdmin;
-    if (isset($mymenusIsAdmin)) {
-        return $mymenusIsAdmin;
-    }
-
-    $mymenusIsAdmin = (!is_object($GLOBALS['xoopsUser'])) ? false : $GLOBALS['xoopsUser']->isAdmin($mymenus->getModule()->getVar('mid'));
-
-    return $mymenusIsAdmin;
-}
 
 /**
  * @param string  $moduleSkin
@@ -47,15 +30,15 @@ function mymenusUserIsAdmin()
  *
  * @return array
  */
-function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $themeSkin = '')
+function getSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $themeSkin = '')
 {
     require_once __DIR__ . '/common.php';
-    $mymenus = MymenusMymenus::getInstance();
+    $helper = Mymenus\Helper::getInstance();
     $error   = false;
     if ($useThemeSkin) {
         $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set'] . '/menu';
         if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
-            $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$mymenus->dirname}/skins/{$themeSkin}";
+            $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set'] . "/modules/{$helper->getDirname()}/skins/{$themeSkin}";
             if (!file_exists($GLOBALS['xoops']->path("{$path}/skin_version.php"))) {
                 $error = true;
             }
@@ -63,7 +46,7 @@ function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $the
     }
 
     if ($error || !$useThemeSkin) {
-        $path = "modules/{$mymenus->dirname}/skins/{$moduleSkin}";
+        $path = "modules/{$helper->getDirname()}/skins/{$moduleSkin}";
     }
 
     $file = $GLOBALS['xoops']->path("{$path}/skin_version.php");
@@ -78,7 +61,7 @@ function mymenusGetSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $the
     $info['url']  = $GLOBALS['xoops']->url($path);
 
     if (!isset($info['template'])) {
-        $info['template'] = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/templates/static/blocks/mymenus_block.tpl");
+        $info['template'] = $GLOBALS['xoops']->path("modules/{$helper->getDirname()}/templates/static/blocks/mymenus_block.tpl");
     } else {
         $info['template'] = $GLOBALS['xoops']->path("{$path}/" . $info['template']);
     }

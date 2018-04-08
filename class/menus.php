@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Mymenus;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -18,6 +19,7 @@
  */
 
 use Xmf\Request;
+use XoopsModules\Mymenus;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -26,20 +28,20 @@ require_once __DIR__ . '/../include/common.php';
 /**
  * Class MymenusMenus
  */
-class MymenusMenus extends XoopsObject
+class Menus extends \XoopsObject
 {
     /**
-     * @var MymenusMenus
+     * @var Menus
      * @access private
      */
-    private $mymenus = null;
+    private $helper = null;
 
     /**
      * constructor
      */
     public function __construct()
     {
-        $this->mymenus = MymenusMymenus::getInstance();
+        $this->helper = Mymenus\Helper::getInstance();
         $this->db      = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->initVar('id', XOBJ_DTYPE_INT);
         $this->initVar('title', XOBJ_DTYPE_TXTBOX);
@@ -50,7 +52,7 @@ class MymenusMenus extends XoopsObject
      * Get {@link XoopsThemeForm} for adding/editing items
      *
      * @param  bool|string $action
-     * @return XoopsThemeForm {@link XoopsThemeForm}
+     * @return \XoopsThemeForm <a href='psi_element://XoopsThemeForm'>XoopsThemeForm</a>
      */
     public function getForm($action = false)
     {
@@ -105,26 +107,5 @@ class MymenusMenus extends XoopsObject
 
         //
         return $form;
-    }
-}
-
-/**
- * Class MymenusMenusHandler
- */
-class MymenusMenusHandler extends XoopsPersistableObjectHandler
-{
-    /**
-     * @var MymenusMymenus
-     * @access private
-     */
-    private $mymenus = null;
-
-    /**
-     * @param null|\XoopsDatabase $db
-     */
-    public function __construct(\XoopsDatabase $db)
-    {
-        parent::__construct($db, 'mymenus_menus', 'MymenusMenus', 'id', 'title', 'css');
-        $this->mymenus = MymenusMymenus::getInstance();
     }
 }

@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Mymenus;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,9 +21,9 @@
 use Xmf\Request;
 
 /**
- * Class MymenusBuilder
+ * Class Builder
  */
-class MymenusBuilder
+class Builder
 {
     public $parents = [];
     public $output  = [];

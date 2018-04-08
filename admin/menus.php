@@ -38,7 +38,7 @@ switch ($op) {
         $adminObject->addItemButton(_ADD, $currentFile . '?op=edit', 'add');
         $adminObject->displayButton('left');
         //
-        $menusCount = $mymenus->getHandler('menus')->getCount();
+        $menusCount = $helper->getHandler('menus')->getCount();
         $GLOBALS['xoopsTpl']->assign('menusCount', $menusCount);
         //
         if ($menusCount > 0) {
@@ -78,14 +78,14 @@ switch ($op) {
                 }
             }
             $GLOBALS['xoopsTpl']->assign('apply_filter', $apply_filter);
-            $menusFilterCount = $mymenus->getHandler('menus')->getCount($menusCriteria);
+            $menusFilterCount = $helper->getHandler('menus')->getCount($menusCriteria);
             $GLOBALS['xoopsTpl']->assign('menusFilterCount', $menusFilterCount);
             //
             $menusCriteria->setSort('id');
             $menusCriteria->setOrder('ASC');
             //
             $start = Request::getInt('start', 0);
-            $limit = $mymenus->getConfig('admin_perpage');
+            $limit = $helper->getConfig('admin_perpage');
             $menusCriteria->setStart($start);
             $menusCriteria->setLimit($limit);
             //
@@ -110,7 +110,7 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('filter_menus_title_condition', $filter_menus_title_condition);
             $GLOBALS['xoopsTpl']->assign('filter_menus_title', $filter_menus_title);
             //
-            $menusObjs = $mymenus->getHandler('menus')->getObjects($menusCriteria);
+            $menusObjs = $helper->getHandler('menus')->getObjects($menusCriteria);
             foreach ($menusObjs as $menusObj) {
                 $menusObjArray = $menusObj->getValues(); // as array
                 $GLOBALS['xoopsTpl']->append('menus', $menusObjArray);
@@ -120,7 +120,7 @@ switch ($op) {
         } else {
             // NOP
         }
-        $GLOBALS['xoopsTpl']->display($GLOBALS['xoops']->path("modules/{$mymenus->dirname}/templates/static/mymenus_admin_menus.tpl"));
+        $GLOBALS['xoopsTpl']->display($GLOBALS['xoops']->path("modules/{$helper->getDirname()}/templates/static/mymenus_admin_menus.tpl"));
         require_once __DIR__ . '/admin_footer.php';
         break;
 
@@ -135,7 +135,7 @@ switch ($op) {
         $adminObject->displayButton('left');
         //
         $id = Request::getInt('id', 0);
-        if (!$menusObj = $mymenus->getHandler('menus')->get($id)) {
+        if (!$menusObj = $helper->getHandler('menus')->get($id)) {
             // ERROR
             redirect_header($currentFile, 3, _AM_MYMENUS_MSG_ERROR);
         }
@@ -150,17 +150,17 @@ switch ($op) {
             redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $id         = Request::getInt('id', 0, 'POST');
-        $isNewMenus = (0 == $id) ? true : false;
+        $isNewMenus = 0 == $id;
         //
         $menus_title = Request::getString('title', '', 'POST');
         $menus_css   = Request::getString('css', '', 'POST');
         //
-        $menusObj = $mymenus->getHandler('menus')->get($id);
+        $menusObj = $helper->getHandler('menus')->get($id);
         //
         $menusObj->setVar('title', $menus_title);
         $menusObj->setVar('css', $menus_css);
         //
-        if (!$mymenus->getHandler('menus')->insert($menusObj)) {
+        if (!$helper->getHandler('menus')->insert($menusObj)) {
             // ERROR
             xoops_cp_header();
             echo $menusObj->getHtmlErrors();
@@ -180,13 +180,13 @@ switch ($op) {
 
     case 'delete':
         $id       = Request::getInt('id', null);
-        $menusObj = $mymenus->getHandler('menus')->get($id);
+        $menusObj = $helper->getHandler('menus')->get($id);
         if (true === Request::getBool('ok', false, 'POST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             // delete menus
-            if (!$mymenus->getHandler('menus')->delete($menusObj)) {
+            if (!$helper->getHandler('menus')->delete($menusObj)) {
                 // ERROR
                 xoops_cp_header();
                 xoops_error(_AM_MYMENUS_MSG_ERROR, $menusObj->getVar('id'));
@@ -194,7 +194,7 @@ switch ($op) {
                 exit();
             }
             // Delete links
-            $mymenus->getHandler('links')->deleteAll(new \Criteria('mid', $id));
+            $helper->getHandler('links')->deleteAll(new \Criteria('mid', $id));
             redirect_header($currentFile, 3, _AM_MYMENUS_MSG_DELETE_MENU_SUCCESS);
         } else {
             xoops_cp_header();

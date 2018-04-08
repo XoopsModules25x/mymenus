@@ -18,14 +18,16 @@
  * @author          Xoops Development Team
  */
 
+use XoopsModules\Mymenus;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 //$moduleDirname = basename(dirname(__DIR__));
 //require_once(XOOPS_ROOT_PATH . "/modules/$moduleDirname/include/common.php");
 require_once __DIR__ . '/common.php';
-$mymenus = MymenusMymenus::getInstance($debug);
+$helper = Mymenus\Helper::getInstance($debug);
 
-xoops_loadLanguage('admin', $mymenus->dirname);
+xoops_loadLanguage('admin', $helper->getDirname());
 
 /**
  * @param  object|\XoopsObject $xoopsModule
@@ -248,7 +250,7 @@ if (!function_exists('InfoColumnExists')) {
             return true;
         } // Fehler!!
         $result = $GLOBALS['xoopsDB']->queryF('SHOW COLUMNS FROM ' . $tablename . " LIKE '" . $spalte . "'");
-        $ret    = ($GLOBALS['xoopsDB']->getRowsNum($result) > 0) ? true : false;
+        $ret    = $GLOBALS['xoopsDB']->getRowsNum($result) > 0;
 
         return $ret;
     }
@@ -263,7 +265,7 @@ if (!function_exists('InfoTableExists')) {
     function InfoTableExists($tablename)
     {
         $result = $GLOBALS['xoopsDB']->queryF("SHOW TABLES LIKE '$tablename'");
-        $ret    = ($GLOBALS['xoopsDB']->getRowsNum($result) > 0) ? true : false;
+        $ret    = $GLOBALS['xoopsDB']->getRowsNum($result) > 0;
 
         return $ret;
     }

@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Mymenus;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -22,7 +23,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
  * Class MymenusRegistry
  */
-class MymenusRegistry
+class Registry
 {
     protected $entries;
     protected $locks;
@@ -37,7 +38,7 @@ class MymenusRegistry
     }
 
     /**
-     * @return MymenusRegistry
+     * @return Registry
      */
     public static function getInstance()
     {
@@ -59,15 +60,16 @@ class MymenusRegistry
      */
     public function setEntry($key, $item)
     {
+        $ret = true;
         if (true === $this->isLocked($key)) {
             trigger_error("Unable to set entry `{$key}`. Entry is locked.", E_USER_WARNING);
 
-            return false;
+            $ret = false;
         }
 
         $this->entries[$key] = $item;
 
-        return true;
+        return $ret;
     }
 
     /**

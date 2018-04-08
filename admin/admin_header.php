@@ -28,19 +28,20 @@ require_once __DIR__ . '/../include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 //$mymenus = MymenusMymenus::getInstance($debug);
+/** @var Mymenus\Helper $helper */
 $helper = Mymenus\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
-$adminObject = Xmf\Module\Admin::getInstance();
+$adminObject = \Xmf\Module\Admin::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 
-if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
     $xoopsTpl = new \XoopsTpl();
 }
 
-$pathIcon16      = Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32      = Xmf\Module\Admin::iconUrl('', 32);
+$pathIcon16      = \Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32      = \Xmf\Module\Admin::iconUrl('', 32);
 $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
 $GLOBALS['xoopsTpl']->assign('pathIcon16', $pathIcon16);
@@ -52,9 +53,7 @@ $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 
 require_once $GLOBALS['xoops']->path('class/template.php');
-require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");
-require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");
-require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/plugin.php");
+require_once $GLOBALS['xoops']->path("modules/{$helper->getDirname()}/include/functions.php");
 
 //Module specific elements
 //require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");

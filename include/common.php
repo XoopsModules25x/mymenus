@@ -18,7 +18,10 @@
  * @author          Xoops Development Team
  */
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+use XoopsModules\Mymenus;
+include __DIR__ . '/../preloads/autoloader.php';
+
+//defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 // This must contain the name of the folder in which reside mymenus
 define('MYMENUS_DIRNAME', basename(dirname(__DIR__)));
@@ -30,7 +33,6 @@ define('MYMENUS_ICONS_URL', MYMENUS_URL . '/assets/images/icons');
 
 xoops_loadLanguage('common', MYMENUS_DIRNAME);
 
-require_once MYMENUS_ROOT_PATH . '/class/mymenus.php'; // MymenusMymenus class
 require_once MYMENUS_ROOT_PATH . '/include/config.php'; // IN PROGRESS
 require_once MYMENUS_ROOT_PATH . '/include/functions.php';
 require_once MYMENUS_ROOT_PATH . '/include/constants.php';
@@ -42,17 +44,17 @@ xoops_load('XoopsFormLoader');
 $myts = \MyTextSanitizer::getInstance();
 
 $debug   = false;
-$mymenus = MymenusMymenus::getInstance($debug);
+$helper = Mymenus\Helper::getInstance($debug);
 
 //This is needed or it will not work in blocks.
 global $mymenusIsAdmin;
 
 // Load only if module is installed
-if (is_object($mymenus->getModule())) {
+if (is_object($helper->getModule())) {
     // Find if the user is admin of the module
-    $mymenusIsAdmin = mymenusUserIsAdmin();
+    $mymenusIsAdmin = Mymenus\Helper::getInstance()->isUserAdmin();
 }
-$xoopsModule = $mymenus->getModule();
+$xoopsModule = $helper->getModule();
 
 // Load Xoops handlers
 /** @var XoopsModuleHandler $moduleHandler */

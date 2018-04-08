@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Mymenus;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -17,21 +18,22 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
+use XoopsModules\Mymenus;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once __DIR__ . '/../include/common.php';
 xoops_load('XoopsLists');
-require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/class/registry.php");
 
 /**
- * Class MymenusPlugin
+ * Class Plugin
  */
-class MymenusPlugin
+class Plugin
 {
     protected $registry;
     protected $plugins;
     protected $events;
-    public $mymenus;
+    public $helper;
 
     /**
      *
@@ -40,14 +42,14 @@ class MymenusPlugin
     {
         $this->plugins  = [];
         $this->events   = [];
-        $this->registry = MymenusRegistry::getInstance();
-        $this->mymenus  = MymenusMymenus::getInstance();
+        $this->registry = Mymenus\Registry::getInstance();
+        $this->helper  = Mymenus\Helper::getInstance();
         $this->setPlugins();
         $this->setEvents();
     }
 
     /**
-     * @return MymenusPlugin
+     * @return \XoopsModules\Mymenus\Plugin
      */
     public static function getInstance()
     {
@@ -61,10 +63,10 @@ class MymenusPlugin
 
     public function setPlugins()
     {
-        if (is_dir($dir = $GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/"))) {
-            $pluginsList = XoopsLists::getDirListAsArray($dir);
+        if (is_dir($dir = $GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/"))) {
+            $pluginsList = \XoopsLists::getDirListAsArray($dir);
             foreach ($pluginsList as $plugin) {
-                if (file_exists($GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php"))) {
+                if (file_exists($GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/{$plugin}/{$plugin}.php"))) {
                     $this->plugins[] = $plugin;
                 }
             }
@@ -74,8 +76,8 @@ class MymenusPlugin
     public function setEvents()
     {
         foreach ($this->plugins as $plugin) {
-            require_once $GLOBALS['xoops']->path("modules/{$this->mymenus->dirname}/plugins/{$plugin}/{$plugin}.php");
-            $className = ucfirst($plugin) . 'MymenusPluginItem';
+            require_once $GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/{$plugin}/{$plugin}.php");
+            $className = ucfirst($plugin) . 'PluginItem';
             if (!class_exists($className)) {
                 continue;
             }
@@ -97,38 +99,10 @@ class MymenusPlugin
     public function triggerEvent($eventName, $args = [])
     {
         $eventName = mb_strtolower(str_replace('.', '', $eventName));
-        if (isset($this->events[$eventName])) {
-            foreach ($this->events[$eventName] as $event) {
+        if (isset($this->events[(string)$eventName])) {
+            foreach ($this->events[(string)$eventName] as $event) {
                 call_user_func([$event['className'], $event['method']], $args);
             }
         }
-    }
-}
-
-/**
- * Class MymenusPluginItem
- */
-class MymenusPluginItem
-{
-
-    /**
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public static function loadLanguage($name)
-    {
-        $mymenus  = MymenusMymenus::getInstance();
-        $language = $GLOBALS['xoopsConfig']['language'];
-        //        $path     = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/plugins/{$name}/language");
-        //        if (!($ret = @require_once "{$path}/{$language}/{$name}.php")) {
-        //            $ret = @require_once "{$path}/english/{$name}.php";
-        //        }
-        //        return $ret;
-
-        $path2 = "{$mymenus->dirname}/plugins/{$name}/{$language}/";
-        xoops_loadLanguage($name, $path2);
-
-        return true;
     }
 }
