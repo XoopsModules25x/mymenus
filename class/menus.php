@@ -34,7 +34,8 @@ class Menus extends \XoopsObject
      * @var Menus
      * @access private
      */
-    private $helper = null;
+    private $helper;
+    private $db;
 
     /**
      * constructor

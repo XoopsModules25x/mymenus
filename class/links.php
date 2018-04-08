@@ -33,7 +33,8 @@ class Links extends \XoopsObject
      * @var Links
      * @access private
      */
-    private $helper = null;
+    private $helper;
+    private $db;
 
     /**
      * constructor

@@ -34,7 +34,7 @@ class LinksHandler extends \XoopsPersistableObjectHandler
      * @var Mymenus\Helper
      * @access private
      */
-    private $helper = null;
+    private $helper;
 
     /**
      * @param null|\XoopsDatabase $db

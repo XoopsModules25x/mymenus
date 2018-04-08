@@ -18,31 +18,39 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-use Xmf\Request;
 use XoopsModules\Mymenus;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 require_once __DIR__ . '/../include/common.php';
+xoops_load('XoopsLists');
 
 
 /**
- * Class MymenusMenusHandler
+ * Class MymenusPluginItem
  */
-class MenusHandler extends \XoopsPersistableObjectHandler
+class PluginItem
 {
-    /**
-     * @var Mymenus\Helper
-     * @access private
-     */
-    private $helper;
 
     /**
-     * @param null|\XoopsDatabase $db
+     * @param string $name
+     *
+     * @return mixed
      */
-    public function __construct(\XoopsDatabase $db)
+    public static function loadLanguage($name)
     {
-        parent::__construct($db, 'mymenus_menus', Menus::class, 'id', 'title', 'css');
-        $this->helper = Mymenus\Helper::getInstance();
+        /** @var Mymenus\Helper $helper */
+        $helper  = Mymenus\Helper::getInstance();
+        $language = $GLOBALS['xoopsConfig']['language'];
+        //        $path     = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/plugins/{$name}/language");
+        //        if (!($ret = @require_once "{$path}/{$language}/{$name}.php")) {
+        //            $ret = @require_once "{$path}/english/{$name}.php";
+        //        }
+        //        return $ret;
+
+        $path2 = "{$helper->getDirname()}/plugins/{$name}/{$language}/";
+        xoops_loadLanguage($name, $path2);
+
+        return true;
     }
 }
