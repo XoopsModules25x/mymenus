@@ -30,7 +30,7 @@ $mymenusAdminPage = 'links.php'; // will be removed???
 $menusCriteria = new \CriteriaCompo();
 $menusCriteria->setSort('id');
 $menusCriteria->setOrder('ASC');
-$menusList = $helper->getHandler('menus')->getList($menusCriteria);
+$menusList = $helper->getHandler('Menus')->getList($menusCriteria);
 if (!$menusList) {
     redirect_header('menus.php', 1, _AM_MYMENUS_MSG_NOMENUS);
 }
@@ -56,32 +56,34 @@ $visible = Request::getInt('visible', 0);
 
 $op = Request::getCmd('op', 'list');
 switch ($op) {
-    /*
+
+/*
         case 'form':
             xoops_cp_header();
             $adminObject  = \Xmf\Module\Admin::getInstance();
             $adminObject->displayNavigation($currentFile);
             //
-            echo mymenusAdminForm(null, $pid, $mid);
+            echo editLink(null, $pid, $mid);
             //
             include __DIR__ . '/admin_footer.php';
             break;
-    */
+*/
+
     case 'edit':
-        echo Mymenus\LinksUtility::mymenusAdminForm($id, null, $mid);
+        echo Mymenus\LinksUtility::editLink($id, null, $mid);
         break;
 
     case 'add':
-        Mymenus\LinksUtility::mymenusAdminAdd($mid);
+        Mymenus\LinksUtility::addLink($mid);
         break;
 
     case 'save':
-        Mymenus\LinksUtility::mymenusAdminSave($id, $mid);
+        Mymenus\LinksUtility::saveLink($id, $mid);
         break;
 
     case 'delete':
         $id       = Request::getInt('id', null);
-        $linksObj = $helper->getHandler('links')->get($id);
+        $linksObj = $helper->getHandler('Links')->get($id);
         if (true === Request::getBool('ok', false, 'POST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header($currentFile, 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -95,7 +97,7 @@ switch ($op) {
             $query  .= ' WHERE pid = (SELECT id FROM (SELECT * FROM ' . $GLOBALS['xoopsDB']->prefix('mymenus_links') . " WHERE pid = {$id}) AS sec);";
             $result = $GLOBALS['xoopsDB']->queryF($query);
             //delete links level 0 and 1
-            if (!$helper->getHandler('links')->deleteAll($linksCriteria)) {
+            if (!$helper->getHandler('Links')->deleteAll($linksCriteria)) {
                 xoops_cp_header();
                 xoops_error(_AM_MYMENUS_MSG_ERROR, $linksObj->getVar('id'));
                 xoops_cp_footer();
@@ -115,14 +117,14 @@ switch ($op) {
         $adminObject = \Xmf\Module\Admin::getInstance();
         $adminObject->displayNavigation($currentFile);
         //
-        Mymenus\LinksUtility::mymenusAdminMove($id, $weight);
-        echo Mymenus\LinksUtility::mymenusAdminList($start, $mid);
+        Mymenus\LinksUtility::moveLink($id, $weight);
+        echo Mymenus\LinksUtility::listLinks($start, $mid);
         //
         include __DIR__ . '/admin_footer.php';
         break;
 
     case 'toggle':
-        Mymenus\LinksUtility::mymenusAdminToggle($id, $visible);
+        Mymenus\LinksUtility::toggleLinkVisibility($id, $visible);
         break;
 
     case 'order':
@@ -131,7 +133,7 @@ switch ($op) {
         parse_str($order, $test);
         $i = 1;
         foreach ($test['mod'] as $order => $value) {
-            $linksObj = $helper->getHandler('links')->get($order);
+            $linksObj = $helper->getHandler('Links')->get($order);
             $linksObj->setVar('weight', ++$i);
             // Set submenu
             if (isset($value)) {
@@ -139,8 +141,8 @@ switch ($op) {
             } else {
                 $linksObj->setVar('pid', 0);
             }
-            $helper->getHandler('links')->insert($linksObj);
-            $helper->getHandler('links')->updateWeights($linksObj);
+            $helper->getHandler('Links')->insert($linksObj);
+            $helper->getHandler('Links')->updateWeights($linksObj);
         }
         break;
 
@@ -158,7 +160,7 @@ switch ($op) {
         $GLOBALS['xoTheme']->addScript(XOOPS_URL . "/modules/{$helper->getDirname()}/assets/js/nestedSortable.js");
         //$GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/{$mymenus->dirname}/assets/js/switchButton.js');
         $GLOBALS['xoTheme']->addScript(XOOPS_URL . "/modules/{$helper->getDirname()}/assets/js/links.js");
-        echo Mymenus\LinksUtility::mymenusAdminList($start, $mid);
+        echo Mymenus\LinksUtility::listLinks($start, $mid);
         // Disable xoops debugger in dialog window
         require_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
         $xoopsLogger            = XoopsLogger::getInstance();

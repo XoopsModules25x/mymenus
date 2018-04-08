@@ -35,14 +35,14 @@ class LinksUtility
      *
      * @return bool|mixed|string
      */
-    public static function mymenusAdminList($start = 0, $mid)
+    public static function listLinks($start = 0, $mid)
     {
         /** @var Mymenus\Helper $helper */
         $helper = Mymenus\Helper::getInstance();
         global $mymenusTpl;
         //
         $linksCriteria = new \CriteriaCompo(new \Criteria('mid', (int)$mid));
-        $linksCount    = $helper->getHandler('links')->getCount($linksCriteria);
+        $linksCount    = $helper->getHandler('Links')->getCount($linksCriteria);
         $mymenusTpl->assign('count', $linksCount);
         //
         $linksCriteria->setSort('weight');
@@ -51,14 +51,14 @@ class LinksUtility
         //        $menusArray = array();
         if (($linksCount > 0) && ($linksCount >= (int)$start)) {
             $linksCriteria->setStart((int)$start);
-            $linksArrays = $helper->getHandler('links')->getObjects($linksCriteria, false, false); // as array
+            $linksArrays = $helper->getHandler('Links')->getObjects($linksCriteria, false, false); // as array
             //
             $menuBuilder = new Mymenus\Builder($linksArrays);
             $menusArray  = $menuBuilder->render();
             $mymenusTpl->assign('menus', $menusArray); // not 'menus', 'links' shoult be better
         }
         //
-        $mymenusTpl->assign('addform', self::mymenusAdminForm(null, null, $mid));
+        $mymenusTpl->assign('addform', self::editLink(null, null, $mid));
 
         //
         return $mymenusTpl->fetch($GLOBALS['xoops']->path("modules/{$helper->getDirname()}/templates/static/mymenus_admin_links.tpl"));
@@ -67,7 +67,7 @@ class LinksUtility
     /**
      * @param $mid
      */
-    public static function mymenusAdminAdd($mid)
+    public static function addLink($mid)
     {
         $helper = Mymenus\Helper::getInstance();
         //
@@ -82,13 +82,13 @@ class LinksUtility
         $linksCiteria->setSort('weight');
         $linksCiteria->setOrder('DESC');
         $linksCiteria->setLimit(1);
-        $linksObjs = $helper->getHandler('links')->getObjects($linksCiteria);
+        $linksObjs = $helper->getHandler('Links')->getObjects($linksCiteria);
         $weight    = 1;
         if (isset($linksObjs[0]) && ($linksObjs[0] instanceof \XoopsModules\Mymenus\Links)) {
             $weight = $linksObjs[0]->getVar('weight') + 1;
         }
 
-        $newLinksObj = $helper->getHandler('links')->create();
+        $newLinksObj = $helper->getHandler('Links')->create();
         //    if (!isset($_POST['hooks'])) {
         //        $_POST['hooks'] = array();
         //    }
@@ -96,13 +96,28 @@ class LinksUtility
             $_POST['hooks'] = [];
         }
         // @TODO: clean incoming POST vars
-        $newLinksObj->setVars($_POST);
-        $newLinksObj->setVar('weight', $weight);
+        //        $newLinksObj->setVars($_POST);
 
-        if (!$helper->getHandler('links')->insert($newLinksObj)) {
+        $newLinksObj->setVars('id', Request::getInt('id',0,'POST'));
+        $newLinksObj->setVars('pid', Request::getInt('pid',0,'POST'));
+        $newLinksObj->setVars('mid', Request::getInt('mid',0,'POST'));
+        $newLinksObj->setVars('title', Request::getString('title','','POST'));
+        $newLinksObj->setVars('alt_title',  Request::getString('alt_title','','POST'));
+        $newLinksObj->setVars('visible', Request::getInt('visible',0,'POST'));
+        $newLinksObj->setVars('link',  Request::getString('link','','POST'));
+        $newLinksObj->setVars('weight', Request::getInt('weight',0,'POST'));
+        $newLinksObj->setVars('target', Request::getString('target','','POST'));
+        $newLinksObj->setVars('groups', Request::getArray('groups', [], 'POST'));
+        $newLinksObj->setVars('hooks', Request::getArray('hooks', [], 'POST'));
+        $newLinksObj->setVars('image', Request::getString('image','','POST'));
+        $newLinksObj->setVars('css', Request::getString('css','','POST'));
+        
+//        $newLinksObj->setVar('weight', $weight);
+
+        if (!$helper->getHandler('Links')->insert($newLinksObj)) {
             $msg = _AM_MYMENUS_MSG_ERROR;
         } else {
-            $helper->getHandler('links')->updateWeights($newLinksObj);
+            $helper->getHandler('Links')->updateWeights($newLinksObj);
             $msg = _AM_MYMENUS_MSG_SUCCESS;
         }
 
@@ -113,7 +128,7 @@ class LinksUtility
      * @param integer $id
      * @param integer $mid
      */
-    public static function mymenusAdminSave($id, $mid)
+    public static function saveLink($id, $mid)
     {
         $helper = Mymenus\Helper::getInstance();
         //
@@ -125,11 +140,11 @@ class LinksUtility
         }
         //
         $mid      = (int)$mid;
-        $linksObj = $helper->getHandler('links')->get((int)$id);
+        $linksObj = $helper->getHandler('Links')->get((int)$id);
 
         //if this was moved then parent could be in different menu, if so then set parent to top level
         if (Request::getInt('pid', '', 'POST')) {
-            $parentLinksObj = $helper->getHandler('links')->get($linksObj->getVar('pid'));  //get the parent object
+            $parentLinksObj = $helper->getHandler('Links')->get($linksObj->getVar('pid'));  //get the parent object
             if (($parentLinksObj instanceof \XoopsModules\Mymenus\Links)
                 && ($linksObj->getVar('mid') != $parentLinksObj->getVar('mid'))) {
                 $linksObj->setVar('pid', 0);
@@ -144,7 +159,7 @@ class LinksUtility
         // @TODO: clean incoming POST vars
         $linksObj->setVars($_POST);
 
-        if (!$helper->getHandler('links')->insert($linksObj)) {
+        if (!$helper->getHandler('Links')->insert($linksObj)) {
             $msg = _AM_MYMENUS_MSG_ERROR;
         } else {
             $msg = _AM_MYMENUS_MSG_SUCCESS;
@@ -160,7 +175,7 @@ class LinksUtility
      * @param  null $mid
      * @return string
      */
-    public static function mymenusAdminForm($id = null, $pid = null, $mid = null)
+    public static function editLink($id = null, $pid = null, $mid = null)
     {
         $helper = Mymenus\Helper::getInstance();
         //
@@ -175,7 +190,7 @@ class LinksUtility
         //        $registry = MymenusRegistry::getInstance();
         //        $plugin   = MymenusPlugin::getInstance();
 
-        $linksObj = $helper->getHandler('links')->get((int)$id);
+        $linksObj = $helper->getHandler('Links')->get((int)$id);
 
         if ($linksObj->isNew()) {
             $formTitle = _ADD;
@@ -199,7 +214,7 @@ class LinksUtility
         $menusCriteria = new \CriteriaCompo();
         $menusCriteria->setSort('title');
         $menusCriteria->setOrder('ASC');
-        $menusList = $helper->getHandler('menus')->getList($menusCriteria);
+        $menusList = $helper->getHandler('Menus')->getList($menusCriteria);
         if (count($menusList) > 1) {
             // display menu options (if more than 1 menu available
             if (!$linksObj->getVar('mid')) { // initial menu value not set
@@ -286,21 +301,21 @@ class LinksUtility
      * @param integer $id of links object
      * @param integer $weight
      */
-    public static function mymenusAdminMove($id, $weight)
+    public static function moveLink($id, $weight)
     {
         $helper = Mymenus\Helper::getInstance();
         //
-        $linksObj = $helper->getHandler('links')->get((int)$id);
+        $linksObj = $helper->getHandler('Links')->get((int)$id);
         $linksObj->setVar('weight', (int)$weight);
-        $helper->getHandler('links')->insert($linksObj);
-        $helper->getHandler('links')->updateWeights($linksObj);
+        $helper->getHandler('Links')->insert($linksObj);
+        $helper->getHandler('Links')->updateWeights($linksObj);
     }
 
     /**
      * @param $id
      * @param $visible
      */
-    public static function mymenusAdminToggle($id, $visible)
+    public static function toggleLinkVisibility($id, $visible)
     {
         $helper = Mymenus\Helper::getInstance();
         //
@@ -310,10 +325,10 @@ class LinksUtility
         $xoopsLogger->activated = false;
         error_reporting(0);
         //
-        $linksObj = $helper->getHandler('links')->get((int)$id);
+        $linksObj = $helper->getHandler('Links')->get((int)$id);
         $visible  = (1 === $linksObj->getVar('visible')) ? 0 : 1;
         $linksObj->setVar('visible', $visible);
-        $helper->getHandler('links')->insert($linksObj);
+        $helper->getHandler('Links')->insert($linksObj);
         echo $linksObj->getVar('visible');
     }
 }
