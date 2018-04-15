@@ -21,8 +21,8 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 use XoopsModules\Mymenus;
 
-// require_once __DIR__ . '/../class/Helper.php';
-//require_once __DIR__ . '/../include/common.php';
+// require_once  dirname(__DIR__) . '/class/Helper.php';
+//require_once  dirname(__DIR__) . '/include/common.php';
 $helper = Mymenus\Helper::getInstance();
 
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');

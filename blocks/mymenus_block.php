@@ -22,7 +22,7 @@ use XoopsModules\Mymenus;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-require_once __DIR__ . '/../include/common.php';
+require_once  dirname(__DIR__) . '/include/common.php';
 
 /**
  * @param array $options array(0 => menu, 1 => moduleSkin, 2 => useThemeSkin, 3 => displayMethod, 4 => unique_id, 5 => themeSkin)

@@ -30,11 +30,9 @@ use XoopsModules\Mymenus;
  */
 function xoops_module_pre_install_mymenus(\XoopsModule $module)
 {
-    $moduleDirName = basename(dirname(__DIR__));
-    $utility     = ucfirst($moduleDirName) . 'Utility';
-    if (!class_exists($utility)) {
-        xoops_load('utility', $moduleDirName);
-    }
+    /** @var Mymenus\Utility $utility */
+    $utility = new \XoopsModules\Mymenus\Utility();
+
     //check for minimum XOOPS version
     if (!$utility::checkVerXoops($module)) {
         return false;
@@ -62,8 +60,8 @@ function xoops_module_pre_install_mymenus(\XoopsModule $module)
  */
 function xoops_module_install_mymenus(\XoopsModule $module)
 {
-    require_once  __DIR__ . '/../../../mainfile.php';
-    require_once  __DIR__ . '/../include/config.php';
+    require_once   dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+    require_once   dirname(__DIR__) . '/include/config.php';
 
     $moduleDirName = basename(dirname(__DIR__));
     $helper = Mymenus\Helper::getInstance();
@@ -73,15 +71,14 @@ function xoops_module_install_mymenus(\XoopsModule $module)
     $helper->loadLanguage('modinfo');
 
     $configurator = new Mymenus\Common\Configurator();
-    $utility    = ucfirst($moduleDirName) . 'Utility';
-    if (!class_exists($utility)) {
-        xoops_load('utility', $moduleDirName);
-    }
+    /** @var Mymenus\Utility $utility */
+    $utility = new \XoopsModules\Mymenus\Utility();
 
     // default Permission Settings ----------------------
     global $xoopsModule;
     $moduleId     = $xoopsModule->getVar('mid');
     $moduleId2    = $helper->getModule()->mid();
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
     // access rights ------------------------------------------
     $grouppermHandler->addRight($moduleDirName . '_approve', 1, XOOPS_GROUP_ADMIN, $moduleId);
@@ -100,7 +97,7 @@ function xoops_module_install_mymenus(\XoopsModule $module)
 
     //  ---  COPY blank.png FILES ---------------
     if (count($configurator->copyBlankFiles) > 0) {
-        $file = __DIR__ . '/../assets/images/blank.png';
+        $file =  dirname(__DIR__) . '/assets/images/blank.png';
         foreach (array_keys($configurator->copyBlankFiles) as $i) {
             $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
             $utility::copyFile($file, $dest);

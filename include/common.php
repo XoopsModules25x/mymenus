@@ -19,7 +19,7 @@
  */
 
 use XoopsModules\Mymenus;
-include __DIR__ . '/../preloads/autoloader.php';
+include  dirname(__DIR__) . '/preloads/autoloader.php';
 
 //defined('XOOPS_ROOT_PATH') || die('Restricted access');
 

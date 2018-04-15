@@ -19,12 +19,12 @@
 
 use XoopsModules\Mymenus;
 
-require_once __DIR__ . '/../../../include/cp_header.php';
+require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
 xoops_load('XoopsFormLoader');
 
-// require_once __DIR__ . '/../class/Utility.php';
-require_once __DIR__ . '/../include/common.php';
+// require_once  dirname(__DIR__) . '/class/Utility.php';
+require_once  dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 //$mymenus = MymenusMymenus::getInstance($debug);
