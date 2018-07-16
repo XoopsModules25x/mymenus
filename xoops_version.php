@@ -19,7 +19,7 @@
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-include __DIR__ . '/preloads/autoloader.php';
+require __DIR__   . '/preloads/autoloader.php';
 
 $moduleDirName = basename(__DIR__);
 
@@ -81,7 +81,7 @@ $modversion = [
     'hasNotification'     => 0
 ];
 
-require_once XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . '/include/constants.php';
+require XOOPS_ROOT_PATH . '/modules/' . $modversion['dirname'] . '/include/constants.php';
 
 // ------------------- Help files ------------------- //
 $modversion['helpsection'] = [

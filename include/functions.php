@@ -21,7 +21,7 @@ use XoopsModules\Mymenus;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-require_once __DIR__ . '/common.php';
+require __DIR__ . '/common.php';
 
 /**
  * @param string  $moduleSkin
@@ -32,8 +32,9 @@ require_once __DIR__ . '/common.php';
  */
 function getSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $themeSkin = '')
 {
-    require_once __DIR__ . '/common.php';
-    $helper = Mymenus\Helper::getInstance();
+    require __DIR__ . '/common.php';
+    /** @var \XoopsModules\Mymenus\Helper $helper */
+    $helper = \XoopsModules\Mymenus\Helper::getInstance();
     $error   = false;
     if ($useThemeSkin) {
         $path = 'themes/' . $GLOBALS['xoopsConfig']['theme_set'] . '/menu';
@@ -53,7 +54,7 @@ function getSkinInfo($moduleSkin = 'default', $useThemeSkin = false, $themeSkin 
     $info = [];
 
     if (file_exists($file)) {
-        include $file;
+        require $file;
         $info = $skinVersion;
     }
 

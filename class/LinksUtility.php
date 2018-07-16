@@ -37,8 +37,8 @@ class LinksUtility
      */
     public static function listLinks($start = 0, $mid)
     {
-        /** @var Mymenus\Helper $helper */
-        $helper = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $helper */
+        $helper = \XoopsModules\Mymenus\Helper::getInstance();
         global $mymenusTpl;
         //
         $linksCriteria = new \CriteriaCompo(new \Criteria('mid', (int)$mid));
@@ -69,7 +69,8 @@ class LinksUtility
      */
     public static function addLink($mid)
     {
-        $helper = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $helper */
+        $helper = \XoopsModules\Mymenus\Helper::getInstance();
         //
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header($GLOBALS['mymenusAdminPage'], 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -130,7 +131,8 @@ class LinksUtility
      */
     public static function saveLink($id, $mid)
     {
-        $helper = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $helper */
+        $helper = \XoopsModules\Mymenus\Helper::getInstance();
         //
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header($GLOBALS['mymenusAdminPage'], 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -151,7 +153,7 @@ class LinksUtility
             }
         }
         // Disable xoops debugger in dialog window
-        require_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+        require $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
         $xoopsLogger            = \XoopsLogger::getInstance();
         $xoopsLogger->activated = false;
         error_reporting(0);
@@ -177,10 +179,11 @@ class LinksUtility
      */
     public static function editLink($id = null, $pid = null, $mid = null)
     {
-        $helper = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $helper */
+        $helper = \XoopsModules\Mymenus\Helper::getInstance();
         //
         // Disable xoops debugger in dialog window
-        require_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+        require $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
         $xoopsLogger            = \XoopsLogger::getInstance();
         $xoopsLogger->activated = false;
         error_reporting(0);
@@ -303,7 +306,8 @@ class LinksUtility
      */
     public static function moveLink($id, $weight)
     {
-        $helper = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $helper */
+        $helper = \XoopsModules\Mymenus\Helper::getInstance();
         //
         $linksObj = $helper->getHandler('Links')->get((int)$id);
         $linksObj->setVar('weight', (int)$weight);
@@ -317,10 +321,11 @@ class LinksUtility
      */
     public static function toggleLinkVisibility($id, $visible)
     {
-        $helper = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $helper */
+        $helper = \XoopsModules\Mymenus\Helper::getInstance();
         //
         // Disable xoops debugger in dialog window
-        require_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+        require $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
         $xoopsLogger            = \XoopsLogger::getInstance();
         $xoopsLogger->activated = false;
         error_reporting(0);

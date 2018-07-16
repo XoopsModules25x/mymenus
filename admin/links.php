@@ -20,7 +20,7 @@
 use Xmf\Request;
 use XoopsModules\Mymenus;
 
-require_once __DIR__ . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 $currentFile = basename(__FILE__);
 
@@ -54,7 +54,7 @@ $start   = Request::getInt('start', 0);
 $weight  = Request::getInt('weight', 0);
 $visible = Request::getInt('visible', 0);
 
-$op = Request::getCmd('op', 'list');
+$op = Request::getString('op', 'list');
 switch ($op) {
 
 /*
@@ -65,7 +65,7 @@ switch ($op) {
             //
             echo editLink(null, $pid, $mid);
             //
-            include __DIR__ . '/admin_footer.php';
+            require __DIR__   . '/admin_footer.php';
             break;
 */
 
@@ -108,7 +108,7 @@ switch ($op) {
             xoops_cp_header();
             xoops_confirm(['ok' => true, 'id' => $id, 'op' => 'delete'], //                $_SERVER['REQUEST_URI'],
                           Request::getString('REQUEST_URI', '', 'SERVER'), sprintf(_AM_MYMENUS_LINKS_SUREDEL, $linksObj->getVar('title')));
-            require_once __DIR__ . '/admin_footer.php';
+            require __DIR__ . '/admin_footer.php';
         }
         break;
 
@@ -120,7 +120,7 @@ switch ($op) {
         Mymenus\LinksUtility::moveLink($id, $weight);
         echo Mymenus\LinksUtility::listLinks($start, $mid);
         //
-        include __DIR__ . '/admin_footer.php';
+        require __DIR__   . '/admin_footer.php';
         break;
 
     case 'toggle':
@@ -162,11 +162,11 @@ switch ($op) {
         $GLOBALS['xoTheme']->addScript(XOOPS_URL . "/modules/{$helper->getDirname()}/assets/js/links.js");
         echo Mymenus\LinksUtility::listLinks($start, $mid);
         // Disable xoops debugger in dialog window
-        require_once $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+        require $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
         $xoopsLogger            = XoopsLogger::getInstance();
         $xoopsLogger->activated = true;
         error_reporting(-1);
         //
-        include __DIR__ . '/admin_footer.php';
+        require __DIR__   . '/admin_footer.php';
         break;
 }

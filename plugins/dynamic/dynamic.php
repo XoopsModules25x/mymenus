@@ -56,6 +56,8 @@ class DynamicPluginItem extends Mymenus\PluginItem
     {
         global $xoopsModule;
         static $id = -1;
+        /** @var \XoopsModules\Mymenus\Helper $helper */
+        $helper = \XoopsModules\Mymenus\Helper::getInstance();
 
         $ret = [];
         //Sanitizing $module
@@ -92,9 +94,9 @@ class DynamicPluginItem extends Mymenus\PluginItem
             }
         }
         $modversion['sub'] = [];
-        include $file;
+        require $file;
 
-        $handler = xoops_getModuleHandler('links', 'mymenus');
+        $handler = $helper->getHandler('Links');
         foreach ($modversion['sub'] as $links) {
             $obj = $handler->create();
             $obj->setVars([

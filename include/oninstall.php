@@ -19,7 +19,7 @@
 
 use XoopsModules\Mymenus;
 
-//require_once __DIR__ . '/setup.php';
+//require __DIR__ . '/setup.php';
 
 /**
  *
@@ -60,11 +60,12 @@ function xoops_module_pre_install_mymenus(\XoopsModule $module)
  */
 function xoops_module_install_mymenus(\XoopsModule $module)
 {
-    require_once   dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
-    require_once   dirname(__DIR__) . '/include/config.php';
+    require   dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+    require   dirname(__DIR__) . '/include/config.php';
 
     $moduleDirName = basename(dirname(__DIR__));
-    $helper = Mymenus\Helper::getInstance();
+    /** @var \XoopsModules\Mymenus\Helper $helper */
+    $helper = \XoopsModules\Mymenus\Helper::getInstance();
 
     // Load language files
     $helper->loadLanguage('admin');

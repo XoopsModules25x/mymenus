@@ -23,7 +23,7 @@ use XoopsModules\Mymenus;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-require_once  dirname(__DIR__) . '/include/common.php';
+require  dirname(__DIR__) . '/include/common.php';
 
 
 /**
@@ -40,9 +40,10 @@ class MenusHandler extends \XoopsPersistableObjectHandler
     /**
      * @param null|\XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     {
         parent::__construct($db, 'mymenus_menus', Menus::class, 'id', 'title', 'css');
-        $this->helper = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $this->helper */
+        $this->helper = \XoopsModules\Mymenus\Helper::getInstance();
     }
 }

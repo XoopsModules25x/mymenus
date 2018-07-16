@@ -23,8 +23,8 @@ use XoopsModules\Mymenus;
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 //$moduleDirname = basename(dirname(__DIR__));
-//require_once(XOOPS_ROOT_PATH . "/modules/$moduleDirname/include/common.php");
-require_once __DIR__ . '/common.php';
+//require(XOOPS_ROOT_PATH . "/modules/$moduleDirname/include/common.php");
+require __DIR__ . '/common.php';
 $helper = Mymenus\Helper::getInstance($debug);
 
 xoops_loadLanguage('admin', $helper->getDirname());

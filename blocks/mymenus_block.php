@@ -22,7 +22,7 @@ use XoopsModules\Mymenus;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-require_once  dirname(__DIR__) . '/include/common.php';
+require  dirname(__DIR__) . '/include/common.php';
 
 /**
  * @param array $options array(0 => menu, 1 => moduleSkin, 2 => useThemeSkin, 3 => displayMethod, 4 => unique_id, 5 => themeSkin)
@@ -32,13 +32,14 @@ require_once  dirname(__DIR__) . '/include/common.php';
 function mymenus_block_show($options)
 {
     global $xoopsTpl, $xoopsLogger;
-    $helper = Mymenus\Helper::getInstance();
+    /** @var \XoopsModules\Mymenus\Helper $helper */
+    $helper = \XoopsModules\Mymenus\Helper::getInstance();
 
     $block = [];
     $xoopsLogger->startTime('My Menus Block');
     $myts = \MyTextSanitizer::getInstance();
 
-    require_once $GLOBALS['xoops']->path("modules/{$helper->getDirname()}/include/functions.php");
+    require $GLOBALS['xoops']->path("modules/{$helper->getDirname()}/include/functions.php");
 
 
     $registry = Mymenus\Registry::getInstance();
@@ -51,7 +52,7 @@ function mymenus_block_show($options)
     $linksCriteria->setSort('weight');
     $linksCriteria->setOrder('ASC');
     //get menu links as an array with ids as keys
-    $linksArray = $helper->getHandler('links')->getAll($linksCriteria, null, false, false); // as array
+    $linksArray = $helper->getHandler('Links')->getAll($linksCriteria, null, false, false); // as array
     unset($linksCriteria);
 
     foreach ($linksArray as $key => $links) {
@@ -132,11 +133,11 @@ function mymenus_block_show($options)
                           'xlanguage' => xoops_isActiveModule('xlanguage') ? true : false // xLanguage check
                       ]);
     // Assign ul class
-    $menusObj = $helper->getHandler('menus')->get($mid);
+    $menusObj = $helper->getHandler('Menus')->get($mid);
     $blockTpl->assign('menucss', $menusObj->getVar('css'));
     /*
         $menuCss      = '';
-        $menusHandler = xoops_getModuleHandler('menus', 'mymenus');
+        $menusHandler = $helper->getHandler('menus', 'mymenus');
         $menuCriteria = new \CriteriaCompo(new \Criteria('id', $mid));
         $menuArray    = $menusHandler->getAll($menuCriteria, null, false, false);
 
@@ -174,7 +175,8 @@ function mymenus_block_show($options)
  */
 function mymenus_block_edit($options)
 {
-    $helper = Mymenus\Helper::getInstance();
+    /** @var \XoopsModules\Mymenus\Helper $helper */
+    $helper = \XoopsModules\Mymenus\Helper::getInstance();
     //
     xoops_loadLanguage('admin', 'mymenus');
     xoops_load('XoopsFormLoader');
@@ -182,7 +184,7 @@ function mymenus_block_edit($options)
     $menusCriteria = new \CriteriaCompo();
     $menusCriteria->setSort('title');
     $menusCriteria->setOrder('ASC');
-    $menusList = $helper->getHandler('menus')->getList($menusCriteria);
+    $menusList = $helper->getHandler('Menus')->getList($menusCriteria);
     unset($menusCriteria);
     if (0 == count($menusList)) {
         $form = "<a href='" . $GLOBALS['xoops']->url("modules/{$helper->getDirname()}/admin/menus.php") . "'>" . _AM_MYMENUS_MSG_NOMENUS . "</a>\n";

@@ -19,24 +19,23 @@
 
 use XoopsModules\Mymenus;
 
-require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
+require  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
 xoops_load('XoopsFormLoader');
 
-// require_once  dirname(__DIR__) . '/class/Utility.php';
-require_once  dirname(__DIR__) . '/include/common.php';
+require  dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 //$mymenus = MymenusMymenus::getInstance($debug);
-/** @var Mymenus\Helper $helper */
-$helper = Mymenus\Helper::getInstance();
+/** @var \XoopsModules\Mymenus\Helper $helper */
+$helper = \XoopsModules\Mymenus\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)) {
-    require_once $GLOBALS['xoops']->path('class/template.php');
+    require $GLOBALS['xoops']->path('class/template.php');
     $xoopsTpl = new \XoopsTpl();
 }
 
@@ -52,12 +51,12 @@ $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 
-require_once $GLOBALS['xoops']->path('class/template.php');
-require_once $GLOBALS['xoops']->path("modules/{$helper->getDirname()}/include/functions.php");
+require $GLOBALS['xoops']->path('class/template.php');
+require $GLOBALS['xoops']->path("modules/{$helper->getDirname()}/include/functions.php");
 
 //Module specific elements
-//require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");
-//require_once $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/config.php");
+//require $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");
+//require $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/config.php");
 
 //Handlers
 //$XXXHandler = xoops_getModuleHandler('XXX', $mymenus->dirname);

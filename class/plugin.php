@@ -22,7 +22,7 @@ use XoopsModules\Mymenus;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-require_once  dirname(__DIR__) . '/include/common.php';
+require  dirname(__DIR__) . '/include/common.php';
 xoops_load('XoopsLists');
 
 /**
@@ -43,7 +43,8 @@ class Plugin
         $this->plugins  = [];
         $this->events   = [];
         $this->registry = Mymenus\Registry::getInstance();
-        $this->helper  = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $this->helper */
+        $this->helper  = \XoopsModules\Mymenus\Helper::getInstance();
         $this->setPlugins();
         $this->setEvents();
     }
@@ -76,7 +77,7 @@ class Plugin
     public function setEvents()
     {
         foreach ($this->plugins as $plugin) {
-            require_once $GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/{$plugin}/{$plugin}.php");
+            require $GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/{$plugin}/{$plugin}.php");
             $className = ucfirst($plugin) . 'PluginItem';
             if (!class_exists($className)) {
                 continue;

@@ -22,7 +22,7 @@ use XoopsModules\Mymenus;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-require_once  dirname(__DIR__) . '/include/common.php';
+require  dirname(__DIR__) . '/include/common.php';
 xoops_load('XoopsLists');
 
 
@@ -39,12 +39,12 @@ class PluginItem
      */
     public static function loadLanguage($name)
     {
-        /** @var Mymenus\Helper $helper */
-        $helper  = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $helper */
+        $helper  = \XoopsModules\Mymenus\Helper::getInstance();
         $language = $GLOBALS['xoopsConfig']['language'];
         //        $path     = $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/plugins/{$name}/language");
-        //        if (!($ret = @require_once "{$path}/{$language}/{$name}.php")) {
-        //            $ret = @require_once "{$path}/english/{$name}.php";
+        //        if (!($ret = @require "{$path}/{$language}/{$name}.php")) {
+        //            $ret = @require "{$path}/english/{$name}.php";
         //        }
         //        return $ret;
 

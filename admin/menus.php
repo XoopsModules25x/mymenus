@@ -20,9 +20,9 @@
 use Xmf\Request;
 
 $currentFile = basename(__FILE__);
-require_once __DIR__ . '/admin_header.php';
+require __DIR__ . '/admin_header.php';
 
-$op = Request::getCmd('op', 'list');
+$op = Request::getString('op', 'list');
 switch ($op) {
     case 'list':
     default:
@@ -121,7 +121,7 @@ switch ($op) {
             // NOP
         }
         $GLOBALS['xoopsTpl']->display($GLOBALS['xoops']->path("modules/{$helper->getDirname()}/templates/static/mymenus_admin_menus.tpl"));
-        require_once __DIR__ . '/admin_footer.php';
+        require __DIR__ . '/admin_footer.php';
         break;
 
     case 'add':
@@ -142,7 +142,7 @@ switch ($op) {
         $form = $menusObj->getForm();
         $form->display();
         //
-        require_once __DIR__ . '/admin_footer.php';
+        require __DIR__ . '/admin_footer.php';
         break;
 
     case 'save':
@@ -196,7 +196,7 @@ switch ($op) {
             xoops_cp_header();
             xoops_confirm(['ok' => true, 'id' => $id, 'op' => 'delete'], //                $_SERVER['REQUEST_URI'],
                           Request::getString('REQUEST_URI', '', 'SERVER'), sprintf(_AM_MYMENUS_MENUS_SUREDEL, $menusObj->getVar('title')));
-            require_once __DIR__ . '/admin_footer.php';
+            require __DIR__ . '/admin_footer.php';
         }
         break;
 }

@@ -22,7 +22,7 @@ use XoopsModules\Mymenus;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-require_once  dirname(__DIR__) . '/include/common.php';
+require  dirname(__DIR__) . '/include/common.php';
 
 /**
  * Class MymenusLinks
@@ -41,7 +41,8 @@ class Links extends \XoopsObject
      */
     public function __construct()
     {
-        $this->helper = Mymenus\Helper::getInstance();
+        /** @var \XoopsModules\Mymenus\Helper $this->helper */
+        $this->helper = \XoopsModules\Mymenus\Helper::getInstance();
         $this->db      = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->initVar('id', XOBJ_DTYPE_INT);
         $this->initVar('pid', XOBJ_DTYPE_INT);

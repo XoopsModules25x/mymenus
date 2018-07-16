@@ -19,7 +19,7 @@
  */
 
 use XoopsModules\Mymenus;
-include  dirname(__DIR__) . '/preloads/autoloader.php';
+require dirname(__DIR__) . '/preloads/autoloader.php';
 
 //defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -33,9 +33,9 @@ define('MYMENUS_ICONS_URL', MYMENUS_URL . '/assets/images/icons');
 
 xoops_loadLanguage('common', MYMENUS_DIRNAME);
 
-require_once MYMENUS_ROOT_PATH . '/include/config.php'; // IN PROGRESS
-require_once MYMENUS_ROOT_PATH . '/include/functions.php';
-require_once MYMENUS_ROOT_PATH . '/include/constants.php';
+require MYMENUS_ROOT_PATH . '/include/config.php'; // IN PROGRESS
+require MYMENUS_ROOT_PATH . '/include/functions.php';
+require MYMENUS_ROOT_PATH . '/include/constants.php';
 
 xoops_load('XoopsUserUtility');
 xoops_load('XoopsFormLoader');

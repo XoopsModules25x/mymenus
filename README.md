@@ -12,7 +12,7 @@
 
 **MyMenus** for [XOOPS CMS](https://xoops.org) is a Menu Manager module that allows you to display dynamic or static menus in your XOOPS website.
 
-[![Tutorial Available](https://xoops.org/images/tutorial-available-blue.svg)](https://www.gitbook.com/book/xoops/mymenus-tutorial/) Tutorial: see [here](https://www.gitbook.com/book/xoops/mymenus-tutorial/). 
+[![Tutorial Available](https://xoops.org/images/tutorial-available-blue.svg)](https://xoops.gitbook.io/mymenus-tutorial/) Tutorial: see [here](https://xoops.gitbook.io/mymenus-tutorial/).
 To contribute to the Tutorial, [fork it on GitHub](https://github.com/XoopsDocs/mymenus-tutorial)
 
 [![Translations on Transifex](https://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops) 
