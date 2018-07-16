@@ -92,7 +92,7 @@
 .sf-arrows.sf-navbar ul > li:hover > .sf-with-ul:after,
 .sf-arrows.sf-navbar ul > .sfHover > .sf-with-ul:after {
     border-color: transparent;
-    border-top-color: white;
+    border-top-color: #ffffff;
 }
 
 /* apply hovers to modern browsers */

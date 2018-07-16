@@ -6,7 +6,7 @@
 
 .treeview li {
     /*Style for LI elements in general (excludes an LI that contains sub lists)*/
-    background: white url(list.gif) no-repeat left center;
+    background: #ffffff url(list.gif) no-repeat left center;
     list-style-type: none;
     padding-left: 22px;
     margin-bottom: 3px;
@@ -14,7 +14,7 @@
 
 .treeview li.submenu {
     /* Style for LI that contains sub lists (other ULs). */
-    background: white url(closed.gif) no-repeat left 1px;
+    background: #ffffff url(closed.gif) no-repeat left 1px;
     cursor: hand !important;
     cursor: pointer !important;
 }
