@@ -1,5 +1,9 @@
 <?php namespace XoopsModules\Mymenus;
 
+/**
+ * Class Updater
+ * @package XoopsModules\Mymenus
+ */
 class Updater
 {
 
