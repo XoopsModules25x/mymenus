@@ -1,4 +1,4 @@
-<?php namespace XoopsModules\Mymenus;
+<?php namespace XoopsModules\Mymenus\Plugins\Smarty;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -23,9 +23,9 @@ use XoopsModules\Mymenus;
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class SmartyPluginItem
+ * Class PluginItem
  */
-class SmartyPluginItem extends Mymenus\PluginItem
+class PluginItem extends Mymenus\PluginItem
 {
     public static function eventLinkDecoration()
     {

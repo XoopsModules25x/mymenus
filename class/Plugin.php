@@ -64,10 +64,13 @@ class Plugin
 
     public function setPlugins()
     {
-        if (is_dir($dir = $GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/"))) {
+        if (is_dir($dir = $GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/class/Plugins/"))) {
             $pluginsList = \XoopsLists::getDirListAsArray($dir);
             foreach ($pluginsList as $plugin) {
-                if (file_exists($GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/{$plugin}/{$plugin}.php"))) {
+//                if (file_exists($GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/{$plugin}/{$plugin}.php"))) {
+                $dirname = $this->helper->getDirname();
+                $className = "\XoopsModules\{$dirname}\Plugins\{$plugin}\PluginItem";
+                if (class_exists($className)) {
                     $this->plugins[] = $plugin;
                 }
             }
@@ -77,8 +80,9 @@ class Plugin
     public function setEvents()
     {
         foreach ($this->plugins as $plugin) {
-            require $GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/{$plugin}/{$plugin}.php");
-            $className = ucfirst($plugin) . 'PluginItem';
+//            require $GLOBALS['xoops']->path("modules/{$this->helper->getDirname()}/plugins/{$plugin}/{$plugin}.php");
+            $dirname = $this->helper->getDirname();
+            $className = "\XoopsModules\{$dirname}\Plugins\{$plugin}\PluginItem";
             if (!class_exists($className)) {
                 continue;
             }

@@ -1,4 +1,4 @@
-<?php namespace XoopsModules\Mymenus;
+<?php namespace XoopsModules\Mymenus\Plugins\MyMenus;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -26,7 +26,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
  * Class PluginItem
  */
-class MymenusPluginItem extends PluginItem
+class PluginItem extends Mymenus\PluginItem
 {
     public static function eventBoot()
     {

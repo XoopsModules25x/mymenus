@@ -39,6 +39,7 @@ class LinksUtility
     {
         /** @var \XoopsModules\Mymenus\Helper $helper */
         $helper = \XoopsModules\Mymenus\Helper::getInstance();
+
         global $mymenusTpl;
         //
         $linksCriteria = new \CriteriaCompo(new \Criteria('mid', (int)$mid));
@@ -97,28 +98,27 @@ class LinksUtility
             $_POST['hooks'] = [];
         }
         // clean incoming POST vars
-        $newLinksObj->setVars('id', Request::getInt('id',0,'POST'));
-        $newLinksObj->setVars('pid', Request::getInt('pid',0,'POST'));
-        $newLinksObj->setVars('mid', Request::getInt('mid',0,'POST'));
-        $newLinksObj->setVars('title', Request::getString('title','','POST'));
-        $newLinksObj->setVars('alt_title',  Request::getString('alt_title','','POST'));
-        $newLinksObj->setVars('visible', Request::getInt('visible',0,'POST'));
-        $newLinksObj->setVars('link',  Request::getString('link','','POST'));
-        $newLinksObj->setVars('weight', Request::getInt('weight',0,'POST'));
-        $newLinksObj->setVars('target', Request::getString('target','','POST'));
-        $newLinksObj->setVars('groups', Request::getArray('groups', [], 'POST'));
-        $newLinksObj->setVars('hooks', Request::getArray('hooks', [], 'POST'));
-        $newLinksObj->setVars('image', Request::getString('image','','POST'));
-        $newLinksObj->setVars('css', Request::getString('css','','POST'));
+        $newLinksObj->setVar('id', Request::getInt('id',0,'POST'));
+        $newLinksObj->setVar('pid', Request::getInt('pid',0,'POST'));
+        $newLinksObj->setVar('mid', Request::getInt('mid',0,'POST'));
+        $newLinksObj->setVar('title', Request::getString('title','','POST'));
+        $newLinksObj->setVar('alt_title',  Request::getString('alt_title','','POST'));
+        $newLinksObj->setVar('visible', Request::getInt('visible',0,'POST'));
+        $newLinksObj->setVar('link',  Request::getString('link','','POST'));
+        $newLinksObj->setVar('weight', Request::getInt('weight',0,'POST'));
+        $newLinksObj->setVar('target', Request::getString('target','','POST'));
+        $newLinksObj->setVar('groups', Request::getArray('groups', [], 'POST'));
+        $newLinksObj->setVar('hooks', Request::getArray('hooks', [], 'POST'));
+        $newLinksObj->setVar('image', Request::getString('image','','POST'));
+        $newLinksObj->setVar('css', Request::getString('css','','POST'));
         
         $newLinksObj->setVar('weight', $weight);
+        /** @var  \XoopsModules\Mymenus\LinksHandler $linksHandler */
         $linksHandler = $helper->getHandler('Links');
-
-//        if (!$helper->getHandler('Links')->insert($newLinksObj)) {
         if (!$linksHandler->insert($newLinksObj)) {
             $msg = _AM_MYMENUS_MSG_ERROR;
         } else {
-            $helper->getHandler('Links')->updateWeights($newLinksObj);
+            $linksHandler->updateWeights($newLinksObj);
             $msg = _AM_MYMENUS_MSG_SUCCESS;
         }
 
@@ -133,6 +133,8 @@ class LinksUtility
     {
         /** @var \XoopsModules\Mymenus\Helper $helper */
         $helper = \XoopsModules\Mymenus\Helper::getInstance();
+        /** @var  \XoopsModules\Mymenus\LinksHandler $linksHandler */
+        $linksHandler = $helper->getHandler('Links');
         //
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header($GLOBALS['mymenusAdminPage'], 3, implode('<br>', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -142,11 +144,11 @@ class LinksUtility
         }
         //
         $mid      = (int)$mid;
-        $linksObj = $helper->getHandler('Links')->get((int)$id);
+        $linksObj = $linksHandler->get((int)$id);
 
         //if this was moved then parent could be in different menu, if so then set parent to top level
         if (Request::getInt('pid', '', 'POST')) {
-            $parentLinksObj = $helper->getHandler('Links')->get($linksObj->getVar('pid'));  //get the parent object
+            $parentLinksObj = $linksHandler->get($linksObj->getVar('pid'));  //get the parent object
             if (($parentLinksObj instanceof \XoopsModules\Mymenus\Links)
                 && ($linksObj->getVar('mid') != $parentLinksObj->getVar('mid'))) {
                 $linksObj->setVar('pid', 0);
@@ -161,7 +163,7 @@ class LinksUtility
         // @TODO: clean incoming POST vars
         $linksObj->setVars($_POST);
 
-        if (!$helper->getHandler('Links')->insert($linksObj)) {
+        if (!$linksHandler->insert($linksObj)) {
             $msg = _AM_MYMENUS_MSG_ERROR;
         } else {
             $msg = _AM_MYMENUS_MSG_SUCCESS;
@@ -308,11 +310,13 @@ class LinksUtility
     {
         /** @var \XoopsModules\Mymenus\Helper $helper */
         $helper = \XoopsModules\Mymenus\Helper::getInstance();
+        /** @var Mymenus\LinksHandler $linksHandler */
+        $linksHandler = $helper->getHandler('Links');
         //
-        $linksObj = $helper->getHandler('Links')->get((int)$id);
+        $linksObj = $linksHandler->get((int)$id);
         $linksObj->setVar('weight', (int)$weight);
-        $helper->getHandler('Links')->insert($linksObj);
-        $helper->getHandler('Links')->updateWeights($linksObj);
+        $linksHandler->insert($linksObj);
+        $linksHandler->updateWeights($linksObj);
     }
 
     /**
@@ -323,17 +327,18 @@ class LinksUtility
     {
         /** @var \XoopsModules\Mymenus\Helper $helper */
         $helper = \XoopsModules\Mymenus\Helper::getInstance();
-        //
+        /** @var  \XoopsModules\Mymenus\LinksHandler $linksHandler */
+        $linksHandler = $helper->getHandler('Links');
         // Disable xoops debugger in dialog window
         xoops_load('xoopslogger');
         $xoopsLogger            = \XoopsLogger::getInstance();
         $xoopsLogger->activated = false;
         error_reporting(0);
         //
-        $linksObj = $helper->getHandler('Links')->get((int)$id);
+        $linksObj = $linksHandler->get((int)$id);
         $visible  = (1 === $linksObj->getVar('visible')) ? 0 : 1;
         $linksObj->setVar('visible', $visible);
-        $helper->getHandler('Links')->insert($linksObj);
+        $linksHandler->insert($linksObj);
         echo $linksObj->getVar('visible');
     }
 }

@@ -1,4 +1,4 @@
-<?php namespace XoopsModules\Mymenus;
+<?php namespace XoopsModules\Mymenus\Plugins\Dynamic;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -23,9 +23,9 @@ use XoopsModules\Mymenus;
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class DynamicPluginItem
+ * Class PluginItem
  */
-class DynamicPluginItem extends Mymenus\PluginItem
+class PluginItem extends Mymenus\PluginItem
 {
     public static function eventEnd()
     {
@@ -59,6 +59,7 @@ class DynamicPluginItem extends Mymenus\PluginItem
         /** @var \XoopsModules\Mymenus\Helper $helper */
         $helper = \XoopsModules\Mymenus\Helper::getInstance();
 
+
         $ret = [];
         //Sanitizing $module
         if (preg_match('/[^a-z0-9\\/\\\\_.:-]/i', $module)) {
@@ -71,8 +72,8 @@ class DynamicPluginItem extends Mymenus\PluginItem
         if (!file_exists($file)) {
             return $ret;
         }
+        $helper->loadLanguage('modinfo');
 
-        xoops_loadLanguage('modinfo', $module);
 
         $overwrite = false;
         if (true === $force) {  //can set to false for debug
@@ -96,9 +97,10 @@ class DynamicPluginItem extends Mymenus\PluginItem
         $modversion['sub'] = [];
         require $file;
 
-        $handler = $helper->getHandler('Links');
+        /** @var  \XoopsModules\Mymenus\LinksHandler $linksHandler */
+        $linksHandler = $helper->getHandler('Links');
         foreach ($modversion['sub'] as $links) {
-            $obj = $handler->create();
+            $obj = $linksHandler->create();
             $obj->setVars([
                               'title'     => $links['name'],
                               'alt_title' => $links['name'],

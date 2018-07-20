@@ -63,7 +63,7 @@ function mymenus_block_show($options)
     }
 
     $linksCount = count($linksArray);
-    if (0 == $linksCount) {
+    if (0 === $linksCount) {
         return $block;
     }
 
@@ -184,7 +184,7 @@ function mymenus_block_edit($options)
     $menusCriteria->setOrder('ASC');
     $menusList = $helper->getHandler('Menus')->getList($menusCriteria);
     unset($menusCriteria);
-    if (0 == count($menusList)) {
+    if (0 === count($menusList)) {
         $form = "<a href='" . $GLOBALS['xoops']->url("modules/{$helper->getDirname()}/admin/menus.php") . "'>" . _AM_MYMENUS_MSG_NOMENUS . "</a>\n";
 
         return $form;

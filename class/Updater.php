@@ -145,10 +145,10 @@ class Updater
     /**
      * @param array       $table
      * @param string      $tablename
-     * @param XoopsObject $module
+     * @param \XoopsObject $module
      * @return bool|null
      */
-    public static function createUpdateTable($table, $tablename, XoopsObject $module)
+    public static function createUpdateTable($table, $tablename, \XoopsObject $module)
     {
         if (!InfoTableExists($GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename)) {
             $sql = 'CREATE TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . $tablename . ' (';
