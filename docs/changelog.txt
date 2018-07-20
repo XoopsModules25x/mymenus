@@ -1,3 +1,10 @@
+<h5>1.54 Beta 2  [2018-07-20]</h5>  Dev: Xoops 2.5.9, PHP 7.2.8
+<hr>
+- extracted Updater class (mamba)
+- moved Plugin classes to /class/plugins (mamba)
+- cosmetics (mamba)
+
+
 <h5>1.54 Beta 1  [2018-04-08]</h5>  Dev: Xoops 2.5.9, PHP 7.2.4
 <hr>
 - namespaces/autoloading (mamba)
