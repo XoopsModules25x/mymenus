@@ -17,43 +17,39 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-$moduleDirName = basename(dirname(__DIR__));
+use XoopsModules\Mymenus;
 
-if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
-} else {
-    $moduleHelper = Xmf\Module\Helper::getHelper('system');
+/** @var \XoopsModules\Mymenus\Helper $helper */
+$helper = \XoopsModules\Mymenus\Helper::getInstance();
+
+$pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
+if (is_object($helper->getModule())) {
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 }
-$adminObject = \Xmf\Module\Admin::getInstance();
 
-$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
-//$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
-
-// Load language files
-$moduleHelper->loadLanguage('modinfo');
-
-$adminmenu = array(
-    array(
+$adminmenu = [
+    [
         'title' => _MI_MYMENUS_ADMMENU0,
         'link'  => 'admin/index.php',
         'icon'  => "{$pathIcon32}/home.png"
-    ),
-    array(
+    ],
+    [
         'title' => _MI_MYMENUS_MENUSMANAGER,
         'link'  => 'admin/menus.php',
         'icon'  => "{$pathIcon32}/manage.png"
-    ),
-    array(
+    ],
+    [
         'title' => _MI_MYMENUS_MENUMANAGER,
         'link'  => 'admin/links.php',
         'icon'  => "{$pathIcon32}/insert_table_row.png"
-    ),
-    array(
+    ],
+    [
         'title' => _MI_MYMENUS_ABOUT,
         'link'  => 'admin/about.php',
         'icon'  => "{$pathIcon32}/about.png"
-    )
-);
+    ]
+];
 
 //$mymenus_adminmenu = $adminmenu;

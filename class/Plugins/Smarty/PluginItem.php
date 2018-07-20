@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Mymenus\Plugins\Smarty;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -17,17 +18,18 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+use XoopsModules\Mymenus;
+
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class SmartyMymenusPluginItem
+ * Class PluginItem
  */
-class SmartyMymenusPluginItem extends MymenusPluginItem
+class PluginItem extends Mymenus\PluginItem
 {
-
     public static function eventLinkDecoration()
     {
-        $registry          = MymenusRegistry::getInstance();
+        $registry          = Mymenus\Registry::getInstance();
         $linkArray         = $registry->getEntry('link_array');
         $linkArray['link'] = self::doDecoration($linkArray['link']);
         $registry->setEntry('link_array', $linkArray);
@@ -35,7 +37,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
 
     public static function eventImageDecoration()
     {
-        $registry           = MymenusRegistry::getInstance();
+        $registry           = Mymenus\Registry::getInstance();
         $linkArray          = $registry->getEntry('link_array');
         $linkArray['image'] = self::doDecoration($linkArray['image']);
         $registry->setEntry('link_array', $linkArray);
@@ -43,7 +45,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
 
     public static function eventTitleDecoration()
     {
-        $registry           = MymenusRegistry::getInstance();
+        $registry           = Mymenus\Registry::getInstance();
         $linkArray          = $registry->getEntry('link_array');
         $linkArray['title'] = self::doDecoration($linkArray['title']);
         $registry->setEntry('link_array', $linkArray);
@@ -51,7 +53,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
 
     public static function eventAltTitleDecoration()
     {
-        $registry               = MymenusRegistry::getInstance();
+        $registry               = Mymenus\Registry::getInstance();
         $linkArray              = $registry->getEntry('link_array');
         $linkArray['alt_title'] = self::doDecoration($linkArray['alt_title']);
         $registry->setEntry('link_array', $linkArray);
@@ -64,7 +66,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
      */
     protected static function doDecoration($string)
     {
-        $registry = MymenusRegistry::getInstance();
+        $registry = Mymenus\Registry::getInstance();
         if (!preg_match('/{(.*\|.*)}/i', $string, $reg)) {
             return $string;
         }
@@ -72,7 +74,7 @@ class SmartyMymenusPluginItem extends MymenusPluginItem
         $expression = $reg[0];
         list($validator, $value) = array_map('mb_strtolower', explode('|', $reg[1]));
 
-        if ($validator === 'smarty') {
+        if ('smarty' === $validator) {
             if (isset($GLOBALS['xoopsTpl']->_tpl_vars[$value])) {
                 $string = str_replace($expression, $GLOBALS['xoopsTpl']->_tpl_vars[$value], $string);
             }

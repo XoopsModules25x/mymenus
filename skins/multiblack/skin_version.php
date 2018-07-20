@@ -18,6 +18,6 @@
  */
 
 $skinVersion['template'] = 'templates/template.tpl';
-$skinVersion['css']      = array('css/pro_dropdown_3.css');
-$skinVersion['js']       = array('stuHover.js');
+$skinVersion['css']      = ['css/pro_dropdown_3.css'];
+$skinVersion['js']       = ['stuHover.js'];
 $skinVersion['prefix']   = 'sf';

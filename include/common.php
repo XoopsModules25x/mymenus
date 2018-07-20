@@ -18,7 +18,31 @@
  * @author          Xoops Development Team
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+use XoopsModules\Mymenus;
+
+require dirname(__DIR__) . '/preloads/autoloader.php';
+
+//defined('XOOPS_ROOT_PATH') || die('Restricted access');
+
+$moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper   = strtoupper($moduleDirName); //$capsDirName
+
+/** @var \XoopsDatabase $db */
+/** @var \XoopsModules\Mymenus\Helper $helper */
+/** @var \XoopsModules\Mymenus\Utility $utility */
+$db      = \XoopsDatabaseFactory::getDatabaseConnection();
+$debug   = false;
+$helper  = \XoopsModules\Mymenus\Helper::getInstance($debug);
+$utility = new \XoopsModules\Mymenus\Utility();
+
+$helper->loadLanguage('common');
+
+$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
+if (is_object($helper->getModule())) {
+    $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+}
 
 // This must contain the name of the folder in which reside mymenus
 define('MYMENUS_DIRNAME', basename(dirname(__DIR__)));
@@ -28,31 +52,32 @@ define('MYMENUS_IMAGES_URL', MYMENUS_URL . '/assets/images');
 define('MYMENUS_ADMIN_URL', MYMENUS_URL . '/admin');
 define('MYMENUS_ICONS_URL', MYMENUS_URL . '/assets/images/icons');
 
-xoops_loadLanguage('common', MYMENUS_DIRNAME);
 
-require_once MYMENUS_ROOT_PATH . '/class/mymenus.php'; // MymenusMymenus class
-require_once MYMENUS_ROOT_PATH . '/include/config.php'; // IN PROGRESS
-require_once MYMENUS_ROOT_PATH . '/include/functions.php';
-require_once MYMENUS_ROOT_PATH . '/include/constants.php';
+//require MYMENUS_ROOT_PATH . '/include/config.php'; // IN PROGRESS
+require MYMENUS_ROOT_PATH . '/include/constants.php';
 
 xoops_load('XoopsUserUtility');
 xoops_load('XoopsFormLoader');
 
-// MyTextSanitizer object
-$myts = MyTextSanitizer::getInstance();
+// module information
+$moduleImageUrl      = MYMENUS_URL . '/assets/images/mymenus.png';
+$moduleCopyrightHtml = ''; //"<br><br><a href='' title='' target='_blank'><img src='{$moduleImageUrl}' alt=''></a>";
 
-$debug   = false;
-$mymenus = MymenusMymenus::getInstance($debug);
+// MyTextSanitizer object
+$myts = \MyTextSanitizer::getInstance();
+
+
+
 
 //This is needed or it will not work in blocks.
 global $mymenusIsAdmin;
 
 // Load only if module is installed
-if (is_object($mymenus->getModule())) {
+if (is_object($helper->getModule())) {
     // Find if the user is admin of the module
-    $mymenusIsAdmin = mymenusUserIsAdmin();
+    $mymenusIsAdmin = Mymenus\Helper::getInstance()->isUserAdmin();
 }
-$xoopsModule = $mymenus->getModule();
+$xoopsModule = $helper->getModule();
 
 // Load Xoops handlers
 /** @var XoopsModuleHandler $moduleHandler */
@@ -61,7 +86,7 @@ $moduleHandler       = xoops_getHandler('module');
 $memberHandler       = xoops_getHandler('member');
 /** @var XoopsNotificationHandler $notificationHandler */
 $notificationHandler = xoops_getHandler('notification');
-/** @var XoopsGroupPermHandler $gpermHandler */
-$gpermHandler        = xoops_getHandler('groupperm');
+/** @var XoopsGroupPermHandler $grouppermHandler */
+$grouppermHandler        = xoops_getHandler('groupperm');
 /** @var XoopsConfigHandler $configHandler */
 $configHandler       = xoops_getHandler('config');

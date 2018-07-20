@@ -109,7 +109,7 @@
 .sf-arrows > li > .sf-with-ul:focus:after,
 .sf-arrows > li:hover > .sf-with-ul:after,
 .sf-arrows > .sfHover > .sf-with-ul:after {
-    border-top-color: white; /* IE8 fallback colour */
+    border-top-color: #ffffff; /* IE8 fallback colour */
 }
 
 /* styling for right-facing arrows */
@@ -124,5 +124,5 @@
 .sf-arrows ul li > .sf-with-ul:focus:after,
 .sf-arrows ul li:hover > .sf-with-ul:after,
 .sf-arrows ul .sfHover > .sf-with-ul:after {
-    border-left-color: white;
+    border-left-color: #ffffff;
 }

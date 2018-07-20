@@ -19,17 +19,17 @@
 
 $skinVersion['template'] = 'templates/template.tpl';
 
-$skinVersion['css'] = array(
+$skinVersion['css'] = [
     'css/superfish.css',
     'css/superfish-navbar.css'
-);
+];
 
-$skinVersion['js'] = array(
+$skinVersion['js'] = [
     '../../../../browse.php?Frameworks/jquery/jquery.js',
     //                           '../../assets/js/jquery-1.11.2.min.js',
     '../../assets/js/hoverIntent.js',
     '../../assets/js/superfish.js'
-);
+];
 
 $header = "\n" . '<script type="text/javascript">';
 $header .= "\n" . '  var $sfnav = jQuery.noConflict()';

@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Mymenus\Plugins\Dynamic;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -17,18 +18,19 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+use XoopsModules\Mymenus;
+
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class DynamicMymenusPluginItem
+ * Class PluginItem
  */
-class DynamicMymenusPluginItem extends MymenusPluginItem
+class PluginItem extends Mymenus\PluginItem
 {
-
     public static function eventEnd()
     {
-        $newmenus = array();
-        $registry = MymenusRegistry::getInstance();
+        $newmenus = [];
+        $registry = Mymenus\Registry::getInstance();
         $menus    = $registry->getEntry('menus');
         foreach ($menus as $menu) {
             if (!preg_match('/{(MODULE\|.*)}/i', $menu['title'], $reg)) {
@@ -54,8 +56,11 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
     {
         global $xoopsModule;
         static $id = -1;
+        /** @var \XoopsModules\Mymenus\Helper $helper */
+        $helper = \XoopsModules\Mymenus\Helper::getInstance();
 
-        $ret = array();
+
+        $ret = [];
         //Sanitizing $module
         if (preg_match('/[^a-z0-9\\/\\\\_.:-]/i', $module)) {
             return $ret;
@@ -67,21 +72,21 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
         if (!file_exists($file)) {
             return $ret;
         }
+        $helper->loadLanguage('modinfo');
 
-        xoops_loadLanguage('modinfo', $module);
 
         $overwrite = false;
-        if ($force === true) {  //can set to false for debug
-            if (!($xoopsModule instanceof XoopsModule) || ($xoopsModule->getVar('dirname') != $module)) {
+        if (true === $force) {  //can set to false for debug
+            if (!($xoopsModule instanceof \XoopsModule) || ($xoopsModule->getVar('dirname') != $module)) {
                 // @TODO: check the following 2 statements, they're basically just assigns - is this intended?
-                $_xoopsModule       = ($xoopsModule instanceof XoopsModule) ? $xoopsModule : $xoopsModule;
+                $_xoopsModule       = ($xoopsModule instanceof \XoopsModule) ? $xoopsModule : $xoopsModule;
                 $_xoopsModuleConfig = is_object($xoopsModuleConfig) ? $xoopsModuleConfig : $xoopsModuleConfig;
-                /** @var XoopsModuleHandler $moduleHandler */
+                /** @var \XoopsModuleHandler $moduleHandler */
                 $moduleHandler          = xoops_getHandler('module');
                 $xoopsModule            = $moduleHandler->getByDirname($module);
                 $GLOBALS['xoopsModule'] = $xoopsModule;
-                if ($xoopsModule instanceof XoopsModule) {
-                    /** @var XoopsConfigHandler $configHandler */
+                if ($xoopsModule instanceof \XoopsModule) {
+                    /** @var \XoopsConfigHandler $configHandler */
                     $configHandler                = xoops_getHandler('config');
                     $xoopsModuleConfig            = $configHandler->getConfigsByCat(0, $xoopsModule->getVar('mid'));
                     $GLOBALS['xoopsModuleConfig'] = $xoopsModuleConfig;
@@ -89,19 +94,20 @@ class DynamicMymenusPluginItem extends MymenusPluginItem
                 $overwrite = true;
             }
         }
-        $modversion['sub'] = array();
-        include $file;
+        $modversion['sub'] = [];
+        require $file;
 
-        $handler = xoops_getModuleHandler('links', 'mymenus');
+        /** @var  \XoopsModules\Mymenus\LinksHandler $linksHandler */
+        $linksHandler = $helper->getHandler('Links');
         foreach ($modversion['sub'] as $links) {
-            $obj = $handler->create();
-            $obj->setVars(array(
+            $obj = $linksHandler->create();
+            $obj->setVars([
                               'title'     => $links['name'],
                               'alt_title' => $links['name'],
                               'link'      => $GLOBALS['xoops']->url("{$path}/{$links['url']}"),
                               'id'        => $id,
                               'pid'       => (int)$pid
-                          ));
+                          ]);
             $ret[] = $obj->getValues();
             $id--;
         }

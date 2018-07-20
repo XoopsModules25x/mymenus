@@ -19,8 +19,8 @@
 
 $skinVersion['template'] = 'templates/template.tpl';
 
-$skinVersion['css'] = array();
+$skinVersion['css'] = [];
 
-$skinVersion['js'] = array();
+$skinVersion['js'] = [];
 
 $skinVersion['header'] = '';

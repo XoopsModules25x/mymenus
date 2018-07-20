@@ -18,8 +18,8 @@
  */
 
 $skinVersion['template'] = 'templates/template.tpl';
-$skinVersion['css']      = array('treemenu.css');
-$skinVersion['js']       = array('simpletreemenu.js');
+$skinVersion['css']      = ['treemenu.css'];
+$skinVersion['js']       = ['simpletreemenu.js'];
 
 //$skinVersion['header'] = '';
 //$skinVersion['prefix'] = 'sf';

@@ -16,12 +16,12 @@
     {decorator|value}<br>
     <br>
     There are 6 decorators available:<br>
-    USER -&gt; gets info for the user that is seeing the page<br>
-    OWNER -&gt; gets info for the user that match uid on the url(if given)<br>
-    URI -&gt; gets info about the url arguments<br>
-    MODULE -&gt; gets dynamic menu from a module (Used in title field only)<br>
-    SMARTY -&gt; gets smarty variables<br>
-    CONSTANT -&gt; gets defined constants<br>
+    USER -> gets info for the user that is seeing the page<br>
+    OWNER -> gets info for the user that match uid on the url(if given)<br>
+    URI -> gets info about the url arguments<br>
+    MODULE -> gets dynamic menu from a module (Used in title field only)<br>
+    SMARTY -> gets smarty variables<br>
+    CONSTANT -> gets defined constants<br>
     <br>
     Some syntax examples<br>
     {USER|UNAME} gets the username of this user, returns anonymous if not a

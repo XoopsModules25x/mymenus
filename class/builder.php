@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Mymenus;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,12 +21,12 @@
 use Xmf\Request;
 
 /**
- * Class MymenusBuilder
+ * Class Builder
  */
-class MymenusBuilder
+class Builder
 {
-    public $parents = array();
-    public $output  = array();
+    public $parents = [];
+    public $output  = [];
 
     /**
      * @param $array
@@ -132,7 +133,7 @@ class MymenusBuilder
     public function buildSelected()
     {
         //get the currentpage
-        $sel = array();
+        $sel = [];
         //        $queryString = $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '';
         $queryString = Request::getString('QUERY_STRING', '', 'SERVER') ? '?' . Request::getString('QUERY_STRING', '', 'SERVER') : '';
         //        $self         = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'] . $queryString;
@@ -145,7 +146,7 @@ class MymenusBuilder
         foreach ($this->output as $idx => $menu) {
             $selected = 0;
             if ($menu['link']) {
-                $selected = (false !== stristr($self, $menu['link'])) ? 1 : $selected;
+                $selected = (false !== stripos($self, $menu['link'])) ? 1 : $selected;
             }
             $selected = ($menu['link'] == $self) ? 1 : $selected;
             $selected = ($menu['link'] == $default) ? 1 : $selected;

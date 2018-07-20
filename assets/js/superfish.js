@@ -45,9 +45,9 @@
             setPathToCurrent = function ($menu, o) {
                 return $menu.find('li.' + o.pathClass).slice(0, o.pathLevels)
                     .addClass(o.hoverClass + ' ' + c.bcClass)
-                        .filter(function () {
-                            return ($(this).children(o.popUpSelector).hide().show().length);
-                        }).removeClass(o.pathClass);
+                    .filter(function () {
+                        return ($(this).children(o.popUpSelector).hide().show().length);
+                    }).removeClass(o.pathClass);
             },
             toggleAnchorClass = function ($li) {
                 $li.children('a').toggleClass(c.anchorClass);
@@ -230,11 +230,11 @@
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         }
-        else if (typeof method === 'object' || ! method) {
+        else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         }
         else {
-            return $.error('Method ' +  method + ' does not exist on jQuery.fn.superfish');
+            return $.error('Method ' + method + ' does not exist on jQuery.fn.superfish');
         }
     };
 
