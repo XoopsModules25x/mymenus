@@ -163,7 +163,9 @@ class Updater
 
                 if ('_menu' === $tablename) {
                     return false;
-                } elseif ('_links' === $tablename) {
+                }
+
+                if ('_links' === $tablename) {
                     $sql    = 'DROP TABLE ' . $GLOBALS['xoopsDB']->prefix($module->getInfo('dirname')) . '_menus';
                     $result = $GLOBALS['xoopsDB']->queryF($sql);
 
