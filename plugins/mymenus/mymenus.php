@@ -24,7 +24,7 @@ use XoopsModules\Mymenus;
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class MymenusPluginItem
+ * Class PluginItem
  */
 class MymenusPluginItem extends PluginItem
 {

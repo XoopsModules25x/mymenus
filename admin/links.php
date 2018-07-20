@@ -20,7 +20,7 @@
 use Xmf\Request;
 use XoopsModules\Mymenus;
 
-require __DIR__ . '/admin_header.php';
+require __DIR__   . '/admin_header.php';
 
 $currentFile = basename(__FILE__);
 
@@ -108,7 +108,7 @@ switch ($op) {
             xoops_cp_header();
             xoops_confirm(['ok' => true, 'id' => $id, 'op' => 'delete'], //                $_SERVER['REQUEST_URI'],
                           Request::getString('REQUEST_URI', '', 'SERVER'), sprintf(_AM_MYMENUS_LINKS_SUREDEL, $linksObj->getVar('title')));
-            require __DIR__ . '/admin_footer.php';
+            require __DIR__   . '/admin_footer.php';
         }
         break;
 
@@ -162,7 +162,8 @@ switch ($op) {
         $GLOBALS['xoTheme']->addScript(XOOPS_URL . "/modules/{$helper->getDirname()}/assets/js/links.js");
         echo Mymenus\LinksUtility::listLinks($start, $mid);
         // Disable xoops debugger in dialog window
-        require $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+//        require $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+        xoops_load('xoopslogger');
         $xoopsLogger            = XoopsLogger::getInstance();
         $xoopsLogger->activated = true;
         error_reporting(-1);

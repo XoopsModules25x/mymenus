@@ -21,7 +21,7 @@
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
- * Class MymenusRegistry
+ * Class Registry
  */
 class Registry
 {

@@ -19,6 +19,7 @@
 
 use Xmf\Request;
 use XoopsModules\Mymenus;
+use XoopsModules\Mymenus\Utility;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -39,10 +40,7 @@ function mymenus_block_show($options)
     $xoopsLogger->startTime('My Menus Block');
     $myts = \MyTextSanitizer::getInstance();
 
-    require $GLOBALS['xoops']->path("modules/{$helper->getDirname()}/include/functions.php");
-
-
-    $registry = Mymenus\Registry::getInstance();
+        $registry = Mymenus\Registry::getInstance();
     $plugin   = Mymenus\Plugin::getInstance();
     $plugin->triggerEvent('Boot');
 
@@ -90,7 +88,7 @@ function mymenus_block_show($options)
     $jsArray  = [];
 
     // Get extra files from skins
-    $skinInfo = getSkinInfo($options[1], $options[2], isset($options[5]) ? $options[5] : '');
+    $skinInfo = Utility::getSkinInfo($options[1], $options[2], isset($options[5]) ? $options[5] : '');
 
     //
     if (isset($skinInfo['css'])) {

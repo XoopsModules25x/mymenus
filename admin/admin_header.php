@@ -20,13 +20,12 @@
 use XoopsModules\Mymenus;
 
 require  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-require $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
 xoops_load('XoopsFormLoader');
 
 require  dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
-//$mymenus = MymenusMymenus::getInstance($debug);
+
 /** @var \XoopsModules\Mymenus\Helper $helper */
 $helper = \XoopsModules\Mymenus\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
@@ -39,24 +38,12 @@ if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)
     $xoopsTpl = new \XoopsTpl();
 }
 
-$pathIcon16      = \Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32      = \Xmf\Module\Admin::iconUrl('', 32);
-$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
-
-$GLOBALS['xoopsTpl']->assign('pathIcon16', $pathIcon16);
-$GLOBALS['xoopsTpl']->assign('pathIcon32', $pathIcon32);
-
 // Load language files
 $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 
-require $GLOBALS['xoops']->path('class/template.php');
-require $GLOBALS['xoops']->path("modules/{$helper->getDirname()}/include/functions.php");
-
 //Module specific elements
-//require $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/functions.php");
-//require $GLOBALS['xoops']->path("modules/{$mymenus->dirname}/include/config.php");
 
 //Handlers
 //$XXXHandler = xoops_getModuleHandler('XXX', $mymenus->dirname);

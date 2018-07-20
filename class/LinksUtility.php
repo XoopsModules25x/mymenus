@@ -22,7 +22,7 @@ use Xmf\Request;
 use XoopsModules\Mymenus;
 
 /**
- * Class MymenusLinksUtility
+ * Class LinksUtility
  */
 class LinksUtility
 {
@@ -96,9 +96,7 @@ class LinksUtility
         if (!Request::getArray('hooks', null, 'POST')) {
             $_POST['hooks'] = [];
         }
-        // @TODO: clean incoming POST vars
-        //        $newLinksObj->setVars($_POST);
-
+        // clean incoming POST vars
         $newLinksObj->setVars('id', Request::getInt('id',0,'POST'));
         $newLinksObj->setVars('pid', Request::getInt('pid',0,'POST'));
         $newLinksObj->setVars('mid', Request::getInt('mid',0,'POST'));
@@ -113,9 +111,11 @@ class LinksUtility
         $newLinksObj->setVars('image', Request::getString('image','','POST'));
         $newLinksObj->setVars('css', Request::getString('css','','POST'));
         
-//        $newLinksObj->setVar('weight', $weight);
+        $newLinksObj->setVar('weight', $weight);
+        $linksHandler = $helper->getHandler('Links');
 
-        if (!$helper->getHandler('Links')->insert($newLinksObj)) {
+//        if (!$helper->getHandler('Links')->insert($newLinksObj)) {
+        if (!$linksHandler->insert($newLinksObj)) {
             $msg = _AM_MYMENUS_MSG_ERROR;
         } else {
             $helper->getHandler('Links')->updateWeights($newLinksObj);
@@ -153,7 +153,7 @@ class LinksUtility
             }
         }
         // Disable xoops debugger in dialog window
-        require $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+        xoops_load('xoopslogger');
         $xoopsLogger            = \XoopsLogger::getInstance();
         $xoopsLogger->activated = false;
         error_reporting(0);
@@ -183,7 +183,7 @@ class LinksUtility
         $helper = \XoopsModules\Mymenus\Helper::getInstance();
         //
         // Disable xoops debugger in dialog window
-        require $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+        xoops_load('xoopslogger');
         $xoopsLogger            = \XoopsLogger::getInstance();
         $xoopsLogger->activated = false;
         error_reporting(0);
@@ -325,7 +325,7 @@ class LinksUtility
         $helper = \XoopsModules\Mymenus\Helper::getInstance();
         //
         // Disable xoops debugger in dialog window
-        require $GLOBALS['xoops']->path('/class/logger/xoopslogger.php');
+        xoops_load('xoopslogger');
         $xoopsLogger            = \XoopsLogger::getInstance();
         $xoopsLogger->activated = false;
         error_reporting(0);

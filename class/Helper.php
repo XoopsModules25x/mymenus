@@ -76,4 +76,5 @@ class Helper extends \Xmf\Module\Helper
         $ret   = new $class($db);
         return $ret;
     }
+
 }

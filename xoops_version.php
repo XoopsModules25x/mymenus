@@ -26,8 +26,8 @@ $moduleDirName = basename(__DIR__);
 // ------------------- Informations ------------------- //
 $modversion = [
     'version'             => 1.54,
-    'module_status'       => 'Beta 1',
-    'release_date'        => '2018/04/08', // YYYY/mm/dd
+    'module_status'       => 'Beta 2',
+    'release_date'        => '2018/07/20', // YYYY/mm/dd
     'name'                => _MI_MYMENUS_MD_NAME,
     'description'         => _MI_MYMENUS_MD_DESC,
     'author'              => 'Trabis (www.xuups.com), contributors: Mamba, Bleek, Zyspec, Luciorota',
@@ -38,12 +38,9 @@ $modversion = [
     'license'             => 'GPL 2.0 or later',
     'license_url'         => 'www.gnu.org/licenses/gpl-2.0.html/',
     'help'                => 'page=help',
-    //
     'release_info'        => 'release_info',
     'release'             => '2017-07-20',
     'release_file'        => XOOPS_URL . "/modules/{$moduleDirName}/docs/release_info file",
-
-    //
     'manual'              => 'link to manual file',
     'manual_file'         => XOOPS_URL . "/modules/{$moduleDirName}/docs/install.txt",
     'min_php'             => '5.6',

@@ -19,9 +19,30 @@
  */
 
 use XoopsModules\Mymenus;
+
 require dirname(__DIR__) . '/preloads/autoloader.php';
 
 //defined('XOOPS_ROOT_PATH') || die('Restricted access');
+
+$moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper   = strtoupper($moduleDirName); //$capsDirName
+
+/** @var \XoopsDatabase $db */
+/** @var \XoopsModules\Mymenus\Helper $helper */
+/** @var \XoopsModules\Mymenus\Utility $utility */
+$db      = \XoopsDatabaseFactory::getDatabaseConnection();
+$debug   = false;
+$helper  = \XoopsModules\Mymenus\Helper::getInstance($debug);
+$utility = new \XoopsModules\Mymenus\Utility();
+
+$helper->loadLanguage('common');
+
+$pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32    = \Xmf\Module\Admin::iconUrl('', 32);
+if (is_object($helper->getModule())) {
+    $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+}
 
 // This must contain the name of the folder in which reside mymenus
 define('MYMENUS_DIRNAME', basename(dirname(__DIR__)));
@@ -31,20 +52,22 @@ define('MYMENUS_IMAGES_URL', MYMENUS_URL . '/assets/images');
 define('MYMENUS_ADMIN_URL', MYMENUS_URL . '/admin');
 define('MYMENUS_ICONS_URL', MYMENUS_URL . '/assets/images/icons');
 
-xoops_loadLanguage('common', MYMENUS_DIRNAME);
 
-require MYMENUS_ROOT_PATH . '/include/config.php'; // IN PROGRESS
-require MYMENUS_ROOT_PATH . '/include/functions.php';
+//require MYMENUS_ROOT_PATH . '/include/config.php'; // IN PROGRESS
 require MYMENUS_ROOT_PATH . '/include/constants.php';
 
 xoops_load('XoopsUserUtility');
 xoops_load('XoopsFormLoader');
 
+// module information
+$moduleImageUrl      = MYMENUS_URL . '/assets/images/mymenus.png';
+$moduleCopyrightHtml = ''; //"<br><br><a href='' title='' target='_blank'><img src='{$moduleImageUrl}' alt=''></a>";
+
 // MyTextSanitizer object
 $myts = \MyTextSanitizer::getInstance();
 
-$debug   = false;
-$helper = Mymenus\Helper::getInstance($debug);
+
+
 
 //This is needed or it will not work in blocks.
 global $mymenusIsAdmin;

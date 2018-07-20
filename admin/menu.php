@@ -21,12 +21,13 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 use XoopsModules\Mymenus;
 
-//require  dirname(__DIR__) . '/include/common.php';
 /** @var \XoopsModules\Mymenus\Helper $helper */
 $helper = \XoopsModules\Mymenus\Helper::getInstance();
 
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
-$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+if (is_object($helper->getModule())) {
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+}
 
 $adminmenu = [
     [
